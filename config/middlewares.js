@@ -1,3 +1,11 @@
+/*
+    BACKEND - MIDDLEWARES 
+
+    bodyParser - 
+    cors - 
+
+*/
+
 const bodyParser = require('body-parser')
 const cors = require('cors')
 

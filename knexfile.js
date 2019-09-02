@@ -1,4 +1,6 @@
-// Update with your config settings.
+/*
+  BACKEND - CREDENCIAIS DO BANCO DE DADOS
+*/
 
 module.exports = {
   client: 'postgresql',

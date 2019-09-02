@@ -1,5 +1,5 @@
 /*
-  BACKEND - FUNÇÕES DE VALIDAÇÃO 
+  BACKEND - FUNÇÕES DE VALIDAÇÃO UTILIZADAS PELA API
 
   existsOrError - verifica se o valor recebido existe, se não existe retorna uma mensagem de erro
     > verifica que o valor está setado
