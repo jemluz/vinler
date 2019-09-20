@@ -3,7 +3,7 @@
 */
 
 module.exports = {
-  client: 'postgresql',
+  client: 'mysql',
   connection: {
     database: 'vinler',
     user: 'root',

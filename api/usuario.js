@@ -52,60 +52,59 @@ module.exports = app => {
     }
 
     const salvar = async (req, res) => {
-        // res.send('pessoa salva')
-        const pessoa = { ...req.body }
+        const usuario = { ...req.body }
 
-        if (req.params.login) pessoa.login = req.params.login
+        if (req.params.login) usuario.login = req.params.login
 
         try {
-            existsOrError(pessoa.nome, 'Nome não inserido.')
-            existsOrError(pessoa.login, 'Login não inserido.')
-            existsOrError(pessoa.senha, 'Senha não inserida.')
-            existsOrError(pessoa.confirmarSenha, 'Confirmação de senha inválida.')
-            equalsOrError(pessoa.senha, pessoa.confirmarSenha, 'Senhas não conferem.')
+            existsOrError(usuario.nome, 'Nome não inserido.')
+            existsOrError(usuario.login, 'Login não inserido.')
+            existsOrError(usuario.senha, 'Senha não inserida.')
+            existsOrError(usuario.confirmarSenha, 'Confirmação de senha inválida.')
+            equalsOrError(usuario.senha, usuario.confirmarSenha, 'Senhas não conferem.')
         } catch (msg) {
             return res.status(400).send(msg)
         }
 
-        pessoa.senha = encryptSenha(pessoa.senha)
-        delete pessoa.confirmarSenha
+        usuario.senha = encryptSenha(usuario.senha)
+        delete usuario.confirmarSenha
 
-        const pessoaFromDB = await app.db('pessoas').where({ login: pessoa.login }).first()
+        const usuarioFromDB = await app.db('usuarios').where({ login: usuario.login }).first()
 
-        if (pessoaFromDB) {
-            app.db('pessoas')
-                .update(pessoa)
-                .where({ login: pessoa.login })
+        if (usuarioFromDB) {
+            app.db('usuarios')
+                .update(usuario)
+                .where({ login: usuario.login })
                 .then(_ => res.status(204).send())
                 .catch(err => res.status(500).send(err))
         } else {
-            app.db('pessoas')
-                .insert(pessoa)
+            app.db('usuarios')
+                .insert(usuario)
                 .then(_ => res.status(204).send())
                 .catch(err => res.status(500).send(err))
         }
     }
 
     const visualizar = (req, res) => {
-        app.db('pessoas')
+        app.db('usuarios')
         .select('id', 'login', 'nome', 'senha')
-        .then(pessoa => res.json(pessoa))
+        .then(usuario => res.json(usuario))
         .catch(err => res.status(500).send(err))
     }
 
     const visualizarPorId = (req, res) => {
-        app.db('pessoas')
+        app.db('usuarios')
         .select('id', 'login', 'nome', 'senha')
         .where({ login: req.params.login })
         .first()
-        .then(pessoa => res.json(pessoa))
+        .then(usuario => res.json(usuario))
         .catch(err => res.status(500).send(err))
     }
 
     const excluir = async (req, res) => {
         try{
             const rowsDeleted = await 
-            app.db('pessoas')
+            app.db('usuarios')
                 .where({ login: req.params.login })
                 .del()
             

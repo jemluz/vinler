@@ -28,18 +28,18 @@ module.exports = app => {
     // publicas ocultas, disponiveis para qualquer usuário, mas não inclusas nas rotas do frontend
     app.post('/signin', app.api.auth.signin)
     app.post('/signup', app.api.usuario.salvar)
-    app.post('/validateToken', app.api.auth.validateToken)
+    app.post('/validateToken', app.api.auth.validarToken)
     app.get('/anuncios', app.api.anuncio.visualizar)
-    app.get('/anuncios/:id', app.api.produto.visualizarPorId)
+    app.get('/anuncios/:id', app.api.anuncio.visualizarPorId)
 
     // protegidas
     app.route('/usuarios')
+        // .all(app.config.passport.authenticate())
         .post(app.api.usuario.salvar)
-        .get(app.api.usuario.salvar)
-        .post(app.api.usuario.salvar)
+        .get(app.api.usuario.visualizar)
 
     app.route('/usuarios/:login')
-        .all(app.config.passport.authenticate())
+        // .all(app.config.passport.authenticate())
         .put(app.api.usuario.salvar)
         .get(app.api.usuario.visualizarPorId)
         .delete(app.api.usuario.excluir)
