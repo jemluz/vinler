@@ -1,0 +1,11 @@
+exports.up = function(knex, Promise) {
+  return knex.schema.createTable('usuarios_livros', table => {
+    table.increments('id').primary().notNull()
+    table.integer('livroId').references('id').inTable('livro').notNull()
+    table.integer('usuarioId').references('id').inTable('usuarios').notNull()
+  })
+};
+
+exports.down = function(knex, Promise) {
+  return knex.schema.dropTable('usuarios_livros')
+};

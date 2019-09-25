@@ -62,6 +62,10 @@ module.exports = app => {
             existsOrError(usuario.senha, 'Senha não inserida.')
             existsOrError(usuario.confirmarSenha, 'Confirmação de senha inválida.')
             equalsOrError(usuario.senha, usuario.confirmarSenha, 'Senhas não conferem.')
+
+            // const livroFromDB = await app.db('livros').where({ login: livro.login }).first()
+            // if(!livro.login) { notExistsOrError(livroFromDB, 'Livro já existe.') }
+
         } catch (msg) {
             return res.status(400).send(msg)
         }
@@ -70,11 +74,12 @@ module.exports = app => {
         delete usuario.confirmarSenha
 
         const usuarioFromDB = await app.db('usuarios').where({ login: usuario.login }).first()
+        if(!usuario.login) { notExistsOrError(usuarioFromDB, 'Usuário já existe.') }
 
         if (usuarioFromDB) {
             app.db('usuarios')
                 .update(usuario)
-                .where({ login: usuario.login })
+                .where({ id: usuario.id })
                 .then(_ => res.status(204).send())
                 .catch(err => res.status(500).send(err))
         } else {

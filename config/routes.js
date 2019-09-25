@@ -29,8 +29,8 @@ module.exports = app => {
     app.post('/signin', app.api.auth.signin)
     app.post('/signup', app.api.usuario.salvar)
     app.post('/validateToken', app.api.auth.validarToken)
-    app.get('/anuncios', app.api.anuncio.visualizar)
-    app.get('/anuncios/:id', app.api.anuncio.visualizarPorId)
+    app.get('/livros', app.api.livro.visualizar)
+    app.get('/livros/:id', app.api.livro.visualizarPorId)
 
     // protegidas
     app.route('/usuarios')
@@ -44,4 +44,12 @@ module.exports = app => {
         .get(app.api.usuario.visualizarPorId)
         .delete(app.api.usuario.excluir)
     
+    app.route('/livros')
+        // .all(app.config.passport.authenticate())
+        .post(app.api.livro.salvar)
+
+    app.route('/livros/:id')
+        // .all(app.config.passport.authenticate())
+        .delete(app.api.livro.excluir)
+
 }
