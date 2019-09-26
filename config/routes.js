@@ -50,6 +50,7 @@ module.exports = app => {
 
     app.route('/livros/:id')
         // .all(app.config.passport.authenticate())
+        .put(app.api.livro.salvar)
         .delete(app.api.livro.excluir)
 
 }
