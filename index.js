@@ -31,6 +31,11 @@ app.get('/', function (req, res) {
     res.send('uia');
 });
 
+app.post('/upload', (req, res) => {
+    res.json({ file: 'Arquivo enviado'});
+});
+
+
 app.listen(3000, () => {
     console.log('backend rodando...')
 })
