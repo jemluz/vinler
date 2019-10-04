@@ -5,22 +5,34 @@
         div(class="header_content d-flex flex-row align-items-center justify-content-start")
       
           div(class="logo")
-            router-link(to="/vitrine") Loljinha;)
+            router-link(to="/vitrine") Vinler  
+            bookshelfIcon(width='50px' height='20px')
+            //- <svg-transition :size="{ height: 48, width: 48 }" ref="transition" :trigger="trigger">
+            //-   <svg slot="initial"><use href="#bell" /></svg>
+            //-   <svg><use href="#bell2" /></svg>
+            //- </svg-transition>
 
           nav(class="main_nav" role="navigation")
             ul
               li(class="hassubs active")
                 router-link(to="/vitrine" class="nav-link") Vitrine 
-                ul
-                  li
-                    router-link(to="categories.html") Categories
+              li(class="hassubs active")
+                router-link(to="/usuarios" class="nav-link") Usuários
+              li(class="hassubs active")
+                router-link(to="/usuarios" class="nav-link") Categorias  
 
-      div(class="header_social user-dropdown")
-        p Login
-        router-link(to="/auth" title="Login" class="fa fa-sign-in fa-lg" aria-hidden="true" alt="Login")
-        p Logout
-        div(@click="logOut")
-          router-link(to="/vitrine" title="Logout" class="fa fa-sign-out fa-lg" aria-hidden="true" alt="Logout")
+            ul  
+              li(class="hassubs")                
+                router-link(to="/auth" class="nav-link" alt="Login")  Login
+              li(class="hassubs")                
+                router-link(to="/vitrine" class="nav-link" alt="Logout" @click="logOut")  Logout
+              li(class="hassubs")                
+                router-link(to="/notificacoes" class="nav-link")  Notificações
+              li(class="hassubs")              
+                router-link(to="/minha-conta" class="nav-link")  Minha conta
+                //- ul
+                //-   li
+                //-     router-link(to="categories.html") a
 
 
 </template>
@@ -28,11 +40,16 @@
 <script>
 import { mapState } from "vuex";
 import { userKey } from '@/global'
+
+import bookshelfIcon from '../assets/bookshelfIcon'
+
 export default {
   name: "Menu",
   computed: mapState(["isMenuVisible"]),
+  components: { bookshelfIcon },
   data() {
     return {
+      size: { width: 48, height: 48 },
       generic: 'Login / Cadastro ',
       welcome: 'Olá, ',
       user: {}
@@ -61,27 +78,8 @@ export default {
 </script>
 
 <style lang="scss">
-.user-dropdown { display: flex;  
-  // a { margin: 7px 0px 0px 10px;   }
+.logo { display: flex; flex-direction: column; text-align: center; }
+.main_nav { display: flex; flex-direction: row; text-align: center; justify-content: space-between; width: 90vw;
+  ul { display: flex; flex-direction: row;}
 }
-.sticky-wrapper .site-navbar .site-menu > li > router-link {
-  border-bottom: 4px solid #fff;
-  transition: all 1s ease-in;
-  &.router-link-exact-active {
-    border-bottom: 4px solid #fff;
-    position: relative;
-  }
-}
-.site-navbar .site-navigation .site-menu { 
-  border-bottom: 3px solid transparent;
-  padding: 50px 20px;
-  transition: all 1s ease-in;
-  .router-link-exact-active {
-    border-bottom: 3px solid #7971ea;
-    display: inline-block;
-    // padding: 5px 20px;
-  }
-}
-.shopping_cart { width: 150px;}
-.main_nav, .header_social, .header_extra { margin-top: 10px; }
 </style>

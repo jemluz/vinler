@@ -24,5 +24,9 @@ export default {
 
 
 <style lang="scss">
-a:hover { text-decoration: none !important; }
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap-vue/src/index.scss';
+
+a:hover, a, li { text-decoration: none !important; }
+li { list-style-type: none; }
 </style>
