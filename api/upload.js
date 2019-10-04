@@ -31,6 +31,15 @@ module.exports = app => {
     }
   })
 
+  // const storage = multer.diskStorage({
+  //   destination: function (req, file, cb) {
+  //     cb(null, 'uploads/')
+  //   },
+  //   filename: function (req, file, cb) {
+  //     cb(null, `${file.fieldname}-${Date.now()}.${path.extname(file.originalname)}`);
+  //   }
+  // });
+
   // rota de upload
   app.post('/upload', upload.single('file'), (req, res) => {
       res.json({ file: req.file });
@@ -47,4 +56,6 @@ module.exports = app => {
       return
     }
   })
+
+  
 }
