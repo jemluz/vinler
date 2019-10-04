@@ -17,9 +17,10 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/vitrine',
       name: 'Vitrine',
       component: Vitrine
     }
+
   ]
 })
