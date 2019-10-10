@@ -7,15 +7,21 @@
       b-card(title="Carregar foto" :img-src='imageData' img-alt="Image" img-top tag="article" style="max-width: 22rem;" class="mb-2")
         b-card-text Selecione o arquivo para ser enviado
 
-        div.form
-          form(@submit.prevent='onSubmit' enctype='multipart/form-data')
-            div.fields
-              b-form-file(v-model='file' :state="Boolean(file)" placeholder="Selecione um arquivo" drop-placeholder="Drop file here..." @change='onSelect')
+        //- div.form
+        //-   form(@submit.prevent='onSubmit' enctype='multipart/form-data')
+        //-     div.fields
+        //-       input(type='file' ref='file' placeholder="Selecione um arquivo" @change='onSelect')
 
-            div.message
-              h5 {{ message }}
+        //-     div.message
+        //-       h5 {{ message }}
               
-            b-button(variant="primary" size='sm' @submit.prevent='onSubmit') Enviar
+        //-     b-button(variant="primary" size='sm' type='submit') Enviar
+
+        div.form
+          b-form-group(label-for="file-default" label-cols-sm="2")
+            b-form-file(id='file-default' ref='file' @change='onSelect')
+-p
+
             
 
 </template>
@@ -43,7 +49,7 @@ export default {
       função onSubmit() -
         È chamada toda vez que o arquivo é enviado para o servidor. Utiliza o axios para realizar uma requisição do tipo POST e um feedback de resolução em seguida.
     */
-    onSelect() {
+    onSelect(e) {
       this.previewImage()
 
       const tiposPermitidos = ["image/jpeg", "image/jpg", "image/png"]

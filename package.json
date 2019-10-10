@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon",
     "production": "pm2 start index.js --name vinler",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
