@@ -42,7 +42,7 @@ export default {
       função onSubmit() -
         È chamada toda vez que o arquivo é enviado para o servidor. Utiliza o axios para realizar uma requisição do tipo POST e um feedback de resolução em seguida.
     */
-    onSelect(e) {
+    onSelect() {
       this.previewImage()
 
       const tiposPermitidos = ["image/jpeg", "image/jpg", "image/png"]
