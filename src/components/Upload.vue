@@ -7,22 +7,15 @@
       b-card(title="Carregar foto" :img-src='imageData' img-alt="Image" img-top tag="article" style="max-width: 22rem;" class="mb-2")
         b-card-text Selecione o arquivo para ser enviado
 
-        //- div.form
-        //-   form(@submit.prevent='onSubmit' enctype='multipart/form-data')
-        //-     div.fields
-        //-       input(type='file' ref='file' placeholder="Selecione um arquivo" @change='onSelect')
-
-        //-     div.message
-        //-       h5 {{ message }}
-              
-        //-     b-button(variant="primary" size='sm' type='submit') Enviar
-
         div.form
-          b-form-group(label-for="file-default" label-cols-sm="2")
-            b-form-file(id='file-default' ref='file' @change='onSelect')
--p
+          form(@submit.prevent='onSubmit' enctype='multipart/form-data')
+            div.fields
+              input(type='file' ref='file' placeholder="Selecione um arquivo" @change='onSelect')
 
-            
+            div.message
+              h5 {{ message }}
+              
+            b-button(variant="primary" size='sm' type='submit') Enviar           
 
 </template>
 
@@ -56,8 +49,8 @@ export default {
       const file = this.$refs.file.files[0]
       this.file = file
 
-      if(tiposPermitidos.includes(file.type)){
-        this.message = "Apenas imagens são aceitas!"
+      if(!tiposPermitidos.includes(file.type)){
+        this.message = "Apenas imagens são aceitas."
       }
 
       if(file.size > 500000) {
