@@ -8,41 +8,41 @@ const path = require('path')
 
 module.exports = app => {
   const storage = multer.diskStorage({
-    destination: function (req, file, cb) { 
+    destination: (req, file, cb) => { 
       cb(null, 'uploads/'); 
     },
-    filename: function (req, file, cb) { 
+    filename: (req, file, cb) => { 
       cb(null, `img-${Date.now()}.${path.extname(file.originalname)}`) 
     },
-    fileFilter: function (req, file, cb) {
-      const allowed = ["image/jpeg", "image/jpg", "image/png", "image/svg"]
-      if (!allowed.includes(file.mimetype)) {
-        const error = new Error('Arquivo Inválido!')
-        error.code = "INCORRECT_FILETYPE"
-        return cb(error, false)
+    fileFilter: (file, cb) => {
+      var ext = path.extname(file.originalname);
+      if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg') {
+        return cb(new Error("INCORRECT_FILETYPE"))
       }
-      cb(null, true)
-    },
-    limits: {
-      fileSize: 500000
+      callback(null, true)
     }
   });
 
   // utiliza a storage para configurar a instância do multer
-  const upload = multer({ storage });
-
-  // tratamento de erro
-  app.use((err, req, res, next) => {
-    if (err.code === "INCORRECT_FILETYPE") {
-      res.status(422).json({ error: "Apenas imagens são aceitas." })
-      return
-    }
-    if (err.code === "LIMIT_FILE_SIZE") {
-      res.status(422).json({ error: "Tamanho máximo do arquivo é de 500KB." })
-      return
-    }
-  })
+  const upload = multer({ 
+    storage: storage,
+    limits: { fileSize: 1024 * 1024 * 2 }
+  }).single('file');
 
   // rota de upload
-  app.post('/upload', upload.single('file'), (req, res) =>  res.json({ file: req.file }));
+  app.post('/upload', function(req, res){
+    upload(req,res,function(err){
+      if(err === "INCORRECT_FILETYPE") { 
+        console.log(err)
+        res.status(422).json({ erro: "Apenas imagens são aceitas."})
+      }
+       if (err === "LIMIT_FILE_SIZE") {
+        console.log(err.code)
+        res.status(422).json({ erro: "Arquivo muito grande"})
+      } 
+      else { 
+        res.json({ file: req.file })
+      }
+    });
+  }); 
 }
