@@ -32,6 +32,8 @@ app.get('/', function (req, res) {
     res.send('uia');
 });
 
+app.use(require('express').static(__dirname, 'uploads'));
+
 app.listen(3000, () => {
     console.log('backend rodando...')
 })
