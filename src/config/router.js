@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-// import LoginCadastro from "@/components/sections/LoginCadastro";
+import LoginCadastro from "@/components/LoginCadastro";
 import Vitrine from "@/components/Vitrine";
 
 // import ListaUsuarios from "@/components/sections/ListaUsuarios";
@@ -20,7 +20,12 @@ export default new Router({
       path: '/vitrine',
       name: 'Vitrine',
       component: Vitrine
-    }
+    },
+    {
+      path: '/auth',
+      name: 'LoginCadastro',
+      component: LoginCadastro
+    },
 
   ]
 })
