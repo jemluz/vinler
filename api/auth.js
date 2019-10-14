@@ -40,19 +40,19 @@ module.exports = app => {
     }
 
     const usuario = await 
-      app.db('usuario')
+      app.db('usuarios')
         .where({ login: req.body.login })
         .first()
 
-    if(!user) return res.status(400).send('Usuário ou senha não existe.')
+    if(!usuario) return res.status(400).send('Usuário ou senha não existe.')
 
-    const isMatch = bcrypt.compareSync(req.body.senha, user.senha)
+    const isMatch = bcrypt.compareSync(req.body.senha, usuario.senha)
     if(!isMatch) return res.status(401).send('Login ou senha Inválidos.')
 
     const now = Math.floor(Date.now() / 1000)
     const payload = {
-      login: user.login,
-      nome: user.nome,
+      login: usuario.login,
+      nome: usuario.nome,
       iat: now,
       exp: now + (60 * 60 * 24 * 3)
     }
