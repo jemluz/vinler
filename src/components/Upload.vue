@@ -1,7 +1,6 @@
 <template lang='pug'>
   div(class='upload mb-5')
-    //- p Load image?
-    //- img(src='data:image/png;base64,../uploads/20575e7bfef57f608164c376dc9c37d5')
+    img(src='data:image/png;base64,/uploads/img-1570798497852..png')
 
     div
       b-card(title="Carregar foto" :img-src='imageData' img-alt="Image" img-top tag="article" style="max-width: 22rem;" class="mb-2")
