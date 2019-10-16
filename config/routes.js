@@ -25,6 +25,8 @@
 */
 
 module.exports = app => {
+    const path = require('path')
+
     // publicas ocultas, disponiveis para qualquer usuário, mas não inclusas nas rotas do frontend
     app.post('/signin', app.api.auth.signin)
     app.post('/signup', app.api.usuario.salvar)
@@ -52,5 +54,9 @@ module.exports = app => {
         // .all(app.config.passport.authenticate())
         .put(app.api.livro.salvar)
         .delete(app.api.livro.excluir)
+
+    app.get("/image/image.png", (req, res) => { 
+        res.sendFile(path.join(__dirname, "./uploads/image.png"));
+    });
 
 }

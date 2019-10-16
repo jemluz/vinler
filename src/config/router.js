@@ -31,7 +31,7 @@ export default new Router({
       path: '/dados',
       name: 'Dados',
       component: Dados
-    },
+    }
 
   ]
 })
