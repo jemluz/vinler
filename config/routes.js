@@ -38,7 +38,7 @@ module.exports = app => {
         .post(app.api.usuario.salvar)
         .get(app.api.usuario.visualizar)
 
-    app.route('/usuarios/:login')
+    app.route('/usuarios/:id')
         // .all(app.config.passport.authenticate())
         .put(app.api.usuario.salvar)
         .get(app.api.usuario.visualizarPorId)

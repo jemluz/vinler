@@ -54,17 +54,18 @@ module.exports = app => {
     const salvar = async (req, res) => {
         const usuario = { ...req.body }
 
-        if (req.params.login) usuario.login = req.params.login
+        if (req.params.id) usuario.id = req.params.id
 
         try {
             existsOrError(usuario.nome, 'Nome não inserido.')
+            existsOrError(usuario.email, 'E-mail não inserido.')
             existsOrError(usuario.login, 'Login não inserido.')
             existsOrError(usuario.senha, 'Senha não inserida.')
-            existsOrError(usuario.confirmarSenha, 'Confirmação de senha inválida.')
+            existsOrError(usuario.confirmarSenha, 'Confirme a senha.')
             equalsOrError(usuario.senha, usuario.confirmarSenha, 'Senhas não conferem.')
 
-            // const livroFromDB = await app.db('livros').where({ login: livro.login }).first()
-            // if(!livro.login) { notExistsOrError(livroFromDB, 'Livro já existe.') }
+            const usuarioFromDB = await app.db('usuarios').where({ email: usuario.email }).first()
+            if(!usuario.id) { notExistsOrError(usuarioFromDB, 'Usuário já cadastrado com esse e-mail.') }
 
         } catch (msg) {
             return res.status(400).send(msg)
@@ -73,10 +74,7 @@ module.exports = app => {
         usuario.senha = encryptSenha(usuario.senha)
         delete usuario.confirmarSenha
 
-        const usuarioFromDB = await app.db('usuarios').where({ login: usuario.login }).first()
-        if(!usuario.login) { notExistsOrError(usuarioFromDB, 'Usuário já existe.') }
-
-        if (usuarioFromDB) {
+        if (usuario.id) {
             app.db('usuarios')
                 .update(usuario)
                 .where({ id: usuario.id })
@@ -92,15 +90,15 @@ module.exports = app => {
 
     const visualizar = (req, res) => {
         app.db('usuarios')
-        .select('id', 'login', 'nome', 'senha')
-        .then(usuario => res.json(usuario))
+        .select('id', 'email', 'login', 'nome', 'senha')
+        .then(usuarios => res.json(usuarios))
         .catch(err => res.status(500).send(err))
     }
 
     const visualizarPorId = (req, res) => {
         app.db('usuarios')
-        .select('id', 'login', 'nome', 'senha')
-        .where({ login: req.params.login })
+        .select('id', 'email', 'login', 'nome', 'senha')
+        .where({ id: req.params.id })
         .first()
         .then(usuario => res.json(usuario))
         .catch(err => res.status(500).send(err))
@@ -110,10 +108,10 @@ module.exports = app => {
         try{
             const rowsDeleted = await 
             app.db('usuarios')
-                .where({ login: req.params.login })
+                .where({ id: req.params.id })
                 .del()
             
-            existsOrError(req.params.login, 'Login do usuário não informado.')
+            existsOrError(req.params.id, 'Login do usuário não informado.')
 
             res.status(204).send()
         } catch (msg) {

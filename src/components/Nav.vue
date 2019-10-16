@@ -17,15 +17,13 @@
               li(class="hassubs active")
                 router-link(to="/vitrine" class="nav-link") Vitrine 
               li(class="hassubs active")
-                router-link(to="/usuarios" class="nav-link") Usuários
-              li(class="hassubs active")
-                router-link(to="/usuarios" class="nav-link") Categorias  
+                router-link(to="/dados" class="nav-link") Amostra de dados
 
             ul  
               li(class="hassubs")                
                 router-link(to="/auth" class="nav-link" alt="Login")  Login
               li(class="hassubs")                
-                router-link(to="/vitrine" class="nav-link" alt="Logout" @click="logOut")  Logout
+                //- router-link(to="/vitrine" class="nav-link" alt="Logout" @click="logOut")  Logout
               li(class="hassubs")                
                 router-link(to="/notificacoes" class="nav-link")  Notificações
               li(class="hassubs")              
@@ -56,24 +54,24 @@ export default {
     };
   },
   methods: {
-    toggleLineHome(e) {
-      // this.isHome = !this.isHome
-      // console.log('isHome = ' + this.isHome)
-      // console.log('isQuem = ' + this.isQuem)
-      console.log(e);
-    },
+    // toggleLineHome(e) {
+    //   this.isHome = !this.isHome
+    //   console.log('isHome = ' + this.isHome)
+    //   console.log('isQuem = ' + this.isQuem)
+    //   console.log(e);
+    // },
     logOut(){
       localStorage.removeItem(userKey)
     },
-    updateCart(id) {
-      this.cart.push(id)
-    }
+    // updateCart(id) {
+    //   this.cart.push(id)
+    // }
   },
-  computed: {
-    updateCart() {
-      // return localStorage.getItem('carrinho').length
-    }
-  }
+  // computed: {
+  //   updateCart() {
+  //     return localStorage.getItem('carrinho').length
+  //   }
+  // }
 };
 </script>
 

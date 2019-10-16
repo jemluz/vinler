@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { baseApiUrl, showError } from '@/global'
+import { baseApiUrl } from '@/global'
 import axios from 'axios'
 
 export default {
@@ -43,7 +43,6 @@ export default {
     */
     onSelect() {
       this.previewImage()
-
       const tiposPermitidos = ["image/jpeg", "image/jpg", "image/png"]
       const file = this.$refs.file.files[0]
       this.file = file
@@ -64,11 +63,10 @@ export default {
         await axios.post(`${baseApiUrl}/upload`, formData)
         this.message = 'Upado!'
       } catch(err) {
-        console.log(err)
-        this.message = 'Deu ruim.'
+        this.message = 'Deu ruim.' + err
       }
     },
-    previewImage(e) {
+    previewImage() {
       // Reference to the DOM input element
       var input = event.target;
       // Ensure that you have a file before attempting to read it
