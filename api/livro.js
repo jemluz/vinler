@@ -49,14 +49,8 @@ module.exports = app => {
             existsOrError(livro.descricao, 'Descrição não inserida.')
             existsOrError(livro.proprietarioId, 'Dono não especificado.')  
 
-            const proprietarioFromDB = await
-                app.db('usuarios')
-                    .where({ id: livro.proprietarioId })
-                    .first()
-
-            if (!livro.id) {
-                existsOrError(proprietarioFromDB, 'esse usuário não existe.')
-            }
+            const proprietarioFromDB = await app.db('usuarios').where({ id: livro.proprietarioId }).first()
+            if (!livro.id) { existsOrError(proprietarioFromDB, 'esse usuário não existe.') }
 
         } catch (msg) {
             return res.status(400).send(msg)

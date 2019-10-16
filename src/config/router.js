@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 import Vitrine from "@/components/Vitrine";
 import LoginCadastro from "@/components/LoginCadastro";
-import DadosAmostra from "@/components/DadosAmostra";
+import Dados from "@/components/Dados";
 
 // import ListaUsuarios from "@/components/sections/ListaUsuarios";
 // import FuncionarioData from "@/components/sections/FuncionarioData";
@@ -29,8 +29,8 @@ export default new Router({
     },
     {
       path: '/dados',
-      name: 'DadosAmostra',
-      component: DadosAmostra
+      name: 'Dados',
+      component: Dados
     },
 
   ]
