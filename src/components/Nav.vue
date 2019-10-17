@@ -21,13 +21,13 @@
 
             ul  
               li(class="hassubs")                
-                router-link(to="/auth" class="nav-link" alt="Login")  Login
+                router-link(to="/auth" class="nav-link" alt="Login" v-if='!user') #[font-awesome-icon(icon='sign-in-alt')] Login
               li(class="hassubs")                
-                //- router-link(to="/vitrine" class="nav-link" alt="Logout" @click="logOut")  Logout
+                router-link(to="/minha-conta" class="nav-link nav-link-welcome" alt="Login" v-if='user') Bem vindo, {{ user.nome.charAt(0).toUpperCase() + user.nome.slice(1) }}!
               li(class="hassubs")                
-                router-link(to="/notificacoes" class="nav-link")  Notificações
-              li(class="hassubs")              
-                router-link(to="/minha-conta" class="nav-link")  Minha conta
+                font-awesome-icon(icon='book-open' class='icon-menu' alt='Notificações' title='Notificações' v-if='user')
+              li(class="hassubs")                
+                font-awesome-icon(alt="Logout" title='Logout' class='icon-menu' :class="{ 'hide-element': !user }" @click.prevent="logout" icon="door-open")
                 //- ul
                 //-   li
                 //-     router-link(to="categories.html") a
@@ -36,42 +36,36 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 import { userKey } from '@/global'
 
 import bookshelfIcon from '../assets/bookshelfIcon'
 
 export default {
-  name: "Menu",
-  computed: mapState(["isMenuVisible"]),
+  name: "Nav",
+  computed: mapState(["isLoged", "user"]),
+  // updateCart() {
+    //   return localStorage.getItem('carrinho').length
+    // }
+  // }
   components: { bookshelfIcon },
   data() {
     return {
       size: { width: 48, height: 48 },
       generic: 'Login / Cadastro ',
-      welcome: 'Olá, ',
-      user: {}
+      welcome: 'Olá, '
     };
   },
   methods: {
-    // toggleLineHome(e) {
-    //   this.isHome = !this.isHome
-    //   console.log('isHome = ' + this.isHome)
-    //   console.log('isQuem = ' + this.isQuem)
-    //   console.log(e);
-    // },
-    logOut(){
+    logout(){
       localStorage.removeItem(userKey)
+      this.$store.commit('setUser', null)
+      this.$router.push({ name: 'auth' })
     },
     // updateCart(id) {
     //   this.cart.push(id)
     // }
-  },
-  // computed: {
-  //   updateCart() {
-  //     return localStorage.getItem('carrinho').length
-  //   }
-  // }
+  } 
 };
 </script>
 
@@ -79,5 +73,12 @@ export default {
 .logo { display: flex; flex-direction: column; text-align: center; }
 .main_nav { display: flex; flex-direction: row; text-align: center; justify-content: space-between; width: 90vw;
   ul { display: flex; flex-direction: row;}
+}
+.hide-element { display: none; }
+.nav-link-welcome { color: black; }
+
+.icon-menu { 
+  margin: 12px 8px; color: grey; 
+  &:hover { color: red; }
 }
 </style>

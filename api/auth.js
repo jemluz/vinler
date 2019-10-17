@@ -27,6 +27,14 @@
     Um if verifica se dadosUsuário foi setado, se sim, ele instancia a variavel token resolvendo ela com o metodo decode da biblioteca jwt, a fim de decodificar o token existente no payload da requisição. Um outro if verifica se o token ainda é válido comparando a data de expiração com a data atual. Se sim, a função é resolvida como TRUE. 
     Caso haja algum erro nas validações, um catch irá retorna-lo e a função é resolvida como FALSE.
 
+  função validarToken() - 
+    A variael dadosUduario recebe os dados do formulário, caso não haja nada é setado como nulo
+
+    Um try usa um if para verificar se a variavel acima tem algum valor, em caso positivo ele atribui a variavel token a decodificação do token do usuario pelo authSecret encontrado no .env do projeto. 
+    Em seguida é verificado se já passou da data de expiração do token para retornar valido ou não.
+
+  função singup() - 
+
 */
 
 const { authSecret } = require('../.env')
@@ -44,7 +52,7 @@ module.exports = app => {
         .where({ login: req.body.login })
         .first()
 
-    if(!usuario) return res.status(400).send('Usuário ou senha não existe.')
+    if(!usuario) return res.status(400).send('Usuário não encontrado.')
 
     const isMatch = bcrypt.compareSync(req.body.senha, usuario.senha)
     if(!isMatch) return res.status(401).send('Login ou senha Inválidos.')
@@ -72,7 +80,7 @@ module.exports = app => {
 
         if(new Date(token.exp * 1000) > new Date()) return res.send(true)
       }
-    } catch(e) { }
+    } catch(e) { res.send(e) }
     
     res.send(false)
   }

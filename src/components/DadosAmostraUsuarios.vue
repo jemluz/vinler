@@ -135,7 +135,7 @@ export default {
     },
     loadObjetos() {
       const url = `${baseApiUrl}/usuarios`
-      axios.get(url).then(resposta => { this.objetos = resposta.data })
+      axios.get(url).then(resposta => { this.objetos = resposta.data }).catch(showError)
     },
     reset() {
       this.mode = 'save'

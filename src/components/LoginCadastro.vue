@@ -131,7 +131,7 @@ export default {
 
 <style lang="scss">
 .auth-content {
-  h1 { margin-bottom: 50px; justify-self: center; color:  #7971ea;}
+  h1 { margin-bottom: 50px; justify-self: center; color: grey;}
   height: 100%;
   display: flex;
   justify-content: center;

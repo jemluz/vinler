@@ -36,22 +36,22 @@ module.exports = app => {
 
     // protegidas
     app.route('/usuarios')
-        // .all(app.config.passport.authenticate())
+        .all(app.config.passport.authenticate())
         .post(app.api.usuario.salvar)
         .get(app.api.usuario.visualizar)
 
     app.route('/usuarios/:id')
-        // .all(app.config.passport.authenticate())
+        .all(app.config.passport.authenticate())
         .put(app.api.usuario.salvar)
         .get(app.api.usuario.visualizarPorId)
         .delete(app.api.usuario.excluir)
     
     app.route('/livros')
-        // .all(app.config.passport.authenticate())
+        .all(app.config.passport.authenticate())
         .post(app.api.livro.salvar)
 
     app.route('/livros/:id')
-        // .all(app.config.passport.authenticate())
+        .all(app.config.passport.authenticate())
         .put(app.api.livro.salvar)
         .delete(app.api.livro.excluir)
 

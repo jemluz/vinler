@@ -8,7 +8,7 @@
 </template>
 
 <script>
-// import { mapState } from "vuex";
+import { mapState } from "vuex";
 import Nav from "@/components/Nav";
 import Content from "@/components/Content";
 import Footer from "@/components/Footer";
@@ -16,7 +16,7 @@ import Footer from "@/components/Footer";
 export default {
   name: "App",
   components: { Nav, Content, Footer },
-  // computed: mapState(['isFuncionario', 'user']),
+  computed: mapState(['isLogoutVisible', 'user']),
   methods: {
   }
 };

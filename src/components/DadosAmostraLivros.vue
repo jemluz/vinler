@@ -12,16 +12,18 @@
               th.pd-top FotoUrl
               th.pd-top Proprietário Id
               th.pd-top Categoria Id
+              th.pd-top Ações
             tr(v-for="objeto in objetos", class='data-tr')
               th.pd-left {{ objeto.id }}
               th.pd-left {{ objeto.titulo }}
               th.pd-left {{ objeto.descricao.slice(0,10)+'...' }}
               th.pd-left {{ objeto.fotoUrl }}
-              th.pd-left.pd-right {{ objeto.proprietarioId.slice(0,8)+'...' }}
+              th.pd-left.pd-right {{ objeto.proprietarioId }}
               th.pd-left.pd-right ??
               th.pd-top.pd-right.row 
                 button(@click='loadObjeto(objeto, "save", true)' class='bt-edit') #[font-awesome-icon(icon="edit")]
-                button(@click="loadObjeto(objeto, 'remove', false)" class='bt-remove') #[font-awesome-icon(icon="trash-alt")]
+                button(@click="loadObjeto(objeto, 'remove', false)" class='bt-remove') #[font-awesome-icon(icon="trash-alt")] 
+
           form(class="form-box col-lg-3  justify-content-center")
             div.col
               div.form-group.mr-3
@@ -126,7 +128,7 @@ export default {
     },
     loadObjetos() {
       const url = `${baseApiUrl}/livros`
-      axios.get(url).then(resposta => { this.objetos = resposta.data })
+      axios.get(url).then(resposta => { this.objetos = resposta.data }).catch(showError)
     },
     reset() {
       this.mode = 'save'

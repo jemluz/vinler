@@ -10,14 +10,17 @@ import BootstrapVue from 'bootstrap-vue'
 import SvgTransition from 'vue-svg-transition';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faTrashAlt, faDoorOpen, faBookOpen, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // importando os icones que serão utilizados no projeto
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 library.add(
   faEdit, 
-  faTrashAlt
+  faTrashAlt,
+  faDoorOpen,
+  faBookOpen,
+  faSignInAlt
 )
 
 Vue.config.productionTip = false
