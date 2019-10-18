@@ -19,15 +19,17 @@
               li(class="hassubs active")
                 router-link(to="/dados" class="nav-link") Amostra de dados
 
-            ul  
+            ul(v-if='!user')
               li(class="hassubs")                
-                router-link(to="/auth" class="nav-link" alt="Login" v-if='!user') #[font-awesome-icon(icon='sign-in-alt')] Login
+                router-link(to="/auth" class="nav-link" alt="Login" ) #[font-awesome-icon(icon='sign-in-alt')] Login
+
+            ul(v-else :class="{ 'hide-element': !user }")
+              li(class="hassubs" )                
+                router-link(to="/minha-conta" class="nav-link nav-link-welcome" alt="Login") Bem vindo, {{ user ? (user.nome.charAt(0).toUpperCase() + user.nome.slice(1)) : null }}!
               li(class="hassubs")                
-                router-link(to="/minha-conta" class="nav-link nav-link-welcome" alt="Login" v-if='user') Bem vindo, {{ user.nome.charAt(0).toUpperCase() + user.nome.slice(1) }}!
+                font-awesome-icon(icon='book-open' class='icon-menu' alt='Notificações' title='Notificações')
               li(class="hassubs")                
-                font-awesome-icon(icon='book-open' class='icon-menu' alt='Notificações' title='Notificações' v-if='user')
-              li(class="hassubs")                
-                font-awesome-icon(alt="Logout" title='Logout' class='icon-menu' :class="{ 'hide-element': !user }" @click.prevent="logout" icon="door-open")
+                font-awesome-icon(alt="Logout" title='Logout' class='icon-menu' @click.prevent="logout" icon="door-open")
                 //- ul
                 //-   li
                 //-     router-link(to="categories.html") a

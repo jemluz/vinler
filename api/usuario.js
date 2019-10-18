@@ -119,5 +119,13 @@ module.exports = app => {
         }
     }
 
-    return { salvar, visualizar, visualizarPorId, excluir }
+    const visualizarVinculados = (req, res) => {
+        app.db('livros')
+            .select('id', 'titulo')
+            .where({ proprietarioId: req.params.id })
+            .then(vinculados => res.json(vinculados))
+            .catch(err => res.status(500).send(err))
+    }
+
+    return { salvar, visualizar, visualizarPorId, excluir, visualizarVinculados }
 }

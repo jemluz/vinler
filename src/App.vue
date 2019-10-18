@@ -1,11 +1,12 @@
 
 <template lang="pug">
   div
-    Nav
-    //- Content(@add-to-cart="updateCart")
-    Loading(v-if='validatingToken')
-    Content(v-else)
-    Footer
+    Loading.loading(v-if="isBussy")
+    div(v-else)
+      Nav
+      //- Content(@add-to-cart="updateCart")
+      Content(v-if='!validatingToken')
+      Footer
   </div>
 </template>
 
@@ -25,7 +26,8 @@ export default {
   computed: mapState(['isLogoutVisible', 'user']),
   data: function() {
     return {
-      validatingToken: true
+      validatingToken: true,
+      isBussy: true
     }
   },
   methods: {
@@ -39,19 +41,28 @@ export default {
       if(!userData) {
         this.validatingToken = false
         this.$router.push({ name: 'auth' })
-        return console.log('Você precisa fazer login!')
+        console.log('Você precisa fazer login!')
+        return 
       }
 
       const res = await axios.post(`${baseApiUrl}/validateToken`, userData)
 
-      if(res.data) { this.$store.commit('setUser', userData) } 
-      else { 
+      if(res.data) { 
+        this.$store.commit('setUser', userData) 
+      } else { 
         localStorage.removeItem(userKey) 
         this.$router.push({ name: 'auth' })
+        return console.log('Seu token não foi validado!')
       }
-
       this.validatingToken = false
+    },
+    loading() {
     }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isBussy = false
+    }, 700)
   },
   created() {
     this.validateToken() 
@@ -66,4 +77,6 @@ export default {
 
 a:hover, a, li { text-decoration: none !important; }
 li { list-style-type: none; }
+
+.loading { margin: 200px; }
 </style>

@@ -2,7 +2,6 @@ import Vue from 'vue'
 
 export const userKey = '__vinler_user'
 // export const carrinho = []
-export const curtidas = []
 export const baseApiUrl = 'http://localhost:3000'
 
 export function showError(e) {
@@ -15,4 +14,4 @@ export function showError(e) {
   }
 }
 
-export default { baseApiUrl, showError, userKey, curtidas }
+export default { baseApiUrl, showError, userKey }

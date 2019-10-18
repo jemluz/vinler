@@ -44,6 +44,10 @@ module.exports = app => {
         .get(app.api.usuario.visualizarPorId)
         .delete(app.api.usuario.excluir)
     
+    app.route('/usuarios/vinculados/:id')
+        .all(app.config.passport.authenticate())
+        .get(app.api.usuario.visualizarVinculados)
+
     app.route('/livros')
         .all(app.config.passport.authenticate())
         .post(app.api.livro.salvar)

@@ -12,9 +12,9 @@ module.exports = app => {
       cb(null, 'uploads/'); 
     },
     filename: (req, file, cb) => { 
-      // cb(null, `img-${Date.now()}.${path.extname(file.originalname)}`) 
-      // cb(null, `img-${Date.now()}.${path.extname(file.originalname)}`) 
-      console.log(req)
+      cb(null, `img-${Date.now()}.${path.extname(file.originalname)}`) 
+      // cb(null, `profile-${req.body.user.id}.${path.extname(file.originalname)}`) 
+      // console.log(req)
     },
     fileFilter: (file, cb) => {
       var ext = path.extname(file.originalname);
@@ -34,6 +34,7 @@ module.exports = app => {
   // rota de upload
   app.post('/upload', function(req, res){
     upload(req,res,function(err){
+      // console.log(req)
       if(err === "INCORRECT_FILETYPE") { 
         console.log(err)
         res.status(422).json({ erro: "Apenas imagens são aceitas."})

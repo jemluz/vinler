@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Vitrine from "@/components/Vitrine";
 import LoginCadastro from "@/components/LoginCadastro";
 import Dados from "@/components/Dados";
+import Perfil from "@/components/Perfil";
 
 // import ListaUsuarios from "@/components/sections/ListaUsuarios";
 // import FuncionarioData from "@/components/sections/FuncionarioData";
@@ -31,6 +32,11 @@ export default new Router({
       path: '/dados',
       name: 'Dados',
       component: Dados
+    },
+    {
+      path: '/minha-conta',
+      name: 'Perfil',
+      component: Perfil
     }
 
   ]
