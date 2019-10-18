@@ -1,8 +1,15 @@
 <template lang='pug'>
   div
-    DadosAmostraUsuarios
-    DadosAmostraLivros
-    DadosAmostraCategorias
+    b-tabs(content-class="mt-5")
+      b-tab(title="Usuários" active)
+        DadosAmostraUsuarios
+        
+      b-tab(title="Livros")
+        DadosAmostraLivros
+  
+      b-tab(title="Categorias")
+        DadosAmostraCategorias
+    
     
 </template>
 
@@ -17,6 +24,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang='scss'>
 
 </style>

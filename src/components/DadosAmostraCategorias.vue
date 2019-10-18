@@ -12,7 +12,7 @@
             tr(v-for="objeto in objetos", class='data-tr')
               th.pd-left {{ objeto.id }}
               th.pd-left {{ objeto.nome }}
-              th.pd-left {{ objeto.vinculados }}
+              th.pd-left {{ objeto.vinculados }} 
               th.pd-top.pd-right.row 
                 button(@click='loadObjeto(objeto, "save", true)' class='bt-edit') #[font-awesome-icon(icon="edit")]
                 button(@click="loadObjeto(objeto, 'remove', false)" class='bt-remove') #[font-awesome-icon(icon="trash-alt")] 
@@ -45,14 +45,14 @@
                   class="btn btn-primary btn-pill" 
                   v-if="mode === 'save'"
                   @click="save"
-                  value="Salvar cadastro"
+                  value="Salvar"
                 )
                 input(
                   type='button'
                   class="btn btn-danger btn-pill" 
                   v-if="mode === 'remove'"
                   @click="remove"
-                  value="Excluir cadastro"
+                  value="Excluir"
                 )              
                 input(
                   type='button'
@@ -75,8 +75,11 @@ export default {
   data: function() {
     return {
       mode: 'save', 
-      objeto: {},
+      objeto: {
+        vinculados: []
+      },
       objetos: [],
+      
       edit: false
     }
   },
@@ -127,6 +130,11 @@ export default {
           this.reset()
         })
         .catch(showError)
+    },
+    loadVinculados(id) {
+      const url = `${baseApiUrl}/categorias/vinculados/${id}`
+      axios.get(url).then(resposta => { this.objeto.vinculados = resposta.data }).catch(showError)
+      console.log(this.objeto.vinculados)
     }
   },
   mounted() {

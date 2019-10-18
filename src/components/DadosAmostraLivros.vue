@@ -6,20 +6,16 @@
         div(class="row" data-aos="fade-up" data-aos-delay="500")               
           table(class='data-table col-lg-9 form-box' data-aos="fade-down" data-aos-delay="0")
             tr.top
-              th.pd-top Id
-              th.pd-top Título
+              th.pd-top Id / Título
               th.pd-top Descrição
               th.pd-top FotoUrl
-              th.pd-top Proprietário Id
-              th.pd-top Categoria Id
+              th.pd-top Proprietário Id / Categoria Id
               th.pd-top Ações
             tr(v-for="objeto in objetos", class='data-tr')
-              th.pd-left {{ objeto.id }}
-              th.pd-left {{ objeto.titulo }}
+              th.pd-left {{ objeto.id }} / {{ objeto.titulo }}
               th.pd-left {{ objeto.descricao.slice(0,10)+'...' }}
               th.pd-left {{ objeto.fotoUrl }}
-              th.pd-left.pd-right {{ objeto.proprietarioId }}
-              th.pd-left.pd-right ??
+              th.pd-left.pd-right {{ objeto.proprietarioId }} / {{ objeto.categoriaId }}
               th.pd-top.pd-right.row 
                 button(@click='loadObjeto(objeto, "save", true)' class='bt-edit') #[font-awesome-icon(icon="edit")]
                 button(@click="loadObjeto(objeto, 'remove', false)" class='bt-remove') #[font-awesome-icon(icon="trash-alt")] 
@@ -58,7 +54,7 @@
 
               div.form-group.mr-3
                 input(
-                  type="password" 
+                  type="text" 
                   class="form-control" 
                   placeholder="id do dono do livro"
                   v-model='objeto.proprietarioId'
@@ -66,20 +62,31 @@
                   required
                 )
 
+              div.form-group.mr-3
+                input(
+                  type="text" 
+                  class="form-control" 
+                  placeholder="id da categoria"
+                  v-model='objeto.categoriaId'
+                  :readonly='mode === "remove"'
+                  required
+                )
+
+
               div.form-group.justify-content-end  
                 input(
                   type='button'
                   class="btn btn-primary btn-pill" 
                   v-if="mode === 'save'"
                   @click="save"
-                  value="Salvar cadastro"
+                  value="Salvar"
                 )
                 input(
                   type='button'
                   class="btn btn-danger btn-pill" 
                   v-if="mode === 'remove'"
                   @click="remove"
-                  value="Excluir cadastro"
+                  value="Excluir"
                 )              
                 input(
                   type='button'

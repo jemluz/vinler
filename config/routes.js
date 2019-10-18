@@ -36,6 +36,7 @@ module.exports = app => {
     // protegidas
     app.route('/usuarios')
         .get(app.api.usuario.visualizar)
+        .post(app.api.usuario.salvar)
 
     app.route('/usuarios/:id')
         .all(app.config.passport.authenticate())

@@ -47,9 +47,6 @@ module.exports = app => {
         try {
             existsOrError(categoria.nome, 'Nome não inserido.')
 
-            const categoriaFromDB = await app.db('categorias').where({ nome: categoria.nome }).first()
-            if (!categoria.id) { existsOrError(proprietarioFromDB, 'essa categoria já existe.') }
-
         } catch (msg) {
             return res.status(400).send(msg)
         }
@@ -101,10 +98,10 @@ module.exports = app => {
 
     const visualizarVinculados = (req, res) => {
         app.db('livros')
-        .select('id', 'titulo')
-        .where({ categoriaId: req.params.id })
-        .then(vinculados => res.json(vinculados))
-        .catch(err => res.status(500).send(err))
+            .select('id', 'titulo')
+            .where({ categoriaId: req.params.id })
+            .then(vinculados => res.json(vinculados))
+            .catch(err => res.status(500).send(err))
     }
 
     return { salvar, visualizar, visualizarPorId, excluir, visualizarVinculados }
