@@ -63,7 +63,7 @@ module.exports = app => {
       login: usuario.login,
       nome: usuario.nome,
       iat: now,
-      exp: now + (60 * 60 * 24 * 3)
+      exp: now + 20
     }
 
     res.json({

@@ -18,6 +18,15 @@
             input(
               type="text" 
               class="form-control" 
+              placeholder="seu e-mail"
+              v-model='user.email'
+              v-if="showSignup"
+              required
+            )
+          div.form-group
+            input(
+              type="text" 
+              class="form-control" 
               placeholder="... e o login!"
               v-model='user.login'
               required

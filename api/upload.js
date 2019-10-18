@@ -12,7 +12,9 @@ module.exports = app => {
       cb(null, 'uploads/'); 
     },
     filename: (req, file, cb) => { 
-      cb(null, `img-${Date.now()}.${path.extname(file.originalname)}`) 
+      // cb(null, `img-${Date.now()}.${path.extname(file.originalname)}`) 
+      // cb(null, `img-${Date.now()}.${path.extname(file.originalname)}`) 
+      console.log(req)
     },
     fileFilter: (file, cb) => {
       var ext = path.extname(file.originalname);

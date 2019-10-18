@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
     table.string('descricao', 1000).notNull()
     table.string('fotoUrl', 1000)
     table.integer('proprietarioId').unsigned().references('id').inTable('usuarios').notNull()
+    table.integer('categoriaId').unsigned().references('id').inTable('categorias')
   })
 };
 

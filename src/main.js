@@ -4,13 +4,14 @@ import App from './App'
 import router from './config/router'
 import store from './config/store'
 import './config/msgs'
+import './config/axios'
 
 import AOS from 'aos'
 import BootstrapVue from 'bootstrap-vue'
 import SvgTransition from 'vue-svg-transition';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faEdit, faTrashAlt, faDoorOpen, faBookOpen, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faTrashAlt, faDoorOpen, faBookOpen, faSignInAlt, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // importando os icones que serão utilizados no projeto
@@ -20,7 +21,8 @@ library.add(
   faTrashAlt,
   faDoorOpen,
   faBookOpen,
-  faSignInAlt
+  faSignInAlt,
+  faSpinner
 )
 
 Vue.config.productionTip = false

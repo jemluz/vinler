@@ -32,12 +32,9 @@ module.exports = app => {
     app.post('/signup', app.api.usuario.salvar)
     app.post('/validateToken', app.api.auth.validarToken)
     app.get('/livros', app.api.livro.visualizar)
-    app.get('/livros/:id', app.api.livro.visualizarPorId)
 
     // protegidas
     app.route('/usuarios')
-        .all(app.config.passport.authenticate())
-        .post(app.api.usuario.salvar)
         .get(app.api.usuario.visualizar)
 
     app.route('/usuarios/:id')
@@ -54,6 +51,22 @@ module.exports = app => {
         .all(app.config.passport.authenticate())
         .put(app.api.livro.salvar)
         .delete(app.api.livro.excluir)
+
+    app.route('/categorias')
+        .all(app.config.passport.authenticate())
+        .post(app.api.categoria.salvar)
+        .get(app.api.categoria.visualizar)
+
+    app.route('/categorias/:id')
+        .all(app.config.passport.authenticate())
+        .put(app.api.categoria.salvar)
+        .get(app.api.categoria.visualizarPorId)
+        .delete(app.api.categoria.excluir)
+
+    app.route('/categorias/vinculados/:id')
+        .all(app.config.passport.authenticate())
+        .get(app.api.categoria.visualizarVinculados)
+
 
     app.get("/image/image.png", (req, res) => { 
         res.sendFile(path.join(__dirname, "./uploads/image.png"));

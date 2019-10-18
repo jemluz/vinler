@@ -24,7 +24,7 @@ export default new Router({
     },
     {
       path: '/auth',
-      name: 'LoginCadastro',
+      name: 'auth',
       component: LoginCadastro
     },
     {
