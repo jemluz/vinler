@@ -94,7 +94,7 @@ module.exports = app => {
 
     const excluir = async (req, res) => {
         try {
-            const rowsDeleted = await 
+            const rowsDeleted = await               
             app.db('livros')
                 .where({ id: req.params.id })
                 .del()
