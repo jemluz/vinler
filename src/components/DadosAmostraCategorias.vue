@@ -115,6 +115,10 @@ export default {
     save() {
       const method = this.edit ? 'put' : 'post'
       const id = this.edit ? `/${ this.objeto.id }` : ''
+      console.log(this.objeto)
+
+      if (method === 'post') { delete this.objeto.vinculados }
+
       axios[method](`${baseApiUrl}/categorias${id}`, this.objeto)
         .then(() => { 
           this.$toasted.global.defaultSucess()
