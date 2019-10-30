@@ -37,7 +37,7 @@
 const bcrypt = require('bcrypt-nodejs') 
 
 module.exports = app => {
-    const { existsOrError, notExistsOrError, equalsOrError } = app.api.validation
+    const { existsOrError } = app.api.validation
 
     const salvar = async (req, res) => {
         const livro = { ...req.body }
@@ -48,7 +48,7 @@ module.exports = app => {
             existsOrError(livro.titulo, 'Título não inserido.')
             existsOrError(livro.descricao, 'Descrição não inserida.')
             existsOrError(livro.proprietarioId, 'Dono não especificado.')  
-            existsOrError(livro.categoriaId, 'Dono não especificado.')  
+            existsOrError(livro.categoriaId, 'Categoria não especificada.')  
 
             const proprietarioFromDB = await app.db('usuarios').where({ id: livro.proprietarioId }).first()
             const categoriaFromDB = await app.db('categorias').where({ id: livro.categoriaId }).first()
@@ -58,7 +58,7 @@ module.exports = app => {
                 existsOrError(categoriaFromDB, 'essa categoria não existe.') 
             }
 
-        } catch (msg) {
+        } catch (msg) { 
             return res.status(400).send(msg)
         }
 

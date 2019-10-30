@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt-nodejs') 
 
 module.exports = app => {
-    const { existsOrError, notExistsOrError, equalsOrError } = app.api.validation
+    const { existsOrError } = app.api.validation
 
     const salvar = async (req, res) => {
         const categoria = { ...req.body }
