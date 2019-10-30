@@ -13,7 +13,7 @@ module.exports = app => {
     },
     filename: (req, file, cb) => { 
       cb(null, `img-${Date.now()}.${path.extname(file.originalname)}`) 
-      // cb(null, `profile-${req.body.user.id}.${path.extname(file.originalname)}`) 
+      // cb(null, `profile-${req}.${path.extname(file.originalname)}`) 
       // console.log(req)
     },
     fileFilter: (file, cb) => {
@@ -32,15 +32,15 @@ module.exports = app => {
   }).single('file');
 
   // rota de upload
-  app.post('/upload', function(req, res){
+  app.post('/upload', (req, res) => {
     upload(req,res,function(err){
-      // console.log(req)
+      console.log(req)
       if(err === "INCORRECT_FILETYPE") { 
-        console.log(err)
+        // console.log(err)
         res.status(422).json({ erro: "Apenas imagens são aceitas."})
       }
        if (err === "LIMIT_FILE_SIZE") {
-        console.log(err.code)
+        // console.log(err.code)
         res.status(422).json({ erro: "Arquivo muito grande"})
       } 
       else { 
