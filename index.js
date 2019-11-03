@@ -32,8 +32,6 @@ app.get('/', function (req, res) {
     res.send('uia');
 });
 
-
-
 app.listen(3000, () => {
     console.log('backend rodando...')
 })
