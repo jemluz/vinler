@@ -26,6 +26,7 @@
 
 module.exports = app => {
     const path = require('path')
+    const { upload } = app.api.upload
 
     // publicas ocultas, disponiveis para qualquer usuário, mas não inclusas nas rotas do frontend
     app.post('/signin', app.api.auth.signin)
@@ -77,4 +78,27 @@ module.exports = app => {
         res.sendFile(path.join(__dirname, "../uploads/image.png"));
     });
 
+
+    // app.route('upload')
+    //     .post(app.api.upload.upload)
+
+    // rota de upload
+    app.post('/upload', (req, res) => {
+        upload(req,res,function(err){
+            // console.log(req)
+
+            if(err === "INCORRECT_FILETYPE") { 
+                // console.log(err)
+                res.status(422).json({ erro: "Apenas imagens são aceitas."})
+            }
+            if (err === "LIMIT_FILE_SIZE") {
+                // console.log(err.code)
+                res.status(422).json({ erro: "Arquivo muito grande"})
+            } 
+            else { 
+                res.json({ file: req.file })
+            }
+        });
+        
+    }); 
 }

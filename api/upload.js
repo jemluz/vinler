@@ -12,9 +12,10 @@ module.exports = app => {
       cb(null, 'uploads/'); 
     },
     filename: (req, file, cb) => { 
-      // console.log(req)
-      cb(null, `image${path.extname(file.originalname)}`) 
-      // cb(null, `profile-${req}.${path.extname(file.originalname)}`) 
+      console.log(req.body)
+
+      // cb(null, `image${path.extname(file.originalname)}`) 
+      cb(null, `livro-${req.body.user}.${path.extname(file.originalname)}`) 
     },
     fileFilter: (file, cb) => {
       var ext = path.extname(file.originalname);
@@ -25,27 +26,13 @@ module.exports = app => {
     }
   });
 
+  
   // utiliza a storage para configurar a instância do multer
   const upload = multer({ 
     storage: storage,
     limits: { fileSize: 1024 * 1024 * 2 }
-  }).single('file');
+  }).single('file'); 
 
-  // rota de upload
-  app.post('/upload', (req, res) => {
-    upload(req,res,function(err){
-      console.log(req)
-      if(err === "INCORRECT_FILETYPE") { 
-        // console.log(err)
-        res.status(422).json({ erro: "Apenas imagens são aceitas."})
-      }
-       if (err === "LIMIT_FILE_SIZE") {
-        // console.log(err.code)
-        res.status(422).json({ erro: "Arquivo muito grande"})
-      } 
-      else { 
-        res.json({ file: req.file })
-      }
-    });
-  }); 
+  return { upload }
+
 }
