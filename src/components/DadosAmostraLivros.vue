@@ -14,7 +14,7 @@
             tr(v-for="objeto in objetos", class='data-tr')
               th.pd-left {{ objeto.id }} / {{ objeto.titulo }}
               th.pd-left {{ objeto.descricao.slice(0,10)+'...' }}
-              th.pd-left {{ objeto.fotoUrl }}
+              th.pd-left #[img(:src='objeto.fotoUrl' width='50px' height='50px')]
               th.pd-left.pd-right {{ objeto.proprietarioId }} / {{ objeto.categoriaId }}
               th.pd-top.pd-right.row 
                 button(@click='loadObjeto(objeto, "save", true)' class='bt-edit') #[font-awesome-icon(icon="edit")]
@@ -22,6 +22,7 @@
 
           form(class="form-box col-lg-3  justify-content-center")
             div.col
+              img(:src='imageData' width='100px' height='100px')
               div.form-group.mr-3
                 input(
                   type="text" 
@@ -43,7 +44,6 @@
                 )
 
               div.form-group.mr-3
-                img(src='http://localhost:3000/image.png')
                 input(
                   type='file' 
                   ref='file' 
@@ -151,8 +151,7 @@ export default {
 
       this.onSubmit()
       console.log(this.message)
-
-      
+      this.objeto.fotoUrl = `${baseApiUrl}/image/image.png`
 
       axios[method](`${baseApiUrl}/livros${id}`, this.objeto)
         .then(() => { 

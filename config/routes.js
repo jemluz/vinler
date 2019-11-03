@@ -74,7 +74,7 @@ module.exports = app => {
 
 
     app.get("/image/image.png", (req, res) => { 
-        res.sendFile(path.join(__dirname, "./uploads/image.png"));
+        res.sendFile(path.join(__dirname, "../uploads/image.png"));
     });
 
 }
