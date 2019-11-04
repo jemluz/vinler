@@ -8,7 +8,7 @@
         include ../assets/botao-menu.svg
 
     <!-- Logo -->
-    a(href='/#' class='logo') Vinler
+    a(href='/vitrine' class='logo') Vinler
 
     Nav
 
@@ -77,11 +77,11 @@ export default {
 
     @media only screen and (max-width: 900px) {
     
-      grid-template-columns: .5fr .5fr 2fr 1fr 1fr .5fr; 
+      grid-template-columns: .5fr .5fr 1fr 1fr 1fr .5fr; 
       grid-template-rows: .5fr 1fr .5fr 1fr .5fr; 
       height: 150px;
 
-      nav { display: none; }
+      nav { display: none !important; }
 
       .bt-menu {
         grid-column: 2 / 3;

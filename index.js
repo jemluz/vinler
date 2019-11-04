@@ -17,6 +17,7 @@
 const app = require('express')()
 const consign = require('consign') 
 const db = require('./config/db')
+const localtunnel = require('localtunnel');
 
 app.db = db
 
@@ -28,10 +29,10 @@ consign()
     .then('./config/routes.js')
     .into(app)
 
-app.get('/', function (req, res) {
-    res.send('uia');
-});
+    app.get('/', function (req, res) {
+        res.send('uia');
+    });
 
-app.listen(3000, () => {
-    console.log('backend rodando...')
-})
+    app.listen(3000, () => {
+        console.log('backend rodando...')
+    })

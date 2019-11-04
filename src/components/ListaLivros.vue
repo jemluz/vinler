@@ -1,25 +1,31 @@
 <template lang='pug'>
   div.container
-    div.row
       div.col
-        div.product_grid
+        h3 Livros
+        div.livro_grid
 
           <!-- Livros -->
           div(
-            class="product"
+            class="livro"
             v-for='(objeto, index) in objetos'
             )
             div.product_image
-              router-link(to='/produto-detalhe')    
-                img(:src=`objeto.fotoUrl` width='100px' height='100px' @click='func(index)')
-
-            div(class="product_extra product_sale" v-for='categoria in categorias')
-              a(href="categories.html" v-if='categoria.id === objeto.categoriaId ')  {{ categoria.nome }}
-              a(v-else) não tem nada aqui
+              router-link(to='/')    
+                img(:src=`objeto.fotoUrl` width='120px' height='120px' @click='func(index)')
 
             div.product_content
               div.product_title 
-                a(href="product.html") {{ objeto.titulo }}
+                a(href="/") #[h5 {{ objeto.titulo }}]
+
+            div.product_content
+              div.product_title 
+                a(href="/") #[p {{ objeto.descricao }}]
+
+            div(class="categoria_livro" v-for='categoria in categorias')
+              a(href="/" v-if='categoria.id === objeto.categoriaId ')  #[p {{ categoria.nome }}]
+              a(v-else) não tem nada aqui
+
+            
 
 </template>
 
@@ -59,6 +65,58 @@ export default {
 </script>
 
 <style lang='scss'>
-.product_grid { display: flex; margin-top: 100px; height: initial; flex-direction: row; justify-content: space-between; flex-wrap: wrap;  }
-.product { margin-bottom: 20px; }  
+
+div.container {
+  display: grid;
+  padding: 0px;
+
+  .livro_grid { 
+    display: flex;
+    height: initial; 
+    flex-direction: row; 
+    justify-content: space-between; 
+    flex-wrap: wrap;  
+  }
+
+  .livro { margin-bottom: 20px; }  
+
+  .livro {
+    a { color: gray; }
+  }
+
+  .categoria_livro { 
+    background-color: #f1f1f1; 
+    border-radius: 20px;
+    padding: 5px 15px;
+    width: auto;
+    display: inline-block;
+    p { margin: 0px !important; } 
+
+    &:hover { box-shadow: 0px 0px 10px 2px #00000030; }
+  }
+
+  // MOBILE
+  @media only screen and (max-width: 900px) {
+
+    grid-template-columns: .5fr 3fr .5fr; 
+
+    .col {
+      grid-column: 2 / 3;
+      padding: 0px;
+    }
+
+    .livro_grid {
+      margin-top: 50px;      
+    }
+
+    .livro {
+      max-width: 120px;
+    }
+      
+  }
+
+  // DESKTOP
+  @media only screen and (min-width: 901px) {}
+
+}
 </style>

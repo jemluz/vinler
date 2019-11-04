@@ -38,13 +38,13 @@
 
           <!-- Lista de Livros -->
           div(
-            class="livro"
+            class="livro mr-5 "
             v-for='(vinculado, index) in vinculados'
             )
 
             div.livro_foto
               router-link(to='/livro-detalhe')    
-                img(:src='vinculado.fotoUrl' width='100px' height='100px' @click='func(index)')
+                img(:src='vinculado.fotoUrl' width='150px' height='150px' @click='func(index)')
 
             div.livro_titulo
               div.product_title 

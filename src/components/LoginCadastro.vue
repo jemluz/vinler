@@ -75,14 +75,14 @@
           div.button-group
             input(
               type='button'     
-              class="btn btn-primary btn-pill" 
+              class="btn btn-primary btn-pill bt-entrar" 
               v-if="!showSignup"
               @click="signin"
               value="Entrar"
             )
             input(
               type='button'     
-              class="btn btn-primary btn-pill" 
+              class="btn btn-primary btn-pill bt-entrar" 
               v-else
               @click="signup"
               value="Registrar"
@@ -98,11 +98,11 @@
 
         a(href @click.prevent="showSignup = !showSignup" class="alternar") 
             p(v-if='!showSignup' style='color: grey;') cadastro
-            p(v-else style='color: #7971ea;') cadastro
+            p(v-else style='color: #FFB600;') cadastro
             span(v-if='showSignup' class="fa fa-toggle-off fa-lg")
             span(v-else class="fa fa-toggle-on fa-lg")
             p(v-if='showSignup' style='color: grey;') login
-            p(v-else style='color: #7971ea;') login
+            p(v-else style='color: #FFB600;') login
 
 </template>
 
@@ -140,22 +140,22 @@ export default {
 
 <style lang="scss">
 .auth-content {
-  h1 { margin-bottom: 50px; justify-self: center; color: grey;}
+  h1 { margin-bottom: 50px; justify-self: center; color: #FFB600;}
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 100px auto;
+  margin: 50px auto;
 }
+
 .auth-modal {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0px 0px 40px #7971ea51;
-  padding: 80px 80px 0px 80px;
-  border-radius: 20px;
+  padding: 0px 80px 0px 80px;
 }
+
 .form-check {
   margin: auto auto 20px 17%;
 }
@@ -165,18 +165,19 @@ export default {
   align-items: center;
   justify-content: center;
 }  
-.alternar { display: flex; flex-direction: row; padding: 40px; text-decoration: none; 
-  p:hover { color: #7971ea; }
-  span { padding: 7px; color: #7971ea;} }
-.bt-edit,
-.bt-remove {
-  background: none;
-  border: none;
-  color:  #7971ea;
+
+.bt-entrar { background-color: #00ABC8; border: none; }
+
+.alternar { 
+  display: flex; 
+  flex-direction: row; 
+  padding: 40px; 
+  text-decoration: none; 
+
+  p:hover { color: #FFB600; }
+  span { padding: 7px; color: #FFB600;} 
 }
-.bt-remove {
-  color:  #eb1c0f;
-}
+
 .v-enter, .v-leave-to { opacity: 0; }
 .v-enter-active, .v-leave-active { transition: opacity .5s; }
 </style>

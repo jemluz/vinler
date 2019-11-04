@@ -13,8 +13,6 @@
           nav(class="main_nav" role="navigation")
             ul
               li(class="hassubs active")
-                router-link(to="/vitrine" class="nav-link") Vitrine 
-              li(class="hassubs active")
                 router-link(to="/dados" class="nav-link") Database
 
             ul(v-if='!user')
