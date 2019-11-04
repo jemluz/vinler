@@ -1,20 +1,20 @@
 <template lang='pug'>
     div
-      Upload
+        ListaProdutos
+    //-   Upload
       //- VAds
-      //- VProducts
 
 </template>
 
 <script>
 // import VBanner from './VBanner'
-// import VProducts from './VProducts'
 // import VAds from './VAds'
+import ListaProdutos from './ListaProdutos'
 import Upload from './Upload'
 
 export default {
     name: 'Vitrine',
-    components: { Upload }
+    components: { Upload, ListaProdutos }
 }
 </script>
 

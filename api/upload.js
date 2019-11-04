@@ -15,14 +15,14 @@ module.exports = app => {
       console.log(req.body)
 
       // cb(null, `image${path.extname(file.originalname)}`) 
-      cb(null, `livro-${req.body.user}.${path.extname(file.originalname)}`) 
+      cb(null, `livro-${req.body.userId}${path.extname(file.originalname)}`) 
     },
     fileFilter: (file, cb) => {
       var ext = path.extname(file.originalname);
       if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg') {
         return cb(new Error("INCORRECT_FILETYPE"))
       }
-      callback(null, true)
+      cb(null, true)
     }
   });
 

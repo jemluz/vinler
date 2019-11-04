@@ -78,14 +78,14 @@ module.exports = app => {
 
     const visualizar = (req, res) => {
         app.db('livros')
-        .select('id', 'titulo', 'descricao', 'fotoUrl', 'proprietarioId')
+        .select('id', 'titulo', 'descricao', 'fotoUrl', 'proprietarioId', 'categoriaId')
         .then(livro => res.json(livro))
         .catch(err => res.status(500).send(err))
     }
 
     const visualizarPorId = (req, res) => {
         app.db('livros')
-        .select('id', 'titulo', 'descricao', 'fotoUrl', 'proprietarioId')
+        .select('id', 'titulo', 'descricao', 'fotoUrl', 'proprietarioId', 'categoriaId')
         .where({ id: req.params.id })
         .first()
         .then(livro => res.json(livro))

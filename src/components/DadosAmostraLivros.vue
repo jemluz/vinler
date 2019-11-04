@@ -17,6 +17,7 @@
               th.pd-left #[img(:src='objeto.fotoUrl' width='50px' height='50px')]
               th.pd-left.pd-right {{ objeto.proprietarioId }} / {{ objeto.categoriaId }}
               th.pd-top.pd-right.row 
+                button(@click='' class='bt-like') #[font-awesome-icon(icon="heart")]
                 button(@click='loadObjeto(objeto, "save", true)' class='bt-edit') #[font-awesome-icon(icon="edit")]
                 button(@click="loadObjeto(objeto, 'remove', false)" class='bt-remove') #[font-awesome-icon(icon="trash-alt")] 
 
@@ -100,11 +101,13 @@
 
 <script>
 import { baseApiUrl, showError } from '@/global'
+import { mapState } from 'vuex'
 import axios from 'axios'
 // o axios é responsável por enviar requisições da view
 
 export default {
   name: "DadosAmostra",
+  computed: mapState(["user"]),
   data: function() {
     return {
       mode: 'save', 
@@ -185,6 +188,7 @@ export default {
     },
     async onSubmit() {
       const formData = new FormData()
+      formData.append('userId', this.user.id)
       formData.append('file', this.file)
 
       try {
@@ -244,6 +248,7 @@ export default {
   opacity: .6;
 }
 .bt-edit,
+.bt-like,
 .bt-remove {
   background: none;
   border: none;
@@ -252,4 +257,10 @@ export default {
 .bt-remove {
   color:  #eb1c0f;
 }
+.bt-like { 
+  color: pink; 
+  &:hover { color: red; }
+  &:visited { color: red; }
+}
+
 </style>

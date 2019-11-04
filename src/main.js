@@ -11,8 +11,17 @@ import BootstrapVue from 'bootstrap-vue'
 import SvgTransition from 'vue-svg-transition';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faEdit, faTrashAlt, faDoorOpen, faBookOpen, faSignInAlt, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { 
+  faEdit, 
+  faTrashAlt, 
+  faDoorOpen, 
+  faBookOpen, 
+  faSignInAlt, 
+  faSpinner, 
+  faHeart, 
+  faSearch 
+} from '@fortawesome/free-solid-svg-icons'
 
 // importando os icones que serão utilizados no projeto
 Vue.component('font-awesome-icon', FontAwesomeIcon)
@@ -22,7 +31,9 @@ library.add(
   faDoorOpen,
   faBookOpen,
   faSignInAlt,
-  faSpinner
+  faSpinner,
+  faHeart,
+  faSearch
 )
 
 Vue.config.productionTip = false

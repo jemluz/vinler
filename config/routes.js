@@ -85,7 +85,6 @@ module.exports = app => {
     // rota de upload
     app.post('/upload', (req, res) => {
         upload(req,res,function(err){
-            // console.log(req)
 
             if(err === "INCORRECT_FILETYPE") { 
                 // console.log(err)

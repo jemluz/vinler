@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48.026" height="42.582" viewBox="0 0 48.026 42.582">
+  <g id="Grupo_73" data-name="Grupo 73" transform="translate(-1386.804 -132.7)">
+    <g id="Notificação" transform="translate(1386.804 132.7)">
+      <rect id="Retângulo_68" data-name="Retângulo 68" width="40" height="35" rx="5" transform="translate(8.026 7.582)" fill="#00abc8"/>
+      <rect id="Retângulo_69" data-name="Retângulo 69" width="18.238" height="18.238" transform="translate(16.88 13.262)" fill="none"/>
+      <ellipse id="Elipse_4" data-name="Elipse 4" cx="7.556" cy="7.556" rx="7.556" ry="7.556" fill="#ffb600"/>
+      <text id="_1" data-name="1" transform="translate(4.271 9.82)" fill="#fff" font-size="8" font-family="Aileron-Bold, Aileron" font-weight="700"><tspan x="0" y="0">1</tspan></text>
+    </g>
+    <g id="bell" transform="translate(1405.657 145.959)">
+      <path id="Caminho_11" data-name="Caminho 11" d="M184.9,465.044a3.254,3.254,0,0,0,5.956,0Z" transform="translate(-179.273 -445.342)" fill="#fff"/>
+      <path id="Caminho_12" data-name="Caminho 12" d="M198.776,2.058a7.319,7.319,0,0,1,2.5.438V2.4a2.4,2.4,0,0,0-2.4-2.4h-.2a2.4,2.4,0,0,0-2.4,2.4v.095A7.333,7.333,0,0,1,198.776,2.058Z" transform="translate(-190.166 0)" fill="#fff"/>
+      <path id="Caminho_13" data-name="Caminho 13" d="M69.578,93.846H53.668a.647.647,0,0,1-.639-.493.612.612,0,0,1,.34-.7A3.352,3.352,0,0,0,54.4,91.27a15.877,15.877,0,0,0,1.071-6.332,6.156,6.156,0,0,1,12.311-.024c0,.008,0,.016,0,.024A15.877,15.877,0,0,0,68.85,91.27a3.352,3.352,0,0,0,1.027,1.385.612.612,0,0,1,.34.7A.647.647,0,0,1,69.578,93.846Zm.306-1.186h0Z" transform="translate(-53.013 -75.407)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

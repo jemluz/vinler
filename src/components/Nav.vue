@@ -4,13 +4,11 @@
       div(class="container")
         div(class="header_content d-flex flex-row align-items-center justify-content-start")
       
-          div(class="logo")
-            router-link(to="/vitrine") Vinler  
-            bookshelfIcon(width='50px' height='20px')
-            //- <svg-transition :size="{ height: 48, width: 48 }" ref="transition" :trigger="trigger">
-            //-   <svg slot="initial"><use href="#bell" /></svg>
-            //-   <svg><use href="#bell2" /></svg>
-            //- </svg-transition>
+          //- div(class="logo")
+          //-   <svg-transition :size="{ height: 48, width: 48 }" ref="transition" :trigger="trigger">
+          //-     <svg slot="initial"><use href="#bell" /></svg>
+          //-     <svg><use href="#bell2" /></svg>
+          //-   </svg-transition>
 
           nav(class="main_nav" role="navigation")
             ul
@@ -83,4 +81,7 @@ export default {
   margin: 12px 8px; color: grey; 
   &:hover { color: red; }
 }
+
+
+
 </style>
