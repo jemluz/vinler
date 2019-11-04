@@ -145,7 +145,7 @@ export default {
     reset() {
       this.mode = 'save'
       this.objeto = {}
-      this.edit = false
+      this.imageData = null
       this.loadObjetos()
     },
     save() {
@@ -192,7 +192,7 @@ export default {
       formData.append('file', this.file)
 
       try {
-        await axios.post(`${baseApiUrl}/upload`, formData)
+        await axios.post(`${baseApiUrl}/upload-livroImg`, formData)
         this.message = 'Upado!'
       } catch(err) {
         this.message = 'Deu ruim.' + err

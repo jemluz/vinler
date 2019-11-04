@@ -27,6 +27,7 @@ module.exports = app => {
       id: usuario.id,
       login: usuario.login,
       nome: usuario.nome,
+      fotoUrl: usuario.fotoUrl,
       iat: now,
       exp: now + (60 * 60 * 24 * 3)
     }

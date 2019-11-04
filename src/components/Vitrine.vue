@@ -1,6 +1,6 @@
 <template lang='pug'>
     div
-        ListaProdutos
+        ListaLivros
     //-   Upload
       //- VAds
 
@@ -9,12 +9,12 @@
 <script>
 // import VBanner from './VBanner'
 // import VAds from './VAds'
-import ListaProdutos from './ListaProdutos'
+import ListaLivros from './ListaLivros'
 import Upload from './Upload'
 
 export default {
     name: 'Vitrine',
-    components: { Upload, ListaProdutos }
+    components: { Upload, ListaLivros }
 }
 </script>
 

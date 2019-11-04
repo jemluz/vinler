@@ -121,7 +121,7 @@ module.exports = app => {
 
     const visualizarVinculados = (req, res) => {
         app.db('livros')
-            .select('id', 'titulo')
+            .select('id', 'titulo', 'descricao', 'fotoUrl', 'proprietarioId', 'categoriaId')
             .where({ proprietarioId: req.params.id })
             .then(vinculados => res.json(vinculados))
             .catch(err => res.status(500).send(err))

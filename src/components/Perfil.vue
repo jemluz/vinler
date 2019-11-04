@@ -3,40 +3,57 @@
     div.row.profile
       div.col-md-3
         div.profile-sidebar
+
           <!-- SIDEBAR USERPIC -->
           div.profile-userpic
-            img(src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="")
-          <!-- END SIDEBAR USERPIC -->
+            img(:src="user.fotoUrl" width='100px' height='100px' alt="")
 
           <!-- SIDEBAR USER TITLE -->
           div.profile-usertitle
             div.profile-usertitle-name {{ user.nome }}
             div.profile-usertitle-job {{ vinculados.length }} Livros cadastrados
-          <!-- END SIDEBAR USER TITLE -->
-          
           
           <!-- SIDEBAR BUTTONS -->
           div.profile-userbuttons
-            button(type="button" class="btn btn-success btn-sm") Follow 
-            button(type="button" class="btn btn-danger btn-sm") Message 
-          <!-- END SIDEBAR BUTTONS -->
+            button(type="button" class="btn btn-success btn-sm") Novo Livro 
+            button(type="button" class="btn btn-danger btn-sm") Configurações
           
           <!-- SIDEBAR MENU -->
-          div.profile-usermenu
-            ul.nav
-              li.active
-                a(href="#") #[i(class="glyphicon glyphicon-home")] Meus dados
+          //- div.profile-usermenu
+          //-   ul.nav
+          //-     li.active
+          //-       a(href="#") #[i(class="glyphicon glyphicon-home")] Meus dados
               
-              li
-                a(href="#") #[i(class="glyphicon glyphicon-user")] Meus Livros
+          //-     li
+          //-       a(href="#") #[i(class="glyphicon glyphicon-user")] Meus Livros
               
-              li
-                a(href="#" target="_blank") #[i(class="glyphicon glyphicon-ok")] Matches
+          //-     li
+          //-       a(href="#" target="_blank") #[i(class="glyphicon glyphicon-ok")] Matches
               
-          <!-- END MENU -->
 
       div.col-md-9
-        div.profile-content Some user related content goes here...
+        
+        h3 Meus Livros
+        div.profile-content.row
+
+          <!-- Lista de Livros -->
+          div(
+            class="livro"
+            v-for='(vinculado, index) in vinculados'
+            )
+
+            div.livro_foto
+              router-link(to='/livro-detalhe')    
+                img(:src='vinculado.fotoUrl' width='100px' height='100px' @click='func(index)')
+
+            div.livro_titulo
+              div.product_title 
+                a(href="/") {{ vinculado.titulo }}
+
+            div(class="categoria" v-for='categoria in categorias')
+              a(href="/" v-if='categoria.id === vinculado.categoriaId ')  {{ categoria.nome }}
+
+            
 
 </template>
 
@@ -51,18 +68,28 @@ export default {
   data: function() {
     return {
       mainProps: { blank: true, blankColor: 'red', width: 75, height: 75, class: 'm1' },
-      vinculados: []
+      vinculados: [],
+      categorias: []
     }
   },
   methods: {
-    loadVinculados(id) {
+    loadVinculados() {
       const url = `${baseApiUrl}/usuarios/vinculados/${this.user.id}`
       axios.get(url).then(resposta => { this.vinculados = resposta.data }).catch(showError)
-      console.log(this.vinculados)
+    },
+    loadCategorias() {
+      // utiliza uma url pra fazer uma requisição com o axios e carregar um array de clientes
+      axios.get(`${baseApiUrl}/categorias`).then(resposta => {
+          this.categorias = resposta.data
+      })
+    },
+    func(index) {
+      this.$store.commit('setLivroId', this.produtos[index].id)
     }
   },
-  created() {
+  mounted() {
     this.loadVinculados()
+    this.loadCategorias()
   }
 }
 </script>
@@ -71,6 +98,7 @@ export default {
 /* Profile container */
 .profile {
   margin: 20px 0;
+
 }
 
 /* Profile sidebar */
@@ -80,8 +108,8 @@ export default {
 }
 
 .profile-userpic img {
-  float: none;
-  margin: 0 auto;
+  display: flex;  
+  margin: 0px auto;
   width: 50%;
   height: 50%;
   -webkit-border-radius: 50% !important;

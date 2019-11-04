@@ -78,12 +78,33 @@ module.exports = app => {
         res.sendFile(path.join(__dirname, "../uploads/image.png"));
     });
 
+    app.get("/image/profile-1.jpg", (req, res) => { 
+        res.sendFile(path.join(__dirname, "../uploads/profile-1.jpg"));
+    });
 
     // app.route('upload')
     //     .post(app.api.upload.upload)
 
     // rota de upload
-    app.post('/upload', (req, res) => {
+    app.post('/upload-livroImg', (req, res) => {
+        upload(req,res,function(err){
+
+            if(err === "INCORRECT_FILETYPE") { 
+                // console.log(err)
+                res.status(422).json({ erro: "Apenas imagens são aceitas."})
+            }
+            if (err === "LIMIT_FILE_SIZE") {
+                // console.log(err.code)
+                res.status(422).json({ erro: "Arquivo muito grande"})
+            } 
+            else { 
+                res.json({ file: req.file })
+            }
+        });
+        
+    }); 
+
+    app.post('/upload-profileImg', (req, res) => {
         upload(req,res,function(err){
 
             if(err === "INCORRECT_FILETYPE") { 

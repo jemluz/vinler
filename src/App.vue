@@ -4,7 +4,6 @@
     Loading.loading(v-if="isBussy")
     div(v-else)
       Header
-      Nav
       //- Content(@add-to-cart="updateCart")
       Content(v-if='!validatingToken')
       Footer
@@ -17,14 +16,13 @@ import { baseApiUrl, userKey } from '@/global'
 
 import { mapState } from "vuex";
 import Header from "@/components/Header";
-import Nav from "@/components/Nav";
 import Content from "@/components/Content";
 import Footer from "@/components/Footer";
 import Loading from "@/components/Loading";
 
 export default {
   name: "App",
-  components: { Header, Nav, Content, Footer, Loading },
+  components: { Header, Content, Footer, Loading },
   computed: mapState(['isLogoutVisible', 'user']),
   data: function() {
     return {

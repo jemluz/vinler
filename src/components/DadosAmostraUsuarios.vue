@@ -9,11 +9,13 @@
               th.pd-top Id / Nome
               th.pd-top E-mail
               th.pd-top Login / Senha Criptografada
+              th.pd-top FotoUrl
               th.pd-top Ações
             tr(v-for="objeto in objetos", class='data-tr')
               th.pd-left {{ objeto.id }} / {{ objeto.nome }}
               th.pd-left {{ objeto.email.slice(0,10)+'...' }}
-              th.pd-left {{ objeto.login }} / {{ objeto.senha.slice(0,8)+'...' }}
+              th.pd-left {{ objeto.login }} / {{ objeto.senha.slice(0,5)+'...' }}
+              th.pd-left #[img(:src='objeto.fotoUrl' width='50px' height='50px')]
               th.pd-top.pd-right.row 
                 button(@click='loadObjeto(objeto, "save", true)' class='bt-edit') #[font-awesome-icon(icon="edit")]
                 button(@click="loadObjeto(objeto, 'remove', false)" class='bt-remove') #[font-awesome-icon(icon="trash-alt")]
@@ -47,6 +49,14 @@
                   v-model='objeto.login'
                   :readonly='mode === "remove"'
                   required
+                )
+
+              div.form-group.mr-3
+                input(
+                  type='file' 
+                  ref='file' 
+                  accept="file_extension|image/*"
+                  @change='onSelect'
                 )
 
               div.form-group.mr-3
@@ -97,17 +107,22 @@
 
 <script>
 import { baseApiUrl, showError } from '@/global'
+import { mapState } from 'vuex'
 import axios from 'axios'
 // o axios é responsável por enviar requisições da view
 
 export default {
   name: "DadosAmostra",
+  computed: mapState(["user"]),
   data: function() {
     return {
       mode: 'save', 
       objeto: {},
       objetos: [],
-      edit: false
+      edit: false,
+      file: "",
+      message: '',
+      imageData: ""
     }
   },
   methods: {
@@ -137,11 +152,17 @@ export default {
       this.mode = 'save'
       this.objeto = {}
       this.edit = false
+      this.imageData = null
       this.loadObjetos()
     },
     save() {
       const method = this.edit ? 'put' : 'post'
       const id = this.edit ? `/${ this.objeto.id }` : ''
+
+      this.onSubmit()
+      console.log(this.message)
+      this.objeto.fotoUrl = `${baseApiUrl}/image/profile-1.jpg`
+
       axios[method](`${baseApiUrl}/usuarios${id}`, this.objeto)
         .then(() => { 
           this.$toasted.global.defaultSucess()
@@ -157,6 +178,49 @@ export default {
           this.reset()
         })
         .catch(showError)
+    },
+    onSelect() {
+      this.previewImage()
+      const tiposPermitidos = ["image/jpeg", "image/jpg", "image/png"]
+      const file = this.$refs.file.files[0]
+      this.file = file
+
+      if(!tiposPermitidos.includes(file.type)){
+        this.message = "Apenas imagens são aceitas."
+      }
+
+      if(file.size > 500000) {
+        this.message = "Arquivo muito grande. O máximo permitido é 50KB"
+      }
+    },
+    async onSubmit() {
+      const formData = new FormData()
+      formData.append('userId', this.user.id)
+      formData.append('file', this.file)
+
+      try {
+        await axios.post(`${baseApiUrl}/upload-profileImg`, formData)
+        this.message = 'Upado!'
+      } catch(err) {
+        this.message = 'Deu ruim.' + err
+      }
+    },
+    previewImage() {
+      // Reference to the DOM input element
+      var input = event.target;
+      // Ensure that you have a file before attempting to read it
+      if (input.files && input.files[0]) {
+        // create a new FileReader to read this image and convert to base64 format
+        var reader = new FileReader();
+        // Define a callback function to run, when FileReader finishes its job
+        reader.onload = (e) => {
+          // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+          // Read image as base64 and set to imageData
+          this.imageData = e.target.result;
+        }
+        // Start the reader job - read file as a data url (base64 format)
+        reader.readAsDataURL(input.files[0]);
+      }
     }
   },
   mounted() {
