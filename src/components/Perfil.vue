@@ -1,57 +1,55 @@
 <template lang='pug'>
-  div.container
-    div.row.profile
-      div.col-md-3
-        div.profile-sidebar
+    div.profile
+      div.profile-sidebar
 
-          <!-- SIDEBAR USERPIC -->
-          div.profile-userpic
-            img(:src="user.fotoUrl" width='100px' height='100px' alt="")
+        <!-- SIDEBAR USERPIC -->
+        div.profile-userpic
+          img(:src="user.fotoUrl" width='100px' height='100px' alt="")
 
-          <!-- SIDEBAR USER TITLE -->
-          div.profile-usertitle
-            div.profile-usertitle-name {{ user.nome }}
-            div.profile-usertitle-job {{ vinculados.length }} Livros cadastrados
-          
-          <!-- SIDEBAR BUTTONS -->
-          div.profile-userbuttons
-            button(type="button" class="btn btn-success btn-sm") Novo Livro 
-            button(type="button" class="btn btn-danger btn-sm") Configurações
-          
-          <!-- SIDEBAR MENU -->
-          //- div.profile-usermenu
-          //-   ul.nav
-          //-     li.active
-          //-       a(href="#") #[i(class="glyphicon glyphicon-home")] Meus dados
-              
-          //-     li
-          //-       a(href="#") #[i(class="glyphicon glyphicon-user")] Meus Livros
-              
-          //-     li
-          //-       a(href="#" target="_blank") #[i(class="glyphicon glyphicon-ok")] Matches
-              
-
-      div.col-md-9
+        <!-- SIDEBAR USER TITLE -->
+        div.profile-usertitle
+          div.profile-usertitle-name {{ user.nome }}
+          div.profile-usertitle-job {{ vinculados.length }} Livros cadastrados
         
-        h3 Meus Livros
-        div.profile-content.row
+        <!-- SIDEBAR BUTTONS -->
+        div.profile-userbuttons
+          button(type="button" class="btn btn-success btn-sm") Novo Livro 
+          button(type="button" class="btn btn-danger btn-sm") Configurações
+        
+        <!-- SIDEBAR MENU -->
+        //- div.profile-usermenu
+        //-   ul.nav
+        //-     li.active
+        //-       a(href="#") #[i(class="glyphicon glyphicon-home")] Meus dados
+            
+        //-     li
+        //-       a(href="#") #[i(class="glyphicon glyphicon-user")] Meus Livros
+            
+        //-     li
+        //-       a(href="#" target="_blank") #[i(class="glyphicon glyphicon-ok")] Matches
+              
 
-          <!-- Lista de Livros -->
-          div(
-            class="livro mr-5 "
-            v-for='(vinculado, index) in vinculados'
-            )
+      //- div.profile_painel
+        
+      //-   h3 Meus Livros
+      //-   div.profile-content.row
 
-            div.livro_foto
-              router-link(to='/livro-detalhe')    
-                img(:src='vinculado.fotoUrl' width='150px' height='150px' @click='func(index)')
+      //-     <!-- Lista de Livros -->
+      //-     div(
+      //-       class="livro mr-5 "
+      //-       v-for='(vinculado, index) in vinculados'
+      //-       )
 
-            div.livro_titulo
-              div.product_title 
-                a(href="/") {{ vinculado.titulo }}
+      //-       div.livro_foto
+      //-         router-link(to='/livro-detalhe')    
+      //-           img(:src='vinculado.fotoUrl' width='150px' height='150px' @click='func(index)')
 
-            div(class="categoria" v-for='categoria in categorias')
-              a(href="/" v-if='categoria.id === vinculado.categoriaId ')  {{ categoria.nome }}
+      //-       div.livro_titulo
+      //-         div.product_title 
+      //-           a(href="/") {{ vinculado.titulo }}
+
+      //-       div(class="categoria" v-for='categoria in categorias')
+      //-         a(href="/" v-if='categoria.id === vinculado.categoriaId ')  {{ categoria.nome }}
 
             
 
@@ -94,13 +92,69 @@ export default {
 }
 </script>
 
-<style>
+<style lang='scss'>
 /* Profile container */
 .profile {
-  margin: 20px 0;
+  margin: 20px 0px;
+  justify-content: center;
+  display: grid;
+  padding: 0px;
+  margin: 0px;
+  flex-direction: row;
 
+  @media only screen and (max-width: 900px) {
+
+      grid-template-columns: .5fr 1fr 2fr .5fr;
+      grid-template-rows: .5fr .5fr 2fr;
+
+      .profile-sidebar {
+        grid-column: 2 / 4;
+        grid-row: 1 / 2;
+
+        flex-direction: column;
+
+        .profile-userpic { 
+          grid-column: 2 / 3;
+          grid-row: 1 / 2;
+        }
+
+        .profile-usertitle {
+          grid-column: 2 / 3;
+          grid-row: 1 / 2;
+
+          margin: 0px;
+          padding: 0px;
+
+          width: 100px;
+
+          text-align: left;
+        }
+
+        .profile-usertitle {
+          grid-column: 2 / 3;
+          grid-row: 1 / 2;
+
+          margin: 0px;
+          padding: 0px;
+
+          width: 100px;
+
+          text-align: left;
+        }
+
+      }
+
+      .profile-userbuttons {
+        grid-column: 2 / 4;
+        grid-row: 2 / 3;
+      }
+
+  }
+
+  @media only screen and (min-width: 901px) {
+
+  }
 }
-
 /* Profile sidebar */
 .profile-sidebar {
   padding: 20px 0 10px 0;
@@ -109,9 +163,9 @@ export default {
 
 .profile-userpic img {
   display: flex;  
-  margin: 0px auto;
-  width: 50%;
-  height: 50%;
+  // margin: 0px auto;
+  // width: 50%;
+  // height: 50%;
   -webkit-border-radius: 50% !important;
   -moz-border-radius: 50% !important;
   border-radius: 50% !important;
@@ -199,4 +253,5 @@ export default {
   background: #fff;
   min-height: 460px;
 }
+
 </style>
