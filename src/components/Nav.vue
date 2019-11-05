@@ -12,7 +12,6 @@
 
     div
       router-link(to="/auth" class="nav-link" alt="Login" title='Login' v-if='!user') #[font-awesome-icon(icon='sign-in-alt')]             
-      router-link(to="/minha-conta" class="nav-link " alt="Login" v-else :class="{ 'hide-element': !user }") Olá, {{ user ? (user.nome.charAt(0).toUpperCase() + user.nome.slice(1)) : null }}!
    
     a(class='nav-link' v-if='user') #[font-awesome-icon(alt="Logout" title='Logout' @click.prevent="logout" icon="door-open" )] 
       //- ul

@@ -13,7 +13,7 @@
     Nav
 
     <!-- Botão Minha Conta -->
-    a(href='/minha-conta' class="toggle bt-minha-conta")
+    router-link(to='/minha-conta' class="toggle bt-minha-conta nav-link" :class="{ 'hide-element': !user }") Olá, {{ user ? (user.nome.charAt(0).toUpperCase() + user.nome.slice(1)) : null }}
         include ../assets/user.svg
 
     <!-- Botão Notificações -->
@@ -50,7 +50,7 @@ export default {
   props: {
     hideToggle: Boolean,
   },
-  computed: mapState(['isCloseMenu', 'isCloseMinhaConta', 'isCloseNotify']),
+  computed: mapState(['isCloseMenu', 'isCloseMinhaConta', 'isCloseNotify', 'user']),
   methods: {
     toggleMenu() {
       this.$store.commit("toggleMenu")
@@ -68,6 +68,11 @@ export default {
     display: grid !important;
     top: -2px;
     align-items: center;
+
+    #user_svg { 
+      fill: #fff; 
+    }
+
 
     @media only screen and (max-width: 900px) {
     
@@ -127,7 +132,7 @@ export default {
     }
     
     @media only screen and (min-width: 901px) {
-      grid-template-columns: 15vw 1fr 1fr 1fr 5vw 10vw 5vw 15vw; 
+      grid-template-columns: 15vw 1fr 1fr 1fr 5vw 3vw 12vw 15vw; 
       grid-template-rows: .5fr 1fr .5fr 2fr; 
 
       align-items: flex-end;
@@ -180,6 +185,18 @@ export default {
 
         justify-self: flex-start;  
         align-self: flex-end;
+
+        background-color: #FFB600;
+        border-radius: 5px;
+        padding: 0px 15px;
+        color: white;
+
+        &:hover { background-color: #FFBE1D; color: white; }
+
+        svg { 
+          width: 20px;
+          margin-left: 10px; 
+        }
       }
 
       .bt-notify {
