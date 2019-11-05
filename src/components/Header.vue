@@ -13,10 +13,7 @@
     Nav
 
     <!-- Botão Minha Conta -->
-    a(href='/minha-conta' class="toggle bt-minha-conta" @click="toggleMinhaConta" v-if="!hideToggle")
-      div(v-show="isCloseMinhaConta")
-        include ../assets/close-menu.svg
-      div(v-show="!isCloseMinhaConta")
+    a(href='/minha-conta' class="toggle bt-minha-conta")
         include ../assets/user.svg
 
     <!-- Botão Notificações -->
@@ -57,9 +54,6 @@ export default {
   methods: {
     toggleMenu() {
       this.$store.commit("toggleMenu")
-    },
-    toggleMinhaConta() {
-      this.$store.commit("toggleMinhaConta")
     },
     toggleNotify() {
       this.$store.commit("toggleNotify")

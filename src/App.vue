@@ -62,7 +62,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.isBussy = false
-    }, 700)
+    }, 200)
   },
   created() {
     this.validateToken() 

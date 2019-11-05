@@ -16,8 +16,6 @@ export default new Vuex.Store({
     // variaveis para botoes mobile do menu
     isMenuVisible: false,
     isCloseMenu: false,   
-    isMinhaContaVisible: false,
-    isCloseMinhaConta: false,
     isNotifyVisible: false,
     isCloseNotify: false
   },
