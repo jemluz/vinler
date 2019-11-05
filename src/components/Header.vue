@@ -15,9 +15,10 @@
     <!-- Botão Minha Conta -->
     router-link(to='/minha-conta' class="toggle bt-minha-conta nav-link" :class="{ 'hide-element': !user }") Olá, {{ user ? (user.nome.charAt(0).toUpperCase() + user.nome.slice(1)) : null }}
         include ../assets/user.svg
+    router-link(to="/auth" class="nav-link bt-login" alt="Login" title='Login' v-if='!user') Login #[font-awesome-icon(icon='sign-in-alt')]
 
     <!-- Botão Notificações -->
-    a(class="toggle bt-notify" @click="toggleNotify" v-if="!hideToggle")
+    a(class="toggle bt-notify" @click="toggleNotify" v-if="!hideToggle" :class="{ 'hide-element': !user }")
       div(v-show="isCloseNotify")
         include ../assets/close-menu.svg
       div(v-show="!isCloseNotify")
@@ -97,6 +98,26 @@ export default {
 
         justify-self: flex-end;
         align-self: flex-end;
+      }
+
+      .bt-login {
+        grid-column: 4 / 6;
+        grid-row: 2 / 3;
+
+        justify-self: flex-end;  
+        align-self: flex-end;
+
+        background-color: #FFB600;
+        border-radius: 5px;
+        padding: 5px 15px;
+        color: white;
+
+        &:hover { background-color: #FFBE1D; color: white; }
+
+        svg { 
+          width: 20px;
+          margin-left: 10px; 
+        }
       }
 
       .bt-notify {
@@ -193,6 +214,27 @@ export default {
 
         &:hover { background-color: #FFBE1D; color: white; }
 
+        svg { 
+          width: 20px;
+          margin-left: 10px; 
+        }
+      }
+
+      .bt-login {
+        grid-column: 7 / 8;
+        grid-row: 2 / 3;
+
+        justify-self: flex-start;  
+        align-self: flex-end;
+
+        align-items: center;
+        padding: 5px 15px;
+        background-color: #FFB600;
+        border-radius: 5px;
+        
+        color: white;
+
+        &:hover { background-color: #FFBE1D; color: white; }
         svg { 
           width: 20px;
           margin-left: 10px; 

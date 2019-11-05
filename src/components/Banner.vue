@@ -12,12 +12,28 @@ export default {
 <style lang="scss">
   .banner { 
     width:100vw;
-    height: 400px; 
-    background-image: url('../assets/banner.png');
+    background-size: cover;
+    display: flex;
+    align-items: center;
 
-    h1 {
-      padding: 12vh 35vw;
-      color: white;
+    @media only screen and (max-width: 900px) {
+      background-image: url('../assets/banner-mobile.png');
+      height: 400px; 
+
+      h1 {
+        padding: 0vh 15vw;
+        color: white;
+        font-size: 30px;
+      }
     }
+    @media only screen and (min-width: 901px) {
+      background-image: url('../assets/banner.png');
+      height: 400px; 
+
+      h1 {
+        padding: 0vh 35vw;
+        color: white;
+      }
+    }   
   }
 </style>

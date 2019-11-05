@@ -8,10 +8,7 @@
 
     
     router-link(to="/dados" class="nav-link") Database
-    router-link(to="/vitrine" class="nav-link") Livros
-
-    div
-      router-link(to="/auth" class="nav-link" alt="Login" title='Login' v-if='!user') #[font-awesome-icon(icon='sign-in-alt')]             
+    router-link(to="/vitrine" class="nav-link") Livros              
    
     a(class='nav-link' v-if='user') #[font-awesome-icon(alt="Logout" title='Logout' @click.prevent="logout" icon="door-open" )] 
       //- ul
@@ -79,11 +76,6 @@ export default {
       }
     }
   }
-
-
-  .hide-element { display: none; }
-  .nav-link-welcome { color: black; }
-
 
   // svg mutate
   .logo { 
