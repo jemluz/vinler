@@ -128,7 +128,9 @@ export default {
     
     @media only screen and (min-width: 901px) {
       grid-template-columns: 15vw 1fr 1fr 1fr 5vw 5vw 5vw 15vw; 
-      grid-template-rows: .5fr 1fr .5fr; 
+      grid-template-rows: .5fr   1fr .5fr; 
+
+      align-items: flex-end;
 
       .bt-menu {  display: none; }
 

@@ -1,33 +1,23 @@
 <template lang="pug">
-  nav.nav
-    div(class="header_container")
-      div(class="container")
-        div(class="header_content d-flex flex-row align-items-center justify-content-start")
-      
-          //- div(class="logo")
-          //-   <svg-transition :size="{ height: 48, width: 48 }" ref="transition" :trigger="trigger">
-          //-     <svg slot="initial"><use href="#bell" /></svg>
-          //-     <svg><use href="#bell2" /></svg>
-          //-   </svg-transition>
+  nav.main_nav.row  
+    //- div(class="logo")
+    //-   <svg-transition :size="{ height: 48, width: 48 }" ref="transition" :trigger="trigger">
+    //-     <svg slot="initial"><use href="#bell" /></svg>
+    //-     <svg><use href="#bell2" /></svg>
+    //-   </svg-transition>
 
-          nav(class="main_nav" role="navigation")
-            ul
-              li(class="hassubs active")
-                router-link(to="/dados" class="nav-link") Database
+    
+    router-link(to="/dados" class="nav-link") Database
+    router-link(to="/vitrine" class="nav-link") Vitrine
 
-            ul(v-if='!user')
-              li(class="hassubs")                
-                router-link(to="/auth" class="nav-link" alt="Login" ) #[font-awesome-icon(icon='sign-in-alt')] Login
-
-            ul(v-else :class="{ 'hide-element': !user }")
-              //- li(class="hassubs" )                
-              //-   router-link(to="/minha-conta" class="nav-link nav-link-welcome" alt="Login") Bem vindo, {{ user ? (user.nome.charAt(0).toUpperCase() + user.nome.slice(1)) : null }}!
-
-              li(class="hassubs")                
-                font-awesome-icon(alt="Logout" title='Logout' class='icon-menu' @click.prevent="logout" icon="door-open")
-                //- ul
-                //-   li
-                //-     router-link(to="categories.html") a
+    div
+      router-link(to="/auth" class="nav-link" alt="Login" v-if='!user') #[font-awesome-icon(icon='sign-in-alt')] Login            
+      router-link(to="/minha-conta" class="nav-link nav-link-welcome" alt="Login" v-else :class="{ 'hide-element': !user }") Olá, {{ user ? (user.nome.charAt(0).toUpperCase() + user.nome.slice(1)) : null }}!
+   
+    router-link(to='' class='nav-link') #[font-awesome-icon(alt="Logout" title='Logout' @click.prevent="logout" icon="door-open" v-if='')] Logout
+      //- ul
+      //-   li
+      //-     router-link(to="categories.html") a
 
 
 </template>
@@ -67,27 +57,34 @@ export default {
 </script>
 
 <style lang="scss">
+  nav { 
+    display: grid; 
+    text-align: center; 
 
-.logo { display: flex; flex-direction: column; text-align: center; }
-.main_nav { 
-  display: flex; 
-  flex-direction: row; 
-  text-align: center; 
-  justify-content: space-between;
+    a { 
+      color: grey; 
+      &:hover { color: black; }
+    }
 
-  ul { 
-    display: flex; 
-    flex-direction: row;
+    @media only screen and (max-width: 900px) {
+
+    }
+
+    @media only screen and (min-width: 901px) {
+      align-itens: flex-end;
+    }
   }
-}
-.hide-element { display: none; }
-.nav-link-welcome { color: black; }
-
-.icon-menu { 
-  margin: 12px 8px; color: grey; 
-  &:hover { color: red; }
-}
 
 
+  .hide-element { display: none; }
+  .nav-link-welcome { color: black; }
+
+
+  // svg mutate
+  .logo { 
+    display: flex; 
+    flex-direction: column; 
+    text-align: center; 
+  }
 
 </style>
