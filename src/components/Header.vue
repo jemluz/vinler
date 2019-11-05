@@ -127,8 +127,8 @@ export default {
     }
     
     @media only screen and (min-width: 901px) {
-      grid-template-columns: 15vw 1fr 1fr 1fr 5vw 5vw 5vw 15vw; 
-      grid-template-rows: .5fr   1fr .5fr; 
+      grid-template-columns: 15vw 1fr 1fr 1fr 5vw 10vw 5vw 15vw; 
+      grid-template-rows: .5fr 1fr .5fr 2fr; 
 
       align-items: flex-end;
 
@@ -142,12 +142,15 @@ export default {
       }
 
       nav { 
-        grid-column: 3 / 4;
-        grid-row: 2 / 3; 
+        grid-column: 3 / 5;
+        grid-row: 4 / 5; 
+
+        align-self: center;
+        justify-self: center;
       }
 
       .barra-pesquisa {
-        grid-column: 4 / 5;
+        grid-column: 3 / 5;
         grid-row: 2 / 3;
         
         border-radius: 5px 0px 0px 5px;

@@ -8,13 +8,13 @@
 
     
     router-link(to="/dados" class="nav-link") Database
-    router-link(to="/vitrine" class="nav-link") Vitrine
+    router-link(to="/vitrine" class="nav-link") Livros
 
     div
-      router-link(to="/auth" class="nav-link" alt="Login" v-if='!user') #[font-awesome-icon(icon='sign-in-alt')] Login            
-      router-link(to="/minha-conta" class="nav-link nav-link-welcome" alt="Login" v-else :class="{ 'hide-element': !user }") Olá, {{ user ? (user.nome.charAt(0).toUpperCase() + user.nome.slice(1)) : null }}!
+      router-link(to="/auth" class="nav-link" alt="Login" title='Login' v-if='!user') #[font-awesome-icon(icon='sign-in-alt')]             
+      router-link(to="/minha-conta" class="nav-link " alt="Login" v-else :class="{ 'hide-element': !user }") Olá, {{ user ? (user.nome.charAt(0).toUpperCase() + user.nome.slice(1)) : null }}!
    
-    router-link(to='' class='nav-link') #[font-awesome-icon(alt="Logout" title='Logout' @click.prevent="logout" icon="door-open" v-if='')] Logout
+    a(class='nav-link' v-if='user') #[font-awesome-icon(alt="Logout" title='Logout' @click.prevent="logout" icon="door-open" )] 
       //- ul
       //-   li
       //-     router-link(to="categories.html") a
@@ -72,6 +72,12 @@ export default {
 
     @media only screen and (min-width: 901px) {
       align-itens: flex-end;
+
+      .router-link-active { 
+        color: white; 
+        background-color: #FFB600;
+        border-radius: 5px;
+      }
     }
   }
 
