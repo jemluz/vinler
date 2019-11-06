@@ -13,14 +13,12 @@
     Nav
 
     <!-- Botão Minha Conta -->
-    a(href='/minha-conta' class="toggle bt-minha-conta" @click="toggleMinhaConta" v-if="!hideToggle")
-      div(v-show="isCloseMinhaConta")
-        include ../assets/close-menu.svg
-      div(v-show="!isCloseMinhaConta")
-        include ../assets/user.svg
+    router-link(to='/minha-conta' class="toggle bt-minha-conta nav-link" :class="{ 'hide-element': !user }") Olá, {{ user ? (user.nome.charAt(0).toUpperCase() + user.nome.slice(1)) : null }}
+      include ../assets/user.svg
+    router-link(to="/auth" class="nav-link bt-login" alt="Login" title='Login' v-if='!user') Login #[font-awesome-icon(icon='sign-in-alt')]
 
     <!-- Botão Notificações -->
-    a(class="toggle bt-notify" @click="toggleNotify" v-if="!hideToggle")
+    a(class="toggle bt-notify" @click="toggleNotify" v-if="!hideToggle" :class="{ 'hide-element': !user }")
       div(v-show="isCloseNotify")
         include ../assets/close-menu.svg
       div(v-show="!isCloseNotify")
@@ -53,13 +51,10 @@ export default {
   props: {
     hideToggle: Boolean,
   },
-  computed: mapState(['isCloseMenu', 'isCloseMinhaConta', 'isCloseNotify']),
+  computed: mapState(['isCloseMenu', 'isCloseMinhaConta', 'isCloseNotify', 'user']),
   methods: {
     toggleMenu() {
       this.$store.commit("toggleMenu")
-    },
-    toggleMinhaConta() {
-      this.$store.commit("toggleMinhaConta")
     },
     toggleNotify() {
       this.$store.commit("toggleNotify")
@@ -75,9 +70,14 @@ export default {
     top: -2px;
     align-items: center;
 
+    #user_svg { 
+      fill: #fff; 
+    }
+
+
     @media only screen and (max-width: 900px) {
     
-      grid-template-columns: .5fr .5fr 1fr 1fr 1fr .5fr; 
+      grid-template-columns: .5fr 2fr 1fr 1fr .5fr; 
       grid-template-rows: .5fr 1fr .5fr 1fr .5fr; 
       height: 150px;
 
@@ -88,27 +88,60 @@ export default {
         grid-row: 2 / 3;
       }
       .logo {
-        grid-column: 3 / 4;
+        grid-column: 2 / 3;
         grid-row: 2 / 3;
       }
 
       .bt-minha-conta {
-        grid-column: 4 / 5;
+        grid-column: 3 / 5;
         grid-row: 2 / 3;
 
         justify-self: flex-end;
         align-self: flex-end;
+
+        background-color: #FFB600;
+        border-radius: 5px;
+        padding: 0px 15px;
+        color: white;
+
+        &:hover { background-color: #FFBE1D; color: white; }
+
+        p { display: none; }
+        svg { 
+          width: 20px;
+        }
+      }
+
+      .bt-login {
+        grid-column: 3 / 5;
+        grid-row: 2 / 3;
+
+        justify-self: flex-end;  
+        align-self: flex-end;
+
+        background-color: #FFB600;
+        border-radius: 5px;
+        padding: 5px 15px;
+        color: white;
+
+        &:hover { background-color: #FFBE1D; color: white; }
+
+        svg { 
+          width: 20px;
+          margin-left: 10px; 
+        }
       }
 
       .bt-notify {
-        grid-column: 5 / 6;
-        grid-row: 2 / 3;
+        // grid-column: 5 / 6;
+        // grid-row: 2 / 3;
 
         justify-self: flex-end;
+        display: none;
       }
 
       .barra-pesquisa {
-        grid-column: 2 / 5;
+        grid-column: 2 / 4;
         grid-row: 4 / 5;
         
         border-radius: 5px 0px 0px 5px;
@@ -121,7 +154,7 @@ export default {
       }
 
       .bt-pesquisa {
-        grid-column: 5 / 6;
+        grid-column: 4 / 5;
         grid-row: 4 / 5;
 
         border-radius: 0px 5px 5px 0px;
@@ -133,8 +166,10 @@ export default {
     }
     
     @media only screen and (min-width: 901px) {
-      grid-template-columns: 15vw 1fr 1fr 1fr 5vw 5vw 5vw 15vw; 
-      grid-template-rows: .5fr 1fr .5fr; 
+      grid-template-columns: 15vw 1fr 1fr 1fr 5vw 3vw 12vw 15vw; 
+      grid-template-rows: .5fr 1fr .5fr 2fr; 
+
+      align-items: flex-end;
 
       .bt-menu {  display: none; }
 
@@ -146,12 +181,15 @@ export default {
       }
 
       nav { 
-        grid-column: 3 / 4;
-        grid-row: 2 / 3; 
+        grid-column: 3 / 5;
+        grid-row: 4 / 5; 
+
+        align-self: center;
+        justify-self: center;
       }
 
       .barra-pesquisa {
-        grid-column: 4 / 5;
+        grid-column: 3 / 5;
         grid-row: 2 / 3;
         
         border-radius: 5px 0px 0px 5px;
@@ -181,6 +219,39 @@ export default {
 
         justify-self: flex-start;  
         align-self: flex-end;
+
+        background-color: #FFB600;
+        border-radius: 5px;
+        padding: 0px 15px;
+        color: white;
+
+        &:hover { background-color: #FFBE1D; color: white; }
+
+        svg { 
+          width: 20px;
+          margin-left: 10px; 
+        }
+      }
+
+      .bt-login {
+        grid-column: 7 / 8;
+        grid-row: 2 / 3;
+
+        justify-self: flex-start;  
+        align-self: flex-end;
+
+        align-items: center;
+        padding: 5px 15px;
+        background-color: #FFB600;
+        border-radius: 5px;
+        
+        color: white;
+
+        &:hover { background-color: #FFBE1D; color: white; }
+        svg { 
+          width: 20px;
+          margin-left: 10px; 
+        }
       }
 
       .bt-notify {

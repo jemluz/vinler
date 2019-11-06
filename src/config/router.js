@@ -25,7 +25,7 @@ export default new Router({
     },
     {
       path: '/auth',
-      name: 'auth',
+      name: 'Login',
       component: LoginCadastro
     },
     {
@@ -37,6 +37,12 @@ export default new Router({
       path: '/minha-conta',
       name: 'Perfil',
       component: Perfil
+    },
+    {
+      path: '/livro/:id',
+      name: 'Livro',
+      // component: Livro
+      props: true
     }
 
   ]

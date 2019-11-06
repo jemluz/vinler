@@ -62,7 +62,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.isBussy = false
-    }, 700)
+    }, 200)
   },
   created() {
     this.validateToken() 
@@ -79,4 +79,5 @@ a:hover, a, li { text-decoration: none !important; }
 li { list-style-type: none; }
 
 .loading { margin: 200px; }
+ .hide-element { display: none; }
 </style>

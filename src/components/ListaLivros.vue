@@ -1,7 +1,12 @@
 <template lang='pug'>
   div.container
-      div.col
-        h3 Livros
+    section.categorias.row.mt-5(v-for='categoria in categorias')
+      div.bt-prev 
+        include ../assets/seta.svg
+      div.bt-next 
+        include ../assets/seta.svg
+      div.livros
+        h4.mb-3 {{ categoria.nome }}
         div.livro_grid
 
           <!-- Livros -->
@@ -21,7 +26,7 @@
               div.product_title 
                 a(href="/") #[p {{ objeto.descricao }}]
 
-            div(class="categoria_livro" v-for='categoria in categorias')
+            div(class="categoria_livro" v-for='categoria in categorias' v-if='categoria.id === objeto.categoriaId ')
               a(href="/" v-if='categoria.id === objeto.categoriaId ')  #[p {{ categoria.nome }}]
             
 
@@ -68,19 +73,46 @@ div.container {
   display: grid;
   padding: 0px;
 
+  section {
+    display: grid;
+    grid-template-columns: 5% 90% 5%;
+    grid-template-rows: 1fr;
+    align-items: center;
+
+    .bt-prev, .bt-next {
+      svg { max-width: 40px;}
+    }
+
+    .bt-next { 
+      grid-column: 3/ 4; 
+      grid-row: 1/ 2; 
+      transform: rotate(180deg);
+    }
+    .livros { 
+      grid-column: 2/ 3; 
+      grid-row: 1/ 2; 
+
+    }
+  }
+
+  .livros { padding: 0px 50px; }
+
   .livro_grid { 
     display: flex;
     height: initial; 
     flex-direction: row; 
     justify-content: space-between; 
     flex-wrap: wrap;  
+    
   }
 
-  .livro { margin-bottom: 20px; }  
+  .livro { 
+    margin-bottom: 20px; 
+    max-width: 150px;
 
-  .livro {
+    text-align: center;
     a { color: gray; }
-  }
+  }  
 
   .categoria_livro { 
     background-color: #f1f1f1; 
@@ -114,7 +146,10 @@ div.container {
   }
 
   // DESKTOP
-  @media only screen and (min-width: 901px) {}
+  @media only screen and (min-width: 901px) {
+
+
+  }
 
 }
 </style>
