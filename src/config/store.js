@@ -10,14 +10,14 @@ export default new Vuex.Store({
     user: null,
     isLoged: false, 
 
-    // variavel para encaminhar um clique na vitrine para uma pagina de livro
-    livroId: null,
-
     // variaveis para botoes mobile do menu
     isMenuVisible: false,
     isCloseMenu: false,   
     isNotifyVisible: false,
-    isCloseNotify: false
+    isCloseNotify: false,
+
+    // variável para a barra de pesquisa
+    buscar: ''
   },
   mutations: {
     setUser(state, user) {
@@ -29,9 +29,6 @@ export default new Vuex.Store({
         delete axios.defaults.headers.common['Authorization'] 
         this.isLoged = false
       }
-    },
-    setLivroId(state, livroId) {
-      state.livroId = livroId
     },
     toggleMenu (state, isVisible) {
       // se isVisible ainda não foi definida
@@ -71,6 +68,9 @@ export default new Vuex.Store({
         state.isCloseNotify = isVisible
         // alterne para o valor oposto
       }
+    },
+    setBusca(state, livro) {
+      state.buscar = livro
     }
   }
 }) 

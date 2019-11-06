@@ -42,7 +42,8 @@ export default new Router({
     {
       path: '/livro/:id',
       name: 'livro',
-      component: Livro
+      component: Livro,
+      props: true
     }
 
   ]

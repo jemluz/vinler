@@ -34,38 +34,44 @@
 
 <script>
 import { baseApiUrl, showError } from '@/global'
+import { mapState } from 'vuex'
 import axios from 'axios'
 
 export default {
-    name: 'ListaLivros',
-    data: function() {
-        return { 
-            objetos: [],
-            categorias: [], 
-            id: this.$route.params.id
-        }
-    },
-    methods: {
-        loadObjetos() {
-          const url = `${baseApiUrl}/livros`
-          axios.get(url).then(resposta => { this.objetos = resposta.data }).catch(showError)
-        },
-        loadCategorias() {
-            // utiliza uma url pra fazer uma requisição com o axios e carregar um array de clientes
-            axios.get(`${baseApiUrl}/categorias`).then(resposta => {
-                this.categorias = resposta.data
-            })
-        },
-        // toLivro(index) {
-        //     url = `livros/${this.objetos[index].id}`
-        //     this.$router.push({ path: 'livros/1' })
-        // }
-    },
-    mounted() {
-        // executado após o carregamento do componente
-        this.loadCategorias()
-        this.loadObjetos()
+  name: 'ListaLivros',
+  data: function() {
+    return { 
+      objetos: [],
+      categorias: [], 
     }
+  },
+  computed: mapState(['buscar']),
+  methods: {
+    loadObjetos() {
+      const url = `${baseApiUrl}/livros`
+      axios.get(url).then(resposta => { this.objetos = resposta.data }).catch(showError)
+    },
+    loadCategorias() {
+        // utiliza uma url pra fazer uma requisição com o axios e carregar um array de clientes
+        axios.get(`${baseApiUrl}/categorias`).then(resposta => {
+            this.categorias = resposta.data
+        })
+    },
+    // toLivro(index) {
+    //     url = `livros/${this.objetos[index].id}`
+    //     this.$router.push({ path: 'livros/1' })
+    // }
+    buscar() {
+      return this.objetos.filter(objeto => { 
+        return objeto.titulo.toLowerCase().includes(this.buscar) 
+      }) 
+    },
+  },
+  mounted() {
+    // executado após o carregamento do componente
+    this.loadCategorias()
+    this.loadObjetos()
+  }
 }
 </script>
 

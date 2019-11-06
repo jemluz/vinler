@@ -29,6 +29,7 @@
       id="inline-form-input-name"
       class="barra-pesquisa"
       placeholder="Encontrar livros"
+      v-model='buscarLivro'
     )
 
     <!-- Botão pesquisar -->
@@ -52,12 +53,22 @@ export default {
     hideToggle: Boolean,
   },
   computed: mapState(['isCloseMenu', 'isCloseMinhaConta', 'isCloseNotify', 'user']),
+  data: () => {
+    return {
+      buscarLivro: ''
+    }
+  },
+  watch: {   
+    buscar: () => { this.$store.commit('setBusca', this.buscarLivro) }
+  },
   methods: {
     toggleMenu() {
       this.$store.commit("toggleMenu")
     },
     toggleNotify() {
       this.$store.commit("toggleNotify")
+    },
+    setBusca() {
     }
   }
 }

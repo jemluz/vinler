@@ -107,7 +107,6 @@ import axios from 'axios'
 
 export default {
   name: "DadosAmostra",
-  computed: mapState(["user"]),
   data: function() {
     return {
       mode: 'save', 
@@ -119,6 +118,7 @@ export default {
       imageData: ""
     }
   },
+  computed: mapState(['user']),
   methods: {
     /*
       loadObjetos() - utiliza uma url pra fazer uma requisição com o axios e carregar um array de objetos
@@ -153,7 +153,6 @@ export default {
       const id = this.edit ? `/${ this.objeto.id }` : ''
 
       this.onSubmit()
-      console.log(this.message)
       this.objeto.fotoUrl = `${baseApiUrl}/image/image.png`
 
       axios[method](`${baseApiUrl}/livros${id}`, this.objeto)
