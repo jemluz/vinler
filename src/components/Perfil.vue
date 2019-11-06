@@ -6,10 +6,10 @@
         div.profile-userpic
           img(:src="user.fotoUrl" width='100px' height='100px' alt="")
 
-        <!-- SIDEBAR USER TITLE -->
-        div.profile-usertitle
-          div.profile-usertitle-name {{ user.nome }}
-          div.profile-usertitle-job {{ vinculados.length }} Livros cadastrados
+          <!-- SIDEBAR USER TITLE -->
+          div.profile-usertitle
+            div.profile-usertitle-name {{ user.nome }}
+            div.profile-usertitle-job {{ vinculados.length }} Livros cadastrados
         
         <!-- SIDEBAR BUTTONS -->
         div.profile-userbuttons
@@ -29,27 +29,27 @@
         //-       a(href="#" target="_blank") #[i(class="glyphicon glyphicon-ok")] Matches
               
 
-      //- div.profile_painel
+      div.profile_painel
         
-      //-   h3 Meus Livros
-      //-   div.profile-content.row
+        h3 Meus Livros
+        div.profile-content.row
 
-      //-     <!-- Lista de Livros -->
-      //-     div(
-      //-       class="livro mr-5 "
-      //-       v-for='(vinculado, index) in vinculados'
-      //-       )
+          <!-- Lista de Livros -->
+          div(
+            class="livro mr-5 "
+            v-for='(vinculado, index) in vinculados'
+            )
+ 
+            div.livro_foto
+              router-link(to='/livro-detalhe')    
+                img(:src='vinculado.fotoUrl' width='150px' height='150px' @click='func(index)')
 
-      //-       div.livro_foto
-      //-         router-link(to='/livro-detalhe')    
-      //-           img(:src='vinculado.fotoUrl' width='150px' height='150px' @click='func(index)')
+            div.livro_titulo
+              div.product_title 
+                a(href="/") {{ vinculado.titulo }}
 
-      //-       div.livro_titulo
-      //-         div.product_title 
-      //-           a(href="/") {{ vinculado.titulo }}
-
-      //-       div(class="categoria" v-for='categoria in categorias')
-      //-         a(href="/" v-if='categoria.id === vinculado.categoriaId ')  {{ categoria.nome }}
+            div(class="categoria" v-for='categoria in categorias')
+              a(href="/" v-if='categoria.id === vinculado.categoriaId ')  {{ categoria.nome }}
 
             
 
@@ -144,7 +144,8 @@ export default {
 
       }
 
-      .profile-userbuttons {
+
+      .profile_painel  {
         grid-column: 2 / 4;
         grid-row: 2 / 3;
       }

@@ -23,8 +23,6 @@
 
             div(class="categoria_livro" v-for='categoria in categorias')
               a(href="/" v-if='categoria.id === objeto.categoriaId ')  #[p {{ categoria.nome }}]
-              a(v-else) não tem nada aqui
-
             
 
 </template>
