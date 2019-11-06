@@ -116,6 +116,8 @@ export default {
         .profile-userpic { 
           grid-column: 2 / 3;
           grid-row: 1 / 2;
+
+          
         }
 
         .profile-usertitle {
