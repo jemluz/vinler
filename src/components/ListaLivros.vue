@@ -11,24 +11,24 @@
 
           <!-- Livros -->
           div(
-            class="livro"
+            class="livro row"
             v-for='(objeto, index) in objetos'
             )
-            div.product_image
-              router-link(to='/')    
-                img(:src=`objeto.fotoUrl` width='120px' height='120px' @click='func(index)')
+            div.livro_img
+              router-link(:to='{ name: "livro", params: { id: objeto.id } }')    
+                img(:src=`objeto.fotoUrl` @click='')
 
-            div.product_content
-              div.product_title 
-                a(href="/") #[h5 {{ objeto.titulo }}]
+            div.livro_info
+              a(href="/") #[h5 {{ objeto.titulo }}]
+              a(href="/") #[p {{ objeto.descricao }}]
 
-            div.product_content
-              div.product_title 
-                a(href="/") #[p {{ objeto.descricao }}]
+            div.livro_actions
+              div(class="bt-categoria" v-for='categoria in categorias' v-if='categoria.id === objeto.categoriaId ')
+                a(href="/" v-if='categoria.id === objeto.categoriaId ')  #[p {{ categoria.nome }}]
 
-            div(class="categoria_livro" v-for='categoria in categorias' v-if='categoria.id === objeto.categoriaId ')
-              a(href="/" v-if='categoria.id === objeto.categoriaId ')  #[p {{ categoria.nome }}]
-            
+              a(href='' @click='' class='bt-like ml-3') #[font-awesome-icon(icon="heart")] Curtir
+
+
 
 </template>
 
@@ -41,7 +41,8 @@ export default {
     data: function() {
         return { 
             objetos: [],
-            categorias: []
+            categorias: [], 
+            id: this.$route.params.id
         }
     },
     methods: {
@@ -55,9 +56,10 @@ export default {
                 this.categorias = resposta.data
             })
         },
-        func(index) {
-            this.$store.commit('setLivroId', this.produtos[index].id)
-        }
+        // toLivro(index) {
+        //     url = `livros/${this.objetos[index].id}`
+        //     this.$router.push({ path: 'livros/1' })
+        // }
     },
     mounted() {
         // executado após o carregamento do componente
@@ -88,41 +90,54 @@ div.container {
       grid-row: 1/ 2; 
       transform: rotate(180deg);
     }
+
     .livros { 
       grid-column: 2/ 3; 
       grid-row: 1/ 2; 
+      
+      padding: 0px 50px;
 
+      .livro_grid { 
+        display: flex;
+        height: initial; 
+        flex-direction: row; 
+        justify-content: space-between; 
+        flex-wrap: wrap;    
+      }
+
+      .livro { 
+        margin-bottom: 20px; 
+        text-align: center;
+      }  
+
+      .livro_info {
+        display: inline-block;
+        text-align: left;
+        a { color: #00000090; }
+      }
+
+      .bt-categoria, .bt-like { 
+        border-radius: 20px;
+        padding: 5px 15px;
+        display: inline-block;
+        p { margin: 0px !important; } 
+      }
+
+      .bt-categoria { 
+        background-color: #00ABC820; 
+        a { color: #00ABC8; } 
+        &:hover { box-shadow: 0px 0px 15px 2px #00ABC870; }
+      }
+
+      .bt-like { 
+        background-color: #FFB60020; 
+        color: #FFB600; 
+        &:visited { color: #FFB600; }
+        &:hover { color: #FFB600;
+          box-shadow: 0px 0px 15px 2px #FFB60070; 
+        }
+      }
     }
-  }
-
-  .livros { padding: 0px 50px; }
-
-  .livro_grid { 
-    display: flex;
-    height: initial; 
-    flex-direction: row; 
-    justify-content: space-between; 
-    flex-wrap: wrap;  
-    
-  }
-
-  .livro { 
-    margin-bottom: 20px; 
-    max-width: 150px;
-
-    text-align: center;
-    a { color: gray; }
-  }  
-
-  .categoria_livro { 
-    background-color: #f1f1f1; 
-    border-radius: 20px;
-    padding: 5px 15px;
-    width: auto;
-    display: inline-block;
-    p { margin: 0px !important; } 
-
-    &:hover { box-shadow: 0px 0px 10px 2px #00000030; }
   }
 
   // MOBILE
@@ -147,6 +162,28 @@ div.container {
 
   // DESKTOP
   @media only screen and (min-width: 901px) {
+    .livro {
+      max-width: 200px;
+      max-height: 500px;
+      text-align: left;
+      display: flex;
+
+      .livro_img img{
+        width: 200px;
+        height: 200px;
+      }
+
+      .livro_actions { 
+        font-size: 14px;   
+        align-self: flex-end;
+
+        svg { 
+          opacity: 0.7;
+          &:hover { opacity: 1; }
+        }
+      }
+
+    }
 
 
   }

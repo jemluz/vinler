@@ -77,7 +77,10 @@ export default {
 
 a:hover, a, li { text-decoration: none !important; }
 li { list-style-type: none; }
+button { outline: none; }
 
 .loading { margin: 200px; }
  .hide-element { display: none; }
+
+  
 </style>

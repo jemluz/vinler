@@ -258,9 +258,9 @@ export default {
   color:  #eb1c0f;
 }
 .bt-like { 
-  color: pink; 
-  &:hover { color: red; }
-  &:visited { color: red; }
+  color: #FFB600; 
+  &:hover { color: #FFB600; }
+  &:visited { color: #FFB600; }
 }
 
 </style>

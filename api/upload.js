@@ -15,7 +15,7 @@ module.exports = app => {
       console.log(req.body)
 
       // cb(null, `image${path.extname(file.originalname)}`) 
-      cb(null, `livro-${req.body.userId}${path.extname(file.originalname)}`) 
+      cb(null, `livro-${req.body.userId}-${path.extname(file.originalname)}`) 
     },
     fileFilter: (file, cb) => {
       var ext = path.extname(file.originalname);

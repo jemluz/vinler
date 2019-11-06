@@ -5,6 +5,7 @@ import Vitrine from "@/components/Vitrine";
 import LoginCadastro from "@/components/LoginCadastro";
 import Dados from "@/components/Dados";
 import Perfil from "@/components/Perfil";
+import Livro from "@/components/Livro";
 
 // import ListaUsuarios from "@/components/sections/ListaUsuarios";
 // import FuncionarioData from "@/components/sections/FuncionarioData";
@@ -40,9 +41,8 @@ export default new Router({
     },
     {
       path: '/livro/:id',
-      name: 'Livro',
-      // component: Livro
-      props: true
+      name: 'livro',
+      component: Livro
     }
 
   ]
