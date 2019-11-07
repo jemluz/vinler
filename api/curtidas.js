@@ -18,16 +18,18 @@ module.exports = app => {
     app.db('curtidas')
       .insert(curtida)
       .then(newCurtida => {
-        
+        app.db('curtidas')
+          .where({ usuarioInteressadoId: curtida.proprietarioId })
+          .andWhere({ proprietarioId: curtida.usuarioInteressadoId })
+          .then( )
       })
-      .then(isBoth)
+      .then(isBoth => {
+        app.db('matches')
+          .insert()
+      })
       .catch(err => res.status(500).send(err))
 
-    // if(newCurtida) {
-    //   const isBoth = await app.db('curtidas').where({ proprietarioId: curtida.usuarioInteressadoId}).andWhere({ usuarioInteressadoId: curtida.proprietarioId })
 
-    //   console.log(isBoth)
-    // } 
   }
 
   const visualizar = (req, res) => {
@@ -61,7 +63,7 @@ module.exports = app => {
     }
   }
   
-  
+  function isBoth = 
 
   return { salvar, visualizar, visualizarPorId, excluir }
 }
