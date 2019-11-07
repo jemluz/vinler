@@ -17,7 +17,10 @@ module.exports = app => {
 
     app.db('curtidas')
       .insert(curtida)
-      .then(_ => res.status(204).send())
+      .then(newCurtida => {
+        
+      })
+      .then(isBoth)
       .catch(err => res.status(500).send(err))
 
     // if(newCurtida) {
@@ -58,6 +61,8 @@ module.exports = app => {
     }
   }
   
+  
+
   return { salvar, visualizar, visualizarPorId, excluir }
 }
 
