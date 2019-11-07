@@ -9,13 +9,22 @@ module.exports = app => {
       existsOrError(curtida.livroCurtidoId, 'Não existe um livro com esse id.')
       existsOrError(curtida.proprietarioId, 'Não existe um usuário com esse id.')
     
-    } catch(msg) { return msg }
+      const curtidaFromDB = await app.db('curtidas').where({ usuarioInteressadoId: curtida.usuarioInteressadoId }).andWhere({ proprietarioId: curtida.proprietarioId }).first()
+      
+      notExistsOrError(curtidaFromDB, 'Você já curtiu esse livro.')
+
+    } catch(msg) { return res.status(400).send(msg) }
 
     app.db('curtidas')
       .insert(curtida)
       .then(_ => res.status(204).send())
       .catch(err => res.status(500).send(err))
-    
+
+    // if(newCurtida) {
+    //   const isBoth = await app.db('curtidas').where({ proprietarioId: curtida.usuarioInteressadoId}).andWhere({ usuarioInteressadoId: curtida.proprietarioId })
+
+    //   console.log(isBoth)
+    // } 
   }
 
   const visualizar = (req, res) => {
@@ -48,16 +57,7 @@ module.exports = app => {
       res.status(400).send(msg)
     }
   }
-
-  // app.db('curtidas')
-  //   .select('id', 'usuarioInteressadoId', 'livroCurtidoId', 'proprietarioId')
-  //   .where({ proprietarioId: curtida.usuarioInteressadoId})
-  //   .andWhere({ usuarioInteressadoId: curtida.proprietarioId })
-  //   .then(match => res.json(match))
-  //   .catch(err => res.status(500).send(err))
-
-  // app.db.raw(query)
-
+  
   return { salvar, visualizar, visualizarPorId, excluir }
 }
 
