@@ -34,10 +34,10 @@ module.exports = app => {
     app.post('/validateToken', app.api.auth.validarToken)
     app.get('/livros', app.api.livro.visualizar)
 
-    // protegidas
+    // ROTAS PROTEGIDAS
     app.route('/usuarios')
+        .all(app.config.passport.authenticate())
         .get(app.api.usuario.visualizar)
-        .post(app.api.usuario.salvar)
 
     app.route('/usuarios/:id')
         .all(app.config.passport.authenticate())
@@ -72,6 +72,13 @@ module.exports = app => {
     app.route('/categorias/vinculados/:id')
         .all(app.config.passport.authenticate())
         .get(app.api.categoria.visualizarVinculados)
+
+    app.route('/curtidas')
+        .post(app.api.curtidas.salvar)
+        .get(app.api.curtidas.visualizar)
+
+    app.route('/curtidas/:id')
+        .delete(app.api.curtidas.excluir)
 
 
     app.get("/image/image.png", (req, res) => { 

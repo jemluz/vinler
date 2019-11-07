@@ -1,13 +1,63 @@
 module.exports = app => {
   const { existsOrError, notExistsOrError, equalsOrError } = app.api.validation
 
-  // const salvar = async (req, req) => {
-  //   const match = { ...req.body }
+  const salvar = async (req, res) => {
+    const curtida = { ...req.body }
 
-  //   try {
-  //     existsOrError(match.usuarioInteressado, 'Você não pode curtir sem fazer login')
-  //     existsOrError(match.livroCurtido, 'Você não pode curtir sem fazer login')
+    try {
+      existsOrError(curtida.usuarioInteressadoId, 'Você não pode curtir sem fazer login.')
+      existsOrError(curtida.livroCurtidoId, 'Não existe um livro com esse id.')
+      existsOrError(curtida.proprietarioId, 'Não existe um usuário com esse id.')
+    
+    } catch(msg) { return msg }
+
+    app.db('curtidas')
+      .insert(curtida)
+      .then(_ => res.status(204).send())
+      .catch(err => res.status(500).send(err))
+    
+  }
+
+  const visualizar = (req, res) => {
+    app.db('curtidas')
+        .select('id', 'usuarioInteressadoId', 'livroCurtidoId', 'proprietarioId')
+        .then(curtida => res.json(curtida))
+        .catch(err => res.status(500).send(err))
+  }
+
+  const visualizarPorId = (req, res) => {
+    app.db('curtidas')
+    .select('id', 'usuarioInteressadoId', 'livroCurtidoId', 'proprietarioId')
+    .where({ id: req.params.id })
+    .first()
+    .then(curtida => res.json(curtida))
+    .catch(err => res.status(500).send(err))
+  }
+
+  const excluir = async (req, res) => {
+    try{
+      const rowsDeleted = await 
+      app.db('curtidas')
+        .where({ id: req.params.id })
+        .del()
       
-  //   } catch(msg) { return msg }
-  // }
+      existsOrError(req.params.id, 'Login da curtida não especificado')
+
+      res.status(204).send()
+    } catch (msg) {
+      res.status(400).send(msg)
+    }
+  }
+
+  // app.db('curtidas')
+  //   .select('id', 'usuarioInteressadoId', 'livroCurtidoId', 'proprietarioId')
+  //   .where({ proprietarioId: curtida.usuarioInteressadoId})
+  //   .andWhere({ usuarioInteressadoId: curtida.proprietarioId })
+  //   .then(match => res.json(match))
+  //   .catch(err => res.status(500).send(err))
+
+  // app.db.raw(query)
+
+  return { salvar, visualizar, visualizarPorId, excluir }
 }
+
