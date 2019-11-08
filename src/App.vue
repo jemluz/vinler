@@ -82,5 +82,9 @@ button { outline: none; }
 .loading { margin: 200px; }
  .hide-element { display: none; }
 
-  
+// outline do form
+.form-control:focus {
+  border-color: #FFB600;
+  box-shadow: 0 0 0 .2rem #FFB60030;
+}
 </style>

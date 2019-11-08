@@ -19,8 +19,8 @@
                 img(:src=`objeto.fotoUrl` @click='')
 
             div.livro_info
-              a(href="/") #[h5 {{ objeto.titulo }}]
-              a(href="/") #[p {{ objeto.descricao }}]
+              h5 {{ objeto.titulo }}
+              p {{ objeto.descricao }}
 
             div.livro_actions
               div(class="bt-categoria" v-for='categoria in categorias' v-if='categoria.id === objeto.categoriaId ')
@@ -107,7 +107,6 @@ div.container {
         display: flex;
         height: initial; 
         flex-direction: row; 
-        justify-content: space-between; 
         flex-wrap: wrap;    
       }
 
@@ -119,7 +118,8 @@ div.container {
       .livro_info {
         display: inline-block;
         text-align: left;
-        a { color: #00000090; }
+        color: #00000090;
+        cursor: default;
       }
 
       .bt-categoria, .bt-like { 
@@ -169,7 +169,7 @@ div.container {
   // DESKTOP
   @media only screen and (min-width: 901px) {
     .livro {
-      max-width: 200px;
+      max-width: 25%;
       max-height: 500px;
       text-align: left;
       display: flex;
@@ -177,6 +177,10 @@ div.container {
       .livro_img img{
         width: 200px;
         height: 200px;
+      }
+
+      .livro_info {
+        max-width: 80%;
       }
 
       .livro_actions { 

@@ -18,7 +18,7 @@ module.exports = app => {
     app.db('curtidas').insert(curtida)
       .then(await isBoth(curtida, res))
       .then(await makeMatch(curtida, res))
-      .then(result => res.json(result))
+      .then(result => res.status(204).send(result))
 
   }
 
