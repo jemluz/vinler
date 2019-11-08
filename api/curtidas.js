@@ -9,26 +9,16 @@ module.exports = app => {
       existsOrError(curtida.livroCurtidoId, 'Não existe um livro com esse id.')
       existsOrError(curtida.proprietarioId, 'Não existe um usuário com esse id.')
     
-      const curtidaFromDB = await app.db('curtidas').where({ usuarioInteressadoId: curtida.usuarioInteressadoId }).andWhere({ proprietarioId: curtida.proprietarioId }).first()
+      const curtidaFromDB = await app.db('curtidas').where({ livroCurtidoId: curtida.livroCurtidoId }).first()
       
       notExistsOrError(curtidaFromDB, 'Você já curtiu esse livro.')
 
     } catch(msg) { return res.status(400).send(msg) }
 
-    app.db('curtidas')
-      .insert(curtida)
-      .then(newCurtida => {
-        app.db('curtidas')
-          .where({ usuarioInteressadoId: curtida.proprietarioId })
-          .andWhere({ proprietarioId: curtida.usuarioInteressadoId })
-          .then( )
-      })
-      .then(isBoth => {
-        app.db('matches')
-          .insert()
-      })
-      .catch(err => res.status(500).send(err))
-
+    app.db('curtidas').insert(curtida)
+      .then(await isBoth(curtida, res))
+      .then(await makeMatch(curtida, res))
+      .then(result => res.json(result))
 
   }
 
@@ -63,7 +53,43 @@ module.exports = app => {
     }
   }
   
-  function isBoth = 
+  const isBoth = (c1, res) => {
+    app.db('curtidas')
+      .where({ usuarioInteressadoId: c1.proprietarioId })
+      .andWhere({ proprietarioId: c1.usuarioInteressadoId })
+      .catch(err => res.status(500).send(err))
+      // .then(resultIsBoth => res.json(resultIsBoth) )
+  }
+
+  const makeMatch = async (c1, res) => {
+    const matched = { 
+      usuario1: c1.usuarioInteressadoId,
+      usuario2: c1.proprietarioId
+    }
+
+    try {
+      const matchFromDB = await app.db('matches')
+        .where({ usuario1: matched.usuario1 })
+        .andWhere({ usuario2: matched.usuario2 })
+        .first()
+
+      const matchInverseFromDB = await app.db('matches')
+        .where({ usuario1: matched.usuario2 })
+        .andWhere({ usuario2: matched.usuario1 })
+        .first()
+
+      notExistsOrError(matchFromDB, 'Match redundante.') 
+      notExistsOrError(matchInverseFromDB, 'Match inverso redundante.') 
+
+    } catch (msg) {
+      return res.status(400).send(msg)
+    }
+    
+    app.db('matches')
+      .insert(matched)
+      .then(_ => res.status(204).send())
+      .catch(err => res.status(501).send(err))
+  }
 
   return { salvar, visualizar, visualizarPorId, excluir }
 }
