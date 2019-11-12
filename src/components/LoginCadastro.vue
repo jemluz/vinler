@@ -123,7 +123,7 @@ export default {
       .then(res => {
           this.$store.commit('setUser', res.data)
           localStorage.setItem(userKey, JSON.stringify(res.data))
-          this.$router.push({ path: '/vitrine'})
+          this.$router.push({ path: '/vitrine'}) 
       }).catch(showError)
     },
     signup() {
