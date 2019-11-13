@@ -33,6 +33,7 @@ module.exports = app => {
     app.post('/signup', app.api.usuario.salvar)
     app.post('/validateToken', app.api.auth.validarToken)
     app.get('/livros', app.api.livro.visualizar)
+    app.get('/livros/:nome', app.api.livro.visualizarPorNome)
 
     // ROTAS PROTEGIDAS
     app.route('/usuarios')

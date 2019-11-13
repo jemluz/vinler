@@ -29,15 +29,14 @@
       id="inline-form-input-name"
       class="barra-pesquisa"
       placeholder="Encontrar livros"
-      v-model='buscarLivro'
+      v-model='livroProcurado'
     )
 
     <!-- Botão pesquisar -->
     button(
       type='button'     
       class="btn btn-primary btn-sm bt-pesquisa" 
-      @click=""
-      value="buscar"
+      @click='buscar'
     ) #[font-awesome-icon(icon="search")] 
 
 </template>
@@ -54,21 +53,13 @@ export default {
   },
   computed: mapState(['isCloseMenu', 'isCloseMinhaConta', 'isCloseNotify', 'user']),
   data: () => {
-    return {
-      buscarLivro: ''
-    }
-  },
-  watch: {   
-    buscar: () => { this.$store.commit('setBusca', this.buscarLivro) }
+    return { livroProcurado: '' } 
   },
   methods: {
-    toggleMenu() {
-      this.$store.commit("toggleMenu")
-    },
-    toggleNotify() {
-      this.$store.commit("toggleNotify")
-    },
-    setBusca() {
+    toggleMenu() { this.$store.commit("toggleMenu") },
+    toggleNotify() { this.$store.commit("toggleNotify") },
+    buscar () { 
+      this.$store.commit('setBusca', this.livroProcurado) 
     }
   }
 }

@@ -16,7 +16,7 @@
             )
             div.livro_img
               router-link(:to='{ name: "livro", params: { id: objeto.id } }')    
-                img(:src=`objeto.fotoUrl` @click='')
+                img(:src=`objeto.fotoUrl`)
 
             div.livro_info
               h5 {{ objeto.titulo }}
@@ -26,7 +26,7 @@
               div(class="bt-categoria" v-for='categoria in categorias' v-if='categoria.id === objeto.categoriaId ')
                 a(href="/" v-if='categoria.id === objeto.categoriaId ')  #[p {{ categoria.nome }}]
 
-              a(href='' @click='' class='bt-like ml-3') #[font-awesome-icon(icon="heart")] Curtir
+              a(href='' @click='curtir' class='bt-like ml-3') #[font-awesome-icon(icon="heart")] Curtir
 
 
 
@@ -45,7 +45,16 @@ export default {
       categorias: [], 
     }
   },
-  computed: mapState(['buscar']),
+  watch: { 
+    objetos: () => {
+      return this.objetos.filter(
+        objeto => { 
+          objeto.titulo.toLowerCase().includes(this.$store.state.buscar)
+          console.log('a')
+        }
+      )
+    }
+  },
   methods: {
     loadObjetos() {
       const url = `${baseApiUrl}/livros`
@@ -61,11 +70,10 @@ export default {
     //     url = `livros/${this.objetos[index].id}`
     //     this.$router.push({ path: 'livros/1' })
     // }
-    buscar() {
-      return this.objetos.filter(objeto => { 
-        return objeto.titulo.toLowerCase().includes(this.buscar) 
-      }) 
-    },
+    buscar() { },
+    curtir() {
+      console.log('oi')
+    }
   },
   mounted() {
     // executado após o carregamento do componente
@@ -107,7 +115,8 @@ div.container {
         display: flex;
         height: initial; 
         flex-direction: row; 
-        flex-wrap: wrap;    
+        flex-wrap: wrap;   
+        justify-content: space-between; 
       }
 
       .livro { 

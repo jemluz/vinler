@@ -92,6 +92,15 @@ module.exports = app => {
         .catch(err => res.status(500).send(err))
     }
 
+    const visualizarPorNome = (req, res) => {
+        app.db('livros')
+        .select('id', 'titulo', 'descricao', 'fotoUrl', 'proprietarioId', 'categoriaId')
+        .where({ titulo: req.params.nome })
+        .orWhere({ descricao: req.params.nome })
+        .then(livros => res.json(livros))
+        .catch(err => res.status(500).send(err))
+    }
+
     const excluir = async (req, res) => {
         try {
             const rowsDeleted = await               
@@ -107,5 +116,5 @@ module.exports = app => {
         }
     }
 
-    return { salvar, visualizar, visualizarPorId, excluir }
+    return { salvar, visualizar, visualizarPorId, visualizarPorNome, excluir }
 }
