@@ -17,7 +17,6 @@
 const app = require('express')()
 const consign = require('consign') 
 const db = require('./config/db')
-const localtunnel = require('localtunnel');
 
 app.db = db
 var port = process.env.PORT || 3000

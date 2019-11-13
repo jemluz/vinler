@@ -2,18 +2,16 @@
   BACKEND - CREDENCIAIS DO BANCO DE DADOS
 */
 
+const { db } = require('./.env')
+
 module.exports = {
   client: 'mysql',
-  connection: {
-    database: 'vinler',
-    user: 'root',
-    password: 'admin'
-  },
+  connection: db,
   pool: {
     min: 2,
-    max: 10
+    max: 7
   },
   migrations: {
-    tableName: 'knex_migrations'
+    directoru: 'knex_migrations'
   }
 };

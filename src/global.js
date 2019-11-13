@@ -1,8 +1,9 @@
 import Vue from 'vue'
+import { db } from '../.env'
 
 export const userKey = '__vinler_user'
 // export const carrinho = []
-export const baseApiUrl = 'http://localhost:3000'
+export const baseApiUrl = `https://${db.host}:${db.port}`
 
 export function showError(e) {
   if (e && e.response && e.response.data) {
