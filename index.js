@@ -20,6 +20,7 @@ const db = require('./config/db')
 const localtunnel = require('localtunnel');
 
 app.db = db
+var port = process.env.PORT || 3000
 
 consign()
     .include('./config/passport.js')
@@ -33,6 +34,6 @@ consign()
         res.send('uia');
     });
 
-    app.listen(3000, () => {
+    app.listen(port, () => {
         console.log('backend rodando...')
     })
