@@ -112,7 +112,9 @@ div.container {
       padding: 0px 50px;
 
       .livro_grid { 
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
         height: initial; 
         flex-direction: row; 
         flex-wrap: wrap;   
@@ -178,10 +180,10 @@ div.container {
   // DESKTOP
   @media only screen and (min-width: 901px) {
     .livro {
-      max-width: 25%;
       max-height: 500px;
       text-align: left;
       display: flex;
+      margin: 10px 20px;
 
       .livro_img img{
         width: 200px;
