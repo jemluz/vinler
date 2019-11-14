@@ -66,6 +66,7 @@ export default {
   },
   created() {
     this.validateToken() 
+    this.$router.push({ path: '/auth'}) 
   }
 };
 </script>
@@ -81,6 +82,11 @@ button { outline: none; }
 
 .loading { margin: 200px; }
  .hide-element { display: none; }
+
+@media only screen and (max-width: 900px) {
+  .hide-mobile { display: none; }
+}
+ 
 
 // outline do form
 .form-control:focus {

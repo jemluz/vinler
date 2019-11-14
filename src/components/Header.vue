@@ -13,7 +13,8 @@
     Nav
 
     <!-- Botão Minha Conta -->
-    router-link(to='/minha-conta' class="toggle bt-minha-conta nav-link" :class="{ 'hide-element': !user }") Olá, {{ user ? (user.nome.charAt(0).toUpperCase() + user.nome.slice(1)) : null }}
+    router-link(to='/minha-conta' class="toggle nav-link  bt-minha-conta" :class="{ 'hide-element': !user }" v-if='user') 
+      p#welcome-text.hide-mobile Olá, {{ user ? (user.nome.charAt(0).toUpperCase() + user.nome.slice(1)) : null }}
       include ../assets/user.svg
     router-link(to="/auth" class="nav-link bt-login" alt="Login" title='Login' v-if='!user') Login #[font-awesome-icon(icon='sign-in-alt')]
 
@@ -108,7 +109,7 @@ export default {
 
         &:hover { background-color: #FFBE1D; color: white; }
 
-        p { display: none; }
+        a#welcome-text  { padding: none !important; }
         svg { 
           width: 20px;
         }
@@ -219,6 +220,8 @@ export default {
         grid-column: 7 / 8;
         grid-row: 2 / 3;
 
+        display: flex;  
+        flex-direction: row;
         justify-self: flex-start;  
         align-self: flex-end;
 
@@ -229,6 +232,7 @@ export default {
 
         &:hover { background-color: #FFBE1D; color: white; }
 
+        p#welcome-text { margin: 5px auto; }
         svg { 
           width: 20px;
           margin-left: 10px; 
