@@ -115,7 +115,8 @@ export default {
       edit: false,
       file: "",
       message: '',
-      imageData: ""
+      imageData: "",
+      idLivro: ""
     }
   },
   computed: mapState(['user']),
@@ -150,17 +151,26 @@ export default {
     },
     save() {
       const method = this.edit ? 'put' : 'post'
-      const id = this.edit ? `/${ this.objeto.id }` : ''
+      const id = this.edit ? `${ this.objeto.id }` : ''
+      const slash = this.edit ? '/' : ''
 
-      this.onSubmit()
-      this.objeto.fotoUrl = `${baseApiUrl}/image/image.png`
+      // realiza um post
+      axios[method](`${baseApiUrl}/livros${slash}${id}`, this.objeto)
+        .then(result => {
+          this.idLivro = this.edit ? `${id}` : JSON.stringify(result.data[0])
 
-      axios[method](`${baseApiUrl}/livros${id}`, this.objeto)
-        .then(() => { 
           this.$toasted.global.defaultSucess()
-          this.reset()
+
+          console.log(this.idLivro)
+          console.log(id)
+
+          // realiza o upload da imagem
+          this.onSubmit()
         })
         .catch(showError)
+
+      // realiza um put
+      this.reset()
     },
     remove() {
       const id = this.objeto.id
@@ -188,6 +198,7 @@ export default {
     async onSubmit() {
       const formData = new FormData()
       formData.append('userId', this.user.id)
+      formData.append('livroId', this.idLivro)
       formData.append('file', this.file)
 
       try {

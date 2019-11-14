@@ -66,12 +66,12 @@ module.exports = app => {
             app.db('livros')
                 .update(livro)
                 .where({ id: livro.id })
-                .then(_ => res.status(204).send())
+                .then(result => res.json(result))
                 .catch(err => res.status(500).send(err))
         } else {
             app.db('livros')
                 .insert(livro)
-                .then(_ => res.status(204).send())
+                .then(result => res.json(result))
                 .catch(err => res.status(500).send(err))
         }
     }
@@ -100,6 +100,14 @@ module.exports = app => {
         .then(livros => res.json(livros))
         .catch(err => res.status(500).send(err))
     }
+
+    // const visualizarUltimoInserido = (req, res) => {
+    //     app.db('livros')
+    //     .select('id', 'titulo', 'descricao', 'fotoUrl', 'proprietarioId', 'categoriaId')
+    //     .where( 'LAST_INSERT_ID()' )
+    //     .then(livros => res.json(livros))
+    //     .catch(err => res.status(500).send(err))
+    // }
 
     const excluir = async (req, res) => {
         try {

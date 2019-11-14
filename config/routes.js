@@ -82,8 +82,8 @@ module.exports = app => {
         .delete(app.api.curtidas.excluir)
 
 
-    app.get("/image/image.png", (req, res) => { 
-        res.sendFile(path.join(__dirname, "../uploads/image.png"));
+    app.get("/image/:file", (req, res) => { 
+        res.sendFile(path.join(__dirname, `../uploads/:file`));
     });
 
     app.get("/image/profile-1.jpg", (req, res) => { 

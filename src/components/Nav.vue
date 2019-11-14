@@ -8,7 +8,7 @@
 
     
     router-link(to="/vitrine" class="nav-link") Livros              
-    router-link(to="/Categorias" class="nav-link") Categorias              
+    router-link(to="/dados" class="nav-link") Categorias              
    
     a(class='nav-link' v-if='user') #[font-awesome-icon(alt="Logout" title='Logout' @click.prevent="logout" icon="door-open" )] 
       //- ul
