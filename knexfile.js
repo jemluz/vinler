@@ -6,7 +6,11 @@ const { db } = require('./.env')
 
 module.exports = {
   client: 'mysql',
-  connection: db,
+  connection: {
+    database: 'vinler',
+    user: 'root',
+    password: 'admin'
+  },
   pool: {
     min: 2,
     max: 7

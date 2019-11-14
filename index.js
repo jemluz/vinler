@@ -19,7 +19,7 @@ const consign = require('consign')
 const db = require('./config/db')
 
 app.db = db
-var port = process.env.PORT || 3000
+// var port = process.env.PORT || 3000
 
 consign()
     .include('./config/passport.js')
@@ -33,6 +33,6 @@ consign()
         res.send('uia');
     });
 
-    app.listen(port, () => {
+    app.listen(3000, () => {
         console.log('backend rodando...')
     })
