@@ -14,7 +14,6 @@ module.exports = app => {
 
     const salvar = async (req, res) => {
         const usuario = { ...req.body }
-        console.log(req.body)
 
         if (req.params.id) usuario.id = req.params.id
 

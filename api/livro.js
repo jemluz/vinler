@@ -49,7 +49,6 @@ module.exports = app => {
             existsOrError(livro.descricao, 'Descrição não inserida.')
             existsOrError(livro.nPaginas, 'Número de páginas não especificado.')
             existsOrError(livro.tempoVida, 'Tempo de vida não inserido.')
-            existsOrError(livro.disponivel, 'Especifique a disponibilidade do livro.')
             existsOrError(livro.proprietarioId, 'Dono não especificado.')  
             existsOrError(livro.categoriaId, 'Categoria não especificada.')  
 
@@ -72,6 +71,8 @@ module.exports = app => {
                 .then(result => res.json(result))
                 .catch(err => res.status(500).send(err))
         } else {
+            livro.disponivel = true
+
             app.db('livros')
                 .insert(livro)
                 .then(result => res.json(result))

@@ -111,7 +111,6 @@ export default {
   },
   mounted() {
     this.objeto = this.user
-    console.log(this.objeto)
   }
 };
 </script>
