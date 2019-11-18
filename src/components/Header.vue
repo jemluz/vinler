@@ -8,7 +8,8 @@
         include ../assets/botao-menu.svg
 
     <!-- Logo -->
-    a(href='/vitrine' class='logo') Vinler
+    div.logo.row
+      img(src="../assets/logo.png")
 
     Nav
 
@@ -89,10 +90,19 @@ export default {
       .bt-menu {
         grid-column: 2 / 3;
         grid-row: 2 / 3;
+
+        display: none;
       }
+
       .logo {
         grid-column: 2 / 3;
         grid-row: 2 / 3;
+
+        margin: 0px !important;
+
+        img {
+          width: 50px;
+        }
       }
 
       .bt-minha-conta {
@@ -181,6 +191,11 @@ export default {
         grid-row: 2 / 3;
 
         justify-self: flex-start;
+
+        img {
+          height: 70px;
+        }
+        
       }
 
       nav { 
@@ -222,7 +237,7 @@ export default {
         display: flex;  
         flex-direction: row;
         justify-self: flex-start;  
-        align-self: flex-end;
+        align-self: center;
 
         background-color: #FFB600;
         border-radius: 5px;
@@ -264,7 +279,9 @@ export default {
         grid-row: 2 / 3;
 
         justify-self: flex-end;
-        align-self: flex-end;
+        align-self: center;
+
+        margin-top: -8px;
       }
 
     }

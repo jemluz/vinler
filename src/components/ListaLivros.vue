@@ -2,9 +2,10 @@
   div.container
     section.categorias.row.mt-5(v-for='categoria in categorias')
       div.bt-prev 
-        include ../assets/seta.svg
+        img(src='../assets/seta.svg' @click='show(-1)')
       div.bt-next 
-        include ../assets/seta.svg
+        img(src='../assets/seta.svg' @click='show(+1)')
+
       div.livros
         h4.mb-3 {{ categoria.nome }}
         div.livro_grid
@@ -80,8 +81,10 @@ export default {
       .then(this.$toasted.global.defaultSucess())
       .catch(showError)
 
-      console.log(this.curtida)
       this.curtida = { }
+    },
+    show(n) {  
+      console.log('tchau' + n)
     }
   },
   mounted() {
@@ -106,6 +109,7 @@ div.container {
 
     .bt-prev, .bt-next {
       svg { max-width: 40px;}
+      cursor: pointer;
     }
 
     .bt-next { 
@@ -143,9 +147,10 @@ div.container {
       }
 
       .bt-categoria, .bt-like { 
-        border-radius: 20px;
+        border-radius: 10px;
         padding: 5px 15px;
         display: inline-block;
+        cursor: pointer;
         p { margin: 0px !important; } 
       }
 

@@ -114,7 +114,7 @@ export default {
     save() {
       const method = this.edit ? 'put' : 'post'
       const id = this.edit ? `/${ this.objeto.id }` : ''
-      console.log(this.objeto)
+      // console.log(this.objeto)
 
       if (method === 'post') { delete this.objeto.vinculados }
 

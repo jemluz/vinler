@@ -161,8 +161,8 @@ export default {
 
           this.$toasted.global.defaultSucess()
 
-          console.log(this.idLivro)
-          console.log(id)
+          // console.log(this.idLivro)
+          // console.log(id)
 
           // realiza o upload da imagem
           this.onSubmit()

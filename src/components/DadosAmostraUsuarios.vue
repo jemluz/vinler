@@ -160,7 +160,6 @@ export default {
       const id = this.edit ? `/${ this.objeto.id }` : ''
 
       this.onSubmit()
-      console.log(this.message)
       this.objeto.fotoUrl = `${baseApiUrl}/image/profile-1.jpg`
 
       axios[method](`${baseApiUrl}/usuarios${id}`, this.objeto)
