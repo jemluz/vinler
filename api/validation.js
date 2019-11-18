@@ -33,7 +33,11 @@ module.exports = app => {
   function equalsOrError(valueA, valueB, msg) {
     if(valueA !== valueB) throw msg
   }
+  
+  function notEqualsOrError(valueA, valueB, msg) {
+    if(valueA === valueB) throw msg
+  }
 
-  return { existsOrError, notExistsOrError, equalsOrError }
+  return { existsOrError, notExistsOrError, equalsOrError, notEqualsOrError }
 }
 

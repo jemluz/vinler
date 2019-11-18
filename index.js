@@ -14,9 +14,11 @@
     Se vc rodar 2x é provavel que dê erro tbm pois já tem uma versão rodando.
 */
 
-const app = require('express')()
+const express = require('express')
+const app = express()
 const consign = require('consign') 
 const db = require('./config/db')
+const path = require('path')
 
 app.db = db
 // var port = process.env.PORT || 3000
@@ -36,3 +38,6 @@ consign()
     app.listen(3000, () => {
         console.log('backend rodando...')
     })
+
+    // app.use('/image', express.static(__dirname + '/uploads'));
+    app.use("/image", express.static(path.join(__dirname, "uploads")));

@@ -26,7 +26,7 @@
               div(class="bt-categoria" v-for='categoria in categorias' v-if='categoria.id === objeto.categoriaId ')
                 a(href="/" v-if='categoria.id === objeto.categoriaId ')  #[p {{ categoria.nome }}]
 
-              a(href='' @click='curtir' class='bt-like ml-3') #[font-awesome-icon(icon="heart")] Curtir
+              a( @click='curtir(index)' class='bt-like ml-3') #[font-awesome-icon(icon="heart")] Curtir
 
 
 
@@ -34,7 +34,6 @@
 
 <script>
 import { baseApiUrl, showError } from '@/global'
-import { mapState } from 'vuex'
 import axios from 'axios'
 
 export default {
@@ -43,17 +42,18 @@ export default {
     return { 
       objetos: [],
       categorias: [], 
+      curtida: { }
     }
   },
   watch: { 
-    objetos: () => {
-      return this.objetos.filter(
-        objeto => { 
-          objeto.titulo.toLowerCase().includes(this.$store.state.buscar)
-          console.log('a')
-        }
-      )
-    }
+    // objetos: () => {
+    //   return this.objetos.filter(
+    //     objeto => { 
+    //       objeto.titulo.toLowerCase().includes(this.$store.state.buscar)
+    //       console.log('a')
+    //     }
+    //   )
+    // }
   },
   methods: {
     loadObjetos() {
@@ -71,8 +71,17 @@ export default {
     //     this.$router.push({ path: 'livros/1' })
     // }
     buscar() { },
-    curtir() {
-      console.log('oi')
+    curtir(index) {
+      this.curtida.usuarioInteressadoId = this.$store.state.user.id
+      this.curtida.livroCurtidoId = this.objetos[index].id
+      this.curtida.proprietarioId = this.objetos[index].proprietarioId
+
+      axios.post(`${baseApiUrl}/curtidas`, this.curtida)
+      .then(this.$toasted.global.defaultSucess())
+      .catch(showError)
+
+      console.log(this.curtida)
+      this.curtida = { }
     }
   },
   mounted() {

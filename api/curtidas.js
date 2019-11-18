@@ -1,24 +1,29 @@
 module.exports = app => {
-  const { existsOrError, notExistsOrError, equalsOrError } = app.api.validation
+  const { existsOrError, notExistsOrError, notEqualsOrError } = app.api.validation
 
   const salvar = async (req, res) => {
     const curtida = { ...req.body }
+    console.log(curtida)
 
     try {
+      const curtidaFromDB = await app.db('curtidas').where({ livroCurtidoId: curtida.livroCurtidoId }).first()
+      notExistsOrError(curtidaFromDB, 'Você já curtiu esse livro.')
+
       existsOrError(curtida.usuarioInteressadoId, 'Você não pode curtir sem fazer login.')
       existsOrError(curtida.livroCurtidoId, 'Não existe um livro com esse id.')
       existsOrError(curtida.proprietarioId, 'Não existe um usuário com esse id.')
-    
-      const curtidaFromDB = await app.db('curtidas').where({ livroCurtidoId: curtida.livroCurtidoId }).first()
-      
-      notExistsOrError(curtidaFromDB, 'Você já curtiu esse livro.')
+      notEqualsOrError(curtida.usuarioInteressadoId, curtida.proprietarioId, 'Você não pode curtir um livro seu.')
 
     } catch(msg) { return res.status(400).send(msg) }
+    
 
     app.db('curtidas').insert(curtida)
       .then(await isBoth(curtida, res))
       .then(await makeMatch(curtida, res))
       .then(result => res.status(204).send(result))
+      .catch(err => res.status(500).send(err))
+
+    console.log(curtida)
 
   }
 
@@ -54,14 +59,15 @@ module.exports = app => {
   }
   
   const isBoth = (c1, res) => {
+
     app.db('curtidas')
       .where({ usuarioInteressadoId: c1.proprietarioId })
       .andWhere({ proprietarioId: c1.usuarioInteressadoId })
       .catch(err => res.status(500).send(err))
-      // .then(resultIsBoth => res.json(resultIsBoth) )
   }
 
   const makeMatch = async (c1, res) => {
+    
     const matched = { 
       usuario1: c1.usuarioInteressadoId,
       usuario2: c1.proprietarioId
@@ -87,7 +93,6 @@ module.exports = app => {
     
     app.db('matches')
       .insert(matched)
-      .then(_ => res.status(204).send())
       .catch(err => res.status(501).send(err))
   }
 

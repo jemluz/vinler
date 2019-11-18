@@ -41,7 +41,7 @@ export default {
       if(!userData) {
         this.validatingToken = false
         this.$router.push({ name: 'auth' })
-        console.log('Você precisa fazer login!')
+        alert('Você precisa fazer login!')
         return 
       }
 
@@ -52,7 +52,7 @@ export default {
       } else { 
         localStorage.removeItem(userKey) 
         this.$router.push({ name: 'auth' })
-        return console.log('Seu token não foi validado!')
+        return alert('Seu token não foi validado!')
       }
       this.validatingToken = false
     },

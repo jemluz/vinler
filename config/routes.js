@@ -82,13 +82,13 @@ module.exports = app => {
         .delete(app.api.curtidas.excluir)
 
 
-    app.get("/image/:file", (req, res) => { 
-        res.sendFile(path.join(__dirname, `../uploads/:file`));
-    });
+    // app.get("/image/:file", (req, res) => { 
+    //     res.sendFile(path.join(__dirname, `../uploads/:file`));
+    // });
 
-    app.get("/image/profile-1.jpg", (req, res) => { 
-        res.sendFile(path.join(__dirname, "../uploads/profile-1.jpg"));
-    });
+    // app.get("/image/profile-1.jpg", (req, res) => { 
+    //     res.sendFile(path.join(__dirname, "../uploads/profile-1.jpg"));
+    // });
 
     // app.route('upload')
     //     .post(app.api.upload.upload)
