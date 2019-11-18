@@ -93,4 +93,16 @@ button { outline: none; }
   border-color: #FFB600;
   box-shadow: 0 0 0 .2rem #FFB60030;
 }
+
+// hover do tabs
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link { 
+  border-color: #00ABC8 #00ABC8 #fff;
+  background-color: transparent;
+  color: #00ABC8;
+}
+.nav-tabs { 
+  border-color: #00ABC8; 
+  a { color: black; }
+}
+
 </style>

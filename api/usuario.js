@@ -14,6 +14,7 @@ module.exports = app => {
 
     const salvar = async (req, res) => {
         const usuario = { ...req.body }
+        console.log(req.body)
 
         if (req.params.id) usuario.id = req.params.id
 
@@ -26,9 +27,6 @@ module.exports = app => {
             existsOrError(usuario.celular, 'Celular não inserido.')
             existsOrError(usuario.local, 'Local não inserido.')
             equalsOrError(usuario.senha, usuario.confirmarSenha, 'Senhas não conferem.')
-
-            const usuarioFromDB = await app.db('usuarios').where({ email: usuario.email }).first()
-            if(!usuario.id) { notExistsOrError(usuarioFromDB, 'Usuário já cadastrado com esse e-mail.') }
 
         } catch (msg) {
             return res.status(400).send(msg)
@@ -44,6 +42,9 @@ module.exports = app => {
                 .then(_ => res.status(204).send())
                 .catch(err => res.status(500).send(err))
         } else {
+            const usuarioFromDB = await app.db('usuarios').where({ email: usuario.email }).first()
+            if(!usuario.id) { notExistsOrError(usuarioFromDB, 'Usuário já cadastrado com esse e-mail.') }
+
             app.db('usuarios')
                 .insert(usuario)
                 .then(_ => res.status(204).send())

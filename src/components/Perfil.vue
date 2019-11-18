@@ -7,15 +7,22 @@
           img(:src="user.fotoUrl" width='100px' height='100px' alt="")
 
           <!-- SIDEBAR USER TITLE -->
-          div.profile-usertitle
-            div.profile-usertitle-name {{ user.nome }}
-            div.profile-usertitle-job {{ vinculados.length }} Livros cadastrados
+          div.profile-usertitle.ml-4
+            h3.profile-usertitle-name {{ user.nome }}
+            h6.profile-usertitle-local {{ user.local }} #[br] {{ user.celular }}
+            h6.profile-usertitle-vinculados {{ vinculados.length }} Livros cadastrados
         
-        <!-- SIDEBAR BUTTONS -->
-        div.profile-userbuttons
-          button(type="button" class="btn btn-success btn-sm") Novo Livro 
-          button(type="button" class="btn btn-danger btn-sm") Configurações
-        
+      <!-- SIDEBAR BUTTONS -->
+      b-tabs(class="mt-3")
+        b-tab(title="Novo Livro")
+          NovoLivro.mt-5
+
+        b-tab(title="Meus Livros" active)
+          MeusLivros
+
+        b-tab(title="Meus Dados")
+          MeusDados.mt-4
+
         <!-- SIDEBAR MENU -->
         //- div.profile-usermenu
         //-   ul.nav
@@ -29,27 +36,7 @@
         //-       a(href="#" target="_blank") #[i(class="glyphicon glyphicon-ok")] Matches
               
 
-      div.profile_painel
-        
-        h3 Meus Livros
-        div.profile-content.row
-
-          <!-- Lista de Livros -->
-          div(
-            class="livro mr-5 "
-            v-for='(vinculado, index) in vinculados'
-            )
- 
-            div.livro_foto
-              router-link(to='/livro-detalhe')    
-                img(:src='vinculado.fotoUrl' width='150px' height='150px' @click='func(index)')
-
-            div.livro_titulo
-              div.product_title 
-                a(href="/") {{ vinculado.titulo }}
-
-            div(class="categoria" v-for='categoria in categorias')
-              a(href="/" v-if='categoria.id === vinculado.categoriaId ')  {{ categoria.nome }}
+      
 
             
 
@@ -60,14 +47,18 @@ import { mapState } from 'vuex';
 import { baseApiUrl, showError } from '@/global'
 import axios from 'axios'
 
+import MeusLivros from '@/components/PerfilLivros'
+import MeusDados from '@/components/PerfilDados'
+import NovoLivro from '@/components/PerfilNovoLivro'
+
 export default {
   name: 'Perfil',
+  components: { MeusLivros, MeusDados, NovoLivro },
   computed: mapState(["user"]),
   data: function() {
     return {
-      mainProps: { blank: true, blankColor: 'red', width: 75, height: 75, class: 'm1' },
       vinculados: [],
-      categorias: []
+      categorias: [],
     }
   },
   methods: {
@@ -80,9 +71,6 @@ export default {
       axios.get(`${baseApiUrl}/categorias`).then(resposta => {
           this.categorias = resposta.data
       })
-    },
-    func(index) {
-      this.$store.commit('setLivroId', this.produtos[index].id)
     }
   },
   mounted() {
@@ -95,7 +83,7 @@ export default {
 <style lang='scss'>
 /* Profile container */
 .profile {
-  background-color: #f5f5f5;
+  background-color: #f9f9f9;
   margin: 20px 0px;
   justify-content: center;
   display: grid;
@@ -109,6 +97,14 @@ export default {
     -moz-border-radius: 50% !important;
     border-radius: 50% !important;
   }
+
+  .profile-usertitle-name { color: #00ABC8; }
+  .profile-usertitle-local { color: #767676; }
+  .profile-usertitle-vinculados { color: #3d3d3d; }
+
+  
+
+  .meus_livros { display: none; }
 
   @media only screen and (max-width: 900px) {
 
@@ -165,9 +161,14 @@ export default {
   @media only screen and (min-width: 901px) {
     
     .profile-sidebar {
-      padding: 20px 0 10px 0;
+      padding: 100px 0 50px 0;
 
       .profile-userpic img {
+
+      }
+
+      .profile-userbuttons {
+        margin-top: 40px;
       }
     }
 

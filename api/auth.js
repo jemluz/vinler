@@ -25,8 +25,11 @@ module.exports = app => {
     const now = Math.floor(Date.now() / 1000)
     const payload = {
       id: usuario.id,
+      email: usuario.email,
       login: usuario.login,
       nome: usuario.nome,
+      local: usuario.local,
+      celular: usuario.celular,
       fotoUrl: usuario.fotoUrl,
       iat: now,
       exp: now + (60 * 60 * 24 * 3)
