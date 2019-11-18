@@ -15,7 +15,7 @@
               th.pd-left {{ objeto.id }} / {{ objeto.nome }}
               th.pd-left {{ objeto.email.slice(0,10)+'...' }}
               th.pd-left {{ objeto.login }} / {{ objeto.senha.slice(0,5)+'...' }}
-              th.pd-left #[img(:src='objeto.fotoUrl' width='50px' height='50px')]
+              th.pd-left #[img(:src='objeto.fotoUrl' width='50px' height='50px' style='border-radius: 50%;')]
               th.pd-top.pd-right.row 
                 button(@click='loadObjeto(objeto, "save", true)' class='bt-edit') #[font-awesome-icon(icon="edit")]
                 button(@click="loadObjeto(objeto, 'remove', false)" class='bt-remove') #[font-awesome-icon(icon="trash-alt")]

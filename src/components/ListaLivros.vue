@@ -85,6 +85,15 @@ export default {
     },
     show(n) {  
       console.log('tchau' + n)
+
+      let liEls = document.querySelectorAll('.livro_grid .livro');
+      let index = 0;
+      
+      window.show = function(increase) {
+        index = index + increase;
+        index = Math.min(Math.max(index,0), liEls.length-1);
+        liEls[index].scrollIntoView({behavior: 'smooth'});
+      }
     }
   },
   mounted() {

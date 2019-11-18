@@ -23,6 +23,8 @@ module.exports = app => {
             existsOrError(usuario.login, 'Login não inserido.')
             existsOrError(usuario.senha, 'Senha não inserida.')
             existsOrError(usuario.confirmarSenha, 'Confirme a senha.')
+            existsOrError(usuario.celular, 'Celular não inserido.')
+            existsOrError(usuario.local, 'Local não inserido.')
             equalsOrError(usuario.senha, usuario.confirmarSenha, 'Senhas não conferem.')
 
             const usuarioFromDB = await app.db('usuarios').where({ email: usuario.email }).first()
@@ -51,14 +53,14 @@ module.exports = app => {
 
     const visualizar = (req, res) => {
         app.db('usuarios')
-        .select('id', 'email', 'login', 'nome', 'senha')
+        .select('id', 'email', 'login', 'nome', 'senha', 'celular', 'local', 'fotoUrl')
         .then(usuarios => res.json(usuarios))
         .catch(err => res.status(500).send(err))
     }
 
     const visualizarPorId = (req, res) => {
         app.db('usuarios')
-        .select('id', 'email', 'login', 'nome', 'senha')
+        .select('id', 'email', 'login', 'nome', 'senha',  'celular', 'local', 'fotoUrl')
         .where({ id: req.params.id })
         .first()
         .then(usuario => res.json(usuario))
@@ -82,7 +84,7 @@ module.exports = app => {
 
     const visualizarVinculados = (req, res) => {
         app.db('livros')
-            .select('id', 'titulo', 'descricao', 'fotoUrl', 'proprietarioId', 'categoriaId')
+            .select('id', 'titulo', 'descricao', 'fotoUrl', 'tempoVida', 'disponivel', 'proprietarioId', 'categoriaId')
             .where({ proprietarioId: req.params.id })
             .then(vinculados => res.json(vinculados))
             .catch(err => res.status(500).send(err))

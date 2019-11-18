@@ -6,7 +6,8 @@ exports.up = function(knex, Promise) {
     table.string('login').notNull().unique()
     table.string('email').notNull().unique()
     table.string('senha').notNull()
-    // table.string('vinculados').notNull()
+    table.string('celular').notNull()
+    table.string('local').notNull()
     table.string('fotoUrl', 1000)
   })
 };

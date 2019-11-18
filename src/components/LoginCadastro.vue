@@ -48,6 +48,25 @@
               v-if="showSignup"
               required
             )
+          div.form-group
+            input(
+              type="text" 
+              class="form-control" 
+              placeholder="Diz aí qual teu número."
+              v-model='user.celular'
+              v-if="showSignup"
+              required
+            )
+          div.form-group
+            input(
+              type="text" 
+              class="form-control" 
+              placeholder="E onde você mora ;)"
+              v-model='user.local'
+              v-if="showSignup"
+              required
+            )
+          
             //- div.form-check    
             //- input(
             //-   id='checkFuncionario'

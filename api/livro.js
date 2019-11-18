@@ -47,6 +47,9 @@ module.exports = app => {
         try {
             existsOrError(livro.titulo, 'Título não inserido.')
             existsOrError(livro.descricao, 'Descrição não inserida.')
+            existsOrError(livro.nPaginas, 'Número de páginas não especificado.')
+            existsOrError(livro.tempoVida, 'Tempo de vida não inserido.')
+            existsOrError(livro.disponivel, 'Especifique a disponibilidade do livro.')
             existsOrError(livro.proprietarioId, 'Dono não especificado.')  
             existsOrError(livro.categoriaId, 'Categoria não especificada.')  
 
@@ -78,14 +81,14 @@ module.exports = app => {
 
     const visualizar = (req, res) => {
         app.db('livros')
-        .select('id', 'titulo', 'descricao', 'fotoUrl', 'proprietarioId', 'categoriaId')
+        .select('id', 'titulo', 'descricao', 'nPaginas', 'fotoUrl', 'tempoVida', 'disponivel', 'proprietarioId', 'categoriaId')
         .then(livro => res.json(livro))
         .catch(err => res.status(500).send(err))
     }
 
     const visualizarPorId = (req, res) => {
         app.db('livros')
-        .select('id', 'titulo', 'descricao', 'fotoUrl', 'proprietarioId', 'categoriaId')
+        .select('id', 'titulo', 'descricao', 'nPaginas', 'fotoUrl', 'tempoVida', 'disponivel', 'proprietarioId', 'categoriaId')
         .where({ id: req.params.id })
         .first()
         .then(livro => res.json(livro))
@@ -94,20 +97,12 @@ module.exports = app => {
 
     const visualizarPorNome = (req, res) => {
         app.db('livros')
-        .select('id', 'titulo', 'descricao', 'fotoUrl', 'proprietarioId', 'categoriaId')
+        .select('id', 'titulo', 'descricao', 'nPaginas', 'fotoUrl', 'tempoVida', 'disponivel', 'proprietarioId', 'categoriaId')
         .where({ titulo: req.params.nome })
         .orWhere({ descricao: req.params.nome })
         .then(livros => res.json(livros))
         .catch(err => res.status(500).send(err))
     }
-
-    // const visualizarUltimoInserido = (req, res) => {
-    //     app.db('livros')
-    //     .select('id', 'titulo', 'descricao', 'fotoUrl', 'proprietarioId', 'categoriaId')
-    //     .where( 'LAST_INSERT_ID()' )
-    //     .then(livros => res.json(livros))
-    //     .catch(err => res.status(500).send(err))
-    // }
 
     const excluir = async (req, res) => {
         try {
