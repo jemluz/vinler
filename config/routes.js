@@ -34,6 +34,7 @@ module.exports = app => {
     app.post('/validateToken', app.api.auth.validarToken)
     app.get('/livros', app.api.livro.visualizar)
     app.get('/livros/:nome', app.api.livro.visualizarPorNome)
+    app.get('/livros/:id', app.api.livro.visualizarPorId)
 
     // ROTAS PROTEGIDAS
     app.route('/usuarios')
@@ -57,6 +58,7 @@ module.exports = app => {
     app.route('/livros/:id')
         .all(app.config.passport.authenticate())
         .put(app.api.livro.salvar)
+        .get(app.api.livro.visualizarPorId)
         .delete(app.api.livro.excluir)
 
     app.route('/categorias')

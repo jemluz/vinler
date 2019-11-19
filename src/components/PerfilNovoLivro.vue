@@ -87,7 +87,7 @@
         input(
           type='button'
           class="btn btn-primary btn-pill bt-salvar" 
-          @click="save"
+          @click="full"
           value="Salvar"
         )
         input(
@@ -126,8 +126,10 @@ export default {
         // testar cada uma separado
 
         // realiza a inserção do novo livro no banco
+        this.save()
 
         // puxa o livro recem adicionado ao banco
+        this.getNovo(this.idLivro) 
 
         // nomeia o arquivo de imagem
         // this.onSubmit()
@@ -138,16 +140,21 @@ export default {
     async getNovo(idLivro) {
       // puxa o livro recem adicionado ao banco
       axios.get(`${baseApiUrl}/livros/${idLivro}`)
-        .then(novo => { this.novoLivro = novo.data })
+        .then(novo => { 
+          // this.novoLivro = novo.data 
+          console.log(this.idLivro + '- ' + JSON.stringify(novo.data[0]))
+        })
         .catch(showError)
 
-      console.log(this.novoLivro)
+      // console.log(this.novoLivro)
     },
     save() {
       // realiza a inserção do novo livro no banco
       axios.post(`${baseApiUrl}/livros`, this.objeto)
-        .then(result => { this.idLivro = JSON.stringify(result.data[0]) })
-        .then(this.getNovo(this.idLivro))
+        .then(result => { 
+          this.idLivro = JSON.stringify(result.data[0]) 
+          this.$toasted.global.defaultSucess()
+        })
         .catch(showError)
 
       // realiza um put
