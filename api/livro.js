@@ -90,7 +90,7 @@ module.exports = app => {
         .select('id', 'titulo', 'descricao', 'nPaginas', 'fotoUrl', 'tempoVida', 'disponivel', 'proprietarioId', 'categoriaId')
         .where({ id: req.params.id })
         .first()
-        .then(livro => res.json(livro))
+        .then(livro => { res.json(livro) })
         .catch(err => res.status(500).send(err))
     }
 
@@ -99,8 +99,12 @@ module.exports = app => {
         .select('id', 'titulo', 'descricao', 'nPaginas', 'fotoUrl', 'tempoVida', 'disponivel', 'proprietarioId', 'categoriaId')
         .where({ titulo: req.params.nome })
         .orWhere({ descricao: req.params.nome })
-        .then(livros => res.json(livros))
+        .then(livros => { 
+            res.json(livros) 
+            console.log(livros)
+        })
         .catch(err => res.status(500).send(err))
+
     }
 
     const excluir = async (req, res) => {

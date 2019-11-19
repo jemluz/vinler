@@ -41,3 +41,4 @@ consign()
 
     // app.use('/image', express.static(__dirname + '/uploads'));
     app.use("/image", express.static(path.join(__dirname, "uploads")));
+

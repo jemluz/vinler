@@ -117,48 +117,86 @@ export default {
       },
       file: "",
       imageData: "",
-      idLivro: "".
-      novoLivro
+      idLivro: null,
+      novoLivro: null,
+
     }
   },
   methods: {
     full() {
-        // testar cada uma separado
+      // realiza a inserção do novo livro no banco
+      axios.post(`${baseApiUrl}/livros`, this.objeto)
+        .then(result => { 
+          this.idLivro = result.data[0]
 
-        // realiza a inserção do novo livro no banco
-        this.save()
+          // upando foto no servidor
+          this.uploadPhoto()
 
-        // puxa o livro recem adicionado ao banco
-        this.getNovo(this.idLivro) 
+          // extraindo a extensão do arquivo
+          var name = this.file.name
+          var lastDot = name.lastIndexOf('.');
+          var ext = name.substring(lastDot + 1);
 
-        // nomeia o arquivo de imagem
-        // this.onSubmit()
+          // obtendo o objeto recem inserido
+          this.getNovo(this.idLivro, ext)
 
-        // realiza o put com a imagem correta
-        // axios.put(`${baseApiUrl}/livros/`)
-    },
-    async getNovo(idLivro) {
-      // puxa o livro recem adicionado ao banco
-      axios.get(`${baseApiUrl}/livros/${idLivro}`)
-        .then(novo => { 
-          // this.novoLivro = novo.data 
-          console.log(this.idLivro + '- ' + JSON.stringify(novo.data[0]))
         })
         .catch(showError)
+          
 
-      // console.log(this.novoLivro)
+          // console.log(this.idLivro + '- ' + this.novoLivro)
+
+          // puxa o livro recem adicionado ao banco
+          
+        
+      this.reset()
+
+      // realiza o put com a imagem correta
+      // axios.put(`${baseApiUrl}/livros/`)
+
+      
+
     },
+    
     save() {
       // realiza a inserção do novo livro no banco
       axios.post(`${baseApiUrl}/livros`, this.objeto)
         .then(result => { 
           this.idLivro = JSON.stringify(result.data[0]) 
-          this.$toasted.global.defaultSucess()
         })
         .catch(showError)
 
       // realiza um put
       this.reset()
+    },
+    getNovo(idLivro, ext) {
+      // puxa o livro recem adicionado ao banco
+       axios.get(`${baseApiUrl}/livros/${idLivro}`)
+        .then(novo => { 
+          this.novoLivro = JSON.parse(JSON.stringify(novo.data))
+          
+          // atualizando a propriedade foto para ser atualizada no banco
+          this.novoLivro.fotoUrl = `${baseApiUrl}/image/livro-${this.user.id}-${this.idLivro}.${ext}`
+          
+          // converte pra string novamente
+          this.novoLivro = JSON.stringify(this.novoLivro)
+
+          // fazendo o put no banco
+          this.putNovo(this.idLivro, this.novoLivro)
+        })
+        .catch(showError)
+
+      // console.log(this.novoLivro)
+    },
+    putNovo(idLivro, novoLivro) {
+      axios.ut(`${baseApiUrl}/livros/${idLivro}`, novoLivro)
+        .then(fim => { 
+          console.log(JSON.stringify(fim))
+          // console.log(this.novoLivro)
+          this.$toasted.global.defaultSucess()
+        })
+        .catch(showError)
+
     },
     onSelect() {
       this.previewImage()
@@ -174,18 +212,15 @@ export default {
         this.message = "Arquivo muito grande. O máximo permitido é 50KB"
       }
     },
-    async onSubmit() {
+    uploadPhoto() {
       const formData = new FormData()
       formData.append('userId', this.user.id)
       formData.append('livroId', this.idLivro)
       formData.append('file', this.file)
 
-      try {
-        await axios.post(`${baseApiUrl}/upload-livroImg`, formData)
-        this.message = 'Upado!'
-      } catch(err) {
-        this.message = 'Deu ruim.' + err
-      }
+      axios.post(`${baseApiUrl}/upload-livroImg`, formData)
+        .then(this.$toasted.global.defaultSucess())
+        .catch()
     },
     previewImage() {
       // Reference to the DOM input element

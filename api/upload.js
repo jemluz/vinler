@@ -12,7 +12,7 @@ module.exports = app => {
       cb(null, 'uploads/'); 
     },
     filename: (req, file, cb) => { 
-      console.log(req.body)
+      // console.log(req.body)
 
       cb(null, `livro-${req.body.userId}-${req.body.livroId}${path.extname(file.originalname)}`) 
     },
