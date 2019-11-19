@@ -1,24 +1,24 @@
-<template lang="pug">
+  <template lang="pug">
   div.meus_livros
-        
-        div.content.row
+    div.content.row
 
-          <!-- Lista de Livros -->
-          div(
-            class="livro mr-5 "
-            v-for='(vinculado, index) in vinculados'
-            )
- 
-            div.livro_foto
-              router-link(to='/livro-detalhe')    
-                img(:src='vinculado.fotoUrl' width='150px' height='150px' @click='func(index)')
+      <!-- Lista de Livros -->
+      div(
+        class="livro mr-5 "
+        v-for='vinculado in vinculados'
+        )
 
-            div.livro_titulo
-              div.product_title 
-                a(href="/") {{ vinculado.titulo }}
+        div.livro_foto
+          router-link(:to='{ name: "livro", params: { id: vinculado.id } }')   
+            img(:src='vinculado.fotoUrl' width='150px' height='150px')
 
-            div(class="categoria" v-for='categoria in categorias')
-              a(href="/" v-if='categoria.id === vinculado.categoriaId ')  {{ categoria.nome }}
+        div.livro_titulo
+          div.product_title 
+            a(href="/") {{ vinculado.titulo }}
+
+        div(class="categoria" v-for='categoria in categorias')
+          a(href="/" v-if='categoria.id === vinculado.categoriaId ')  {{ categoria.nome }}
+          
 </template>
 
 <script>
@@ -29,21 +29,27 @@ import axios from 'axios'
 export default {
   name: 'MeusLivros',
   computed: mapState(["user"]),
-  data: () => {
+  data: function()  {
     return {
       vinculados: [],
-      categorias: []
+      categorias: [],
     }
   },
   methods: {
     loadVinculados() {
       const url = `${baseApiUrl}/usuarios/vinculados/${this.user.id}`
-      axios.get(url).then(resposta => { this.vinculados = resposta.data }).catch(showError)
+
+      axios.get(url).then(resposta => { 
+        this.vinculados = resposta.data 
+      })
+      .catch(showError)
+
     },
     loadCategorias() {
       // utiliza uma url pra fazer uma requisição com o axios e carregar um array de clientes
       axios.get(`${baseApiUrl}/categorias`).then(resposta => {
           this.categorias = resposta.data
+
       })
     }
   },

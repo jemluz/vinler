@@ -141,20 +141,9 @@ export default {
           this.getNovo(this.idLivro, ext)
 
         })
-        .catch(showError)
-          
-
-          // console.log(this.idLivro + '- ' + this.novoLivro)
-
-          // puxa o livro recem adicionado ao banco
-          
+        .catch(showError)  
         
       this.reset()
-
-      // realiza o put com a imagem correta
-      // axios.put(`${baseApiUrl}/livros/`)
-
-      
 
     },
     
@@ -177,9 +166,6 @@ export default {
           
           // atualizando a propriedade foto para ser atualizada no banco
           this.novoLivro.fotoUrl = `${baseApiUrl}/image/livro-${this.user.id}-${this.idLivro}.${ext}`
-          
-          // converte pra string novamente
-          this.novoLivro = JSON.stringify(this.novoLivro)
 
           // fazendo o put no banco
           this.putNovo(this.idLivro, this.novoLivro)
@@ -189,12 +175,8 @@ export default {
       // console.log(this.novoLivro)
     },
     putNovo(idLivro, novoLivro) {
-      axios.ut(`${baseApiUrl}/livros/${idLivro}`, novoLivro)
-        .then(fim => { 
-          console.log(JSON.stringify(fim))
-          // console.log(this.novoLivro)
-          this.$toasted.global.defaultSucess()
-        })
+      axios.put(`${baseApiUrl}/livros/${idLivro}`, novoLivro)
+        .then(this.$toasted.global.defaultSucess())
         .catch(showError)
 
     },

@@ -65,6 +65,7 @@ export default {
     loadVinculados() {
       const url = `${baseApiUrl}/usuarios/vinculados/${this.user.id}`
       axios.get(url).then(resposta => { this.vinculados = resposta.data }).catch(showError)
+
     },
     loadCategorias() {
       // utiliza uma url pra fazer uma requisição com o axios e carregar um array de clientes
@@ -104,7 +105,7 @@ export default {
 
   
 
-  .meus_livros { display: none; }
+  // .meus_livros { display: none; }
 
   @media only screen and (max-width: 900px) {
 
