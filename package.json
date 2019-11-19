@@ -28,7 +28,7 @@
     "font-awesome": "^4.7.0",
     "highlightjs": "9.10.0",
     "jwt-simple": "^0.5.6",
-    "knex": "0.15.2",
+    "knex": "0.19.5",
     "liquor-tree": "0.2.32",
     "localtunnel": "^2.0.0",
     "moment": "2.22.2",
