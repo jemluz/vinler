@@ -84,16 +84,17 @@ export default {
       this.curtida = { }
     },
     show(n) {  
-      console.log('tchau' + n)
-
-      let liEls = document.querySelectorAll('.livro_grid .livro');
-      let index = 0;
+      let liEls = document.querySelectorAll('.livro_grid .livro')
+      let index = 0
       
       window.show = function(increase) {
-        index = index + increase;
-        index = Math.min(Math.max(index,0), liEls.length-1);
-        liEls[index].scrollIntoView({behavior: 'smooth'});
+        index = index + increase
+        index = Math.min(Math.max(index,0), liEls.length-1)
+        liEls[index].scrollIntoView({behavior: 'smooth'})
       }
+
+      // esse bixo não é daqui
+      return n
     }
   },
   mounted() {

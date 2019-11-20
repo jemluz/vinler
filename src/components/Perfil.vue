@@ -103,10 +103,6 @@ export default {
   .profile-usertitle-local { color: #767676; }
   .profile-usertitle-vinculados { color: #3d3d3d; }
 
-  
-
-  // .meus_livros { display: none; }
-
   @media only screen and (max-width: 900px) {
 
       grid-template-columns: .5fr 1fr 2fr .5fr;
