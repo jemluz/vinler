@@ -23,23 +23,9 @@
         b-tab(title="Meus Dados")
           MeusDados.mt-4
 
+        b-tab(title="Minhas Curtdas")
+
         <!-- SIDEBAR MENU -->
-        //- div.profile-usermenu
-        //-   ul.nav
-        //-     li.active
-        //-       a(href="#") #[i(class="glyphicon glyphicon-home")] Meus dados
-            
-        //-     li
-        //-       a(href="#") #[i(class="glyphicon glyphicon-user")] Meus Livros
-            
-        //-     li
-        //-       a(href="#" target="_blank") #[i(class="glyphicon glyphicon-ok")] Matches
-              
-
-      
-
-            
-
 </template>
 
 <script>

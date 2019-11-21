@@ -140,6 +140,8 @@ export default {
           // obtendo o objeto recem inserido
           this.getNovo(this.idLivro, ext)
 
+
+
         })
         .catch(showError)  
         
@@ -201,7 +203,6 @@ export default {
       formData.append('file', this.file)
 
       axios.post(`${baseApiUrl}/upload-livroImg`, formData)
-        .then(this.$toasted.global.defaultSucess())
         .catch()
     },
     previewImage() {

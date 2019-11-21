@@ -20,8 +20,13 @@
                 img(:src=`objeto.fotoUrl`)
 
             div.livro_info
-              h5 {{ objeto.titulo }}
+              h5.mt-3 {{ objeto.titulo }}
               p {{ objeto.descricao }}
+              h6 #[img.ml-2.mr-2(src='../assets/book.svg' width='20px') ] {{ objeto.nPaginas }} Páginas
+              h6 #[img.mr-2(src='../assets/shelf.svg' width='30px') ] {{ objeto.tempoVida }}  
+              div(v-for='dono in donos' v-if='dono.id === objeto.proprietarioId ')
+                p.mt-3 {{ dono.nome }}
+                p.mt-3 {{ dono.local }}
 
             div.livro_actions
               div(class="bt-categoria" v-for='categoria in categorias' v-if='categoria.id === objeto.categoriaId ')
@@ -43,6 +48,7 @@ export default {
     return { 
       objetos: [],
       categorias: [], 
+      donos: [], 
       curtida: { }
     }
   },
@@ -65,6 +71,11 @@ export default {
         // utiliza uma url pra fazer uma requisição com o axios e carregar um array de clientes
         axios.get(`${baseApiUrl}/categorias`).then(resposta => {
             this.categorias = resposta.data
+        })
+    },
+    loadDonos() {
+      axios.get(`${baseApiUrl}/usuarios`).then(resposta => {
+            this.donos = resposta.data
         })
     },
     // toLivro(index) {
@@ -101,6 +112,7 @@ export default {
     // executado após o carregamento do componente
     this.loadCategorias()
     this.loadObjetos()
+    this.loadDonos()
   }
 }
 </script>
@@ -136,7 +148,7 @@ div.container {
 
       .livro_grid { 
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 
         height: initial; 
         flex-direction: row; 
@@ -154,6 +166,8 @@ div.container {
         text-align: left;
         color: #00000090;
         cursor: default;
+
+        h6 { color:#00ABC8; }
       }
 
       .bt-categoria, .bt-like { 
