@@ -80,14 +80,14 @@ module.exports = app => {
 
     const visualizar = (req, res) => {
         app.db('livros')
-        .select('id', 'titulo', 'descricao', 'nPaginas', 'fotoUrl', 'tempoVida', 'disponivel', 'proprietarioId', 'categoriaId')
+        .select('id', 'titulo', 'descricao', 'nPaginas', 'nCurtidas', 'fotoUrl', 'tempoVida', 'disponivel', 'proprietarioId', 'categoriaId')
         .then(livro => res.json(livro))
         .catch(err => res.status(500).send(err))
     }
 
     const visualizarPorId = (req, res) => {
         app.db('livros')
-        .select('id', 'titulo', 'descricao', 'nPaginas', 'fotoUrl', 'tempoVida', 'disponivel', 'proprietarioId', 'categoriaId')
+        .select('id', 'titulo', 'descricao', 'nPaginas', 'nCurtidas', 'fotoUrl', 'tempoVida', 'disponivel', 'proprietarioId', 'categoriaId')
         .where({ id: req.params.id })
         .first()
         .then(livro => { res.json(livro) })
@@ -96,7 +96,7 @@ module.exports = app => {
 
     const visualizarPorNome = (req, res) => {
         app.db('livros')
-        .select('id', 'titulo', 'descricao', 'nPaginas', 'fotoUrl', 'tempoVida', 'disponivel', 'proprietarioId', 'categoriaId')
+        .select('id', 'titulo', 'descricao', 'nPaginas', 'nCurtidas', 'fotoUrl', 'tempoVida', 'disponivel', 'proprietarioId', 'categoriaId')
         .where({ titulo: req.params.nome })
         .orWhere({ descricao: req.params.nome })
         .then(livros => { 
