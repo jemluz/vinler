@@ -14,6 +14,7 @@
           div(
             class="livro row"
             v-for='(objeto, index) in objetos'
+            v-if='objeto.proprietarioId !== user.id '
             )
             div.livro_img
               router-link(:to='{ name: "livro", params: { id: objeto.id } }')    
@@ -42,9 +43,11 @@
 <script>
 import { baseApiUrl, showError } from '@/global'
 import axios from 'axios'
+import { mapState } from 'vuex';
 
 export default {
   name: 'ListaLivros',
+  computed: mapState(["user"]),
   data: function() {
     return { 
       objetos: [],

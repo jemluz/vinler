@@ -23,7 +23,7 @@
         b-tab(title="Meus Dados")
           MeusDados.mt-4
 
-        b-tab(title="Minhas Curtdas")
+        b-tab(title="Minhas Curtidas")
 
         <!-- SIDEBAR MENU -->
 </template>

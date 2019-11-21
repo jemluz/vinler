@@ -25,7 +25,7 @@
             div(class="bt-categoria" v-for='categoria in categorias' v-if='categoria.id === vinculado.categoriaId ')
               a(href="/" v-if='categoria.id === vinculado.categoriaId ')  #[p {{ categoria.nome }}]
 
-            a( @click='curtir(index)' class='bt-like ml-3') #[font-awesome-icon(icon="heart")] Curtir
+            a( @click='' class='bt-like ml-3') {{ }} Curtidas
           
 </template>
 
@@ -170,6 +170,7 @@ div.meus_livros {
         .livro_img img{
           width: 200px;
           height: 200px;
+          border-radius: 10px;
         }
 
         .livro_info {

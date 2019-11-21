@@ -258,7 +258,7 @@ export default {
         grid-row: 2 / 3;
 
         justify-self: flex-start;  
-        align-self: flex-end;
+        align-self: center;
 
         align-items: center;
         padding: 5px 15px;
