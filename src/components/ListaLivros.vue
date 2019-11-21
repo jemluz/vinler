@@ -24,9 +24,10 @@
               p {{ objeto.descricao }}
               h6 #[img.ml-2.mr-2(src='../assets/book.svg' width='20px') ] {{ objeto.nPaginas }} Páginas
               h6 #[img.mr-2(src='../assets/shelf.svg' width='30px') ] {{ objeto.tempoVida }}  
+              
               div(v-for='dono in donos' v-if='dono.id === objeto.proprietarioId ')
-                p.mt-3 {{ dono.nome }}
-                p.mt-3 {{ dono.local }}
+                p.mt-3 De #[strong(style='color: #FFB600;') {{ dono.nome }}] 
+                p.mt-3(style='font-size: 11px;') #[font-awesome-icon(icon="map-marker-alt")]  {{ dono.local }}
 
             div.livro_actions
               div(class="bt-categoria" v-for='categoria in categorias' v-if='categoria.id === objeto.categoriaId ')
@@ -148,7 +149,7 @@ div.container {
 
       .livro_grid { 
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 
         height: initial; 
         flex-direction: row; 

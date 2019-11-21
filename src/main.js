@@ -21,7 +21,7 @@ import {
   faSpinner, 
   faHeart, 
   faSearch, 
-  faFile
+  faMapMarkerAlt
 } from '@fortawesome/free-solid-svg-icons'
 
 // importando os icones que serão utilizados no projeto
@@ -35,7 +35,7 @@ library.add(
   faSpinner,
   faHeart,
   faSearch,
-  faFile
+  faMapMarkerAlt
 )
 
 Vue.config.productionTip = false
