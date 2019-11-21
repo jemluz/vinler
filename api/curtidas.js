@@ -3,8 +3,9 @@ module.exports = app => {
 
   const salvar = async (req, res) => {
     const curtida = { ...req.body }
-    console.log(curtida)
 
+    delete curtida.nCurtidas
+    
     try {
       const curtidaFromDB = await app.db('curtidas').where({ livroCurtidoId: curtida.livroCurtidoId }).first()
       notExistsOrError(curtidaFromDB, 'Você já curtiu esse livro.')
@@ -18,6 +19,7 @@ module.exports = app => {
     
 
     app.db('curtidas').insert(curtida)
+      .then(await setCurtida(curtida, res))
       .then(await isBoth(curtida, res))
       .then(await makeMatch(curtida, res))
       .then(result => res.status(204).send(result))
@@ -58,6 +60,14 @@ module.exports = app => {
     }
   }
   
+  const setCurtida = async (c1, n, res) => {
+    await app.db('livros')
+      .where({ id: c1.livroCurtidoId })
+      .update({ nCurtidas: app.db.raw('nCurtidas + 1') })
+      .catch(err => res.sendStatus(500).send(err))
+
+  }
+
   const isBoth = (c1, res) => {
 
     app.db('curtidas')
@@ -96,6 +106,21 @@ module.exports = app => {
       .catch(err => res.status(501).send(err))
   }
 
-  return { salvar, visualizar, visualizarPorId, excluir }
+  const deleteMatch = async (req, res) => {
+    try {
+      const rowsDeleted = await               
+        app.db('matches')
+          .where({ id: req.params.id })
+          .del()
+        
+        existsOrError(req.params.id, 'Id do match não informado.')
+
+        res.status(204).send()
+    } catch (msg) {
+        res.status(400).send(msg)
+    }
+  }
+
+  return { salvar, visualizar, visualizarPorId, excluir, deleteMatch }
 }
 
