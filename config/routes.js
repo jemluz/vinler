@@ -83,6 +83,9 @@ module.exports = app => {
     app.route('/curtidas/:id')
         .delete(app.api.curtidas.excluir)
 
+    app.route('/matches/:id')
+        .delete(app.api.curtidas.deleteMatch)
+
 
     // app.get("/image/:filename", (req, res) => { 
     //     res.sendFile(path.join(__dirname, `../uploads/:file`));

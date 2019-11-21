@@ -25,7 +25,7 @@
             div(class="bt-categoria" v-for='categoria in categorias' v-if='categoria.id === vinculado.categoriaId ')
               a(href="/" v-if='categoria.id === vinculado.categoriaId ')  #[p {{ categoria.nome }}]
 
-            a( @click='' class='bt-like ml-3') {{ }} Curtidas
+            a( @click='' class='bt-like ml-3') {{ vinculado.nCurtidas ? `${vinculado.nCurtidas} Curtidas` : `0 Curtidas`}} 
           
 </template>
 

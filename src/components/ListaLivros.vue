@@ -91,6 +91,7 @@ export default {
       this.curtida.usuarioInteressadoId = this.$store.state.user.id
       this.curtida.livroCurtidoId = this.objetos[index].id
       this.curtida.proprietarioId = this.objetos[index].proprietarioId
+      this.curtida.nCurtidas = this.objetos[index].nCurtidas
 
       axios.post(`${baseApiUrl}/curtidas`, this.curtida)
       .then(this.$toasted.global.defaultSucess())
