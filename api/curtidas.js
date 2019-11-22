@@ -20,13 +20,9 @@ module.exports = app => {
 
     app.db('curtidas').insert(curtida)
       .then(await setCurtida(curtida, res))
-      .then(await isBoth(curtida, res))
       .then(await makeMatch(curtida, res))
       .then(result => res.status(204).send(result))
       .catch(err => res.status(500).send(err))
-
-    console.log(curtida)
-
   }
 
   const visualizar = (req, res) => {
@@ -68,14 +64,6 @@ module.exports = app => {
 
   }
 
-  const isBoth = (c1, res) => {
-
-    app.db('curtidas')
-      .where({ usuarioInteressadoId: c1.proprietarioId })
-      .andWhere({ proprietarioId: c1.usuarioInteressadoId })
-      .catch(err => res.status(500).send(err))
-  }
-
   const makeMatch = async (c1, res) => {
     
     const matched = { 
@@ -100,10 +88,19 @@ module.exports = app => {
     } catch (msg) {
       return res.status(400).send(msg)
     }
-    
-    app.db('matches')
-      .insert(matched)
-      .catch(err => res.status(501).send(err))
+
+    const isBoth = await app.db('curtidas')
+      .where({ usuarioInteressadoId: c1.proprietarioId })
+      .andWhere({ proprietarioId: c1.usuarioInteressadoId })
+      .first()
+
+    console.log(isBoth)
+
+    if(isBoth) {
+      app.db('matches')
+        .insert(matched)
+        .catch(err => res.status(501).send(err))
+    }
   }
 
   const deleteMatch = async (req, res) => {
