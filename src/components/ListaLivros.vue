@@ -14,7 +14,7 @@
           div(
             class="livro row"
             v-for='(objeto, index) in objetos'
-            v-if='objeto.proprietarioId !== user.id '
+            v-show='objeto.proprietarioId !== user.id '
             )
             div.livro_img
               router-link(:to='{ name: "livro", params: { id: objeto.id } }')    
@@ -22,7 +22,7 @@
 
             div.livro_info
               h5.mt-3 {{ objeto.titulo }}
-              p {{ objeto.descricao }}
+              p {{ objeto.descricao.slice(0,30)+'...' }}
               h6 #[img.ml-2.mr-2(src='../assets/book.svg' width='20px') ] {{ objeto.nPaginas }} Páginas
               h6 #[img.mr-2(src='../assets/shelf.svg' width='30px') ] {{ objeto.tempoVida }}  
               
@@ -32,7 +32,7 @@
 
             div.livro_actions
               div(class="bt-categoria" v-for='categoria in categorias' v-if='categoria.id === objeto.categoriaId ')
-                a(href="/" v-if='categoria.id === objeto.categoriaId ')  #[p {{ categoria.nome }}]
+                a.mb-3(href="/" v-if='categoria.id === objeto.categoriaId ')  #[p {{ categoria.nome }}]
 
               a( @click='curtir(index)' class='bt-like ml-3') #[font-awesome-icon(icon="heart")] Curtir
 
@@ -224,6 +224,7 @@ div.container {
   @media only screen and (min-width: 901px) {
     .livro {
       max-height: 500px;
+      max-width: 250px;
       text-align: left;
       display: flex;
       margin: 10px 20px;

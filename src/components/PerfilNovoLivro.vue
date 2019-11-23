@@ -55,15 +55,6 @@
         input(
           type="text" 
           class="form-control" 
-          placeholder="id do dono do livro"
-          v-model='objeto.proprietarioId'
-          required
-        )
-
-      div.form-group
-        input(
-          type="text" 
-          class="form-control" 
           placeholder="id da categoria"
           v-model='objeto.categoriaId'
           required
@@ -125,6 +116,8 @@ export default {
   methods: {
     full() {
       // realiza a inserção do novo livro no banco
+      this.objeto.proprietarioId = this.user.id
+
       axios.post(`${baseApiUrl}/livros`, this.objeto)
         .then(result => { 
           this.idLivro = result.data[0]

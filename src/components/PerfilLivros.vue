@@ -16,7 +16,7 @@
 
           div.livro_info
             h5.mt-3 {{ vinculado.titulo }}
-            p {{ vinculado.descricao }}
+            p {{ vinculado.descricao.slice(0,50)+'...' }}
             h6 #[img.ml-2.mr-2(src='../assets/book.svg' width='20px') ] {{ vinculado.nPaginas }} Páginas
             h6 #[img.mr-2(src='../assets/shelf.svg' width='30px') ] {{ vinculado.tempoVida }}  
             p.mt-3 {{ vinculado.disponivel ? "Disponível" : "Indisponível"}}
@@ -163,6 +163,7 @@ div.meus_livros {
     @media only screen and (min-width: 901px) {
       .livro {
         max-height: 500px;
+        // max-width: 200px;
         text-align: left;
         display: flex;
         margin: 10px 20px;
