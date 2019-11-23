@@ -29,7 +29,7 @@
             
             div.dono
               img.mr-3(:src='dono.fotoUrl' width='50px' style='border-radius: 50%;')
-              p.btn_ver_livros  #[strong  {{ dono.nome }} ]
+              router-link.btn_ver_livros(:to='{ name: "dono", params: { id: objeto.proprietarioId } }')  #[strong  {{ dono.nome }} ]
           
             p.mt-3(style='font-size: 16px; ') #[font-awesome-icon(icon="map-marker-alt" style='color: #FFB600;')]  {{ dono.local }}
 </template>

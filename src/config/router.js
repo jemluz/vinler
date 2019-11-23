@@ -6,6 +6,7 @@ import LoginCadastro from "@/components/LoginCadastro";
 import Dados from "@/components/Dados";
 import Perfil from "@/components/Perfil";
 import Livro from "@/components/Livro";
+import Dono from "@/components/Dono";
 
 // import ListaUsuarios from "@/components/sections/ListaUsuarios";
 // import FuncionarioData from "@/components/sections/FuncionarioData";
@@ -44,7 +45,12 @@ export default new Router({
       name: 'livro',
       component: Livro,
       props: true
+    },
+    {
+      path: '/dono/:id',
+      name: 'dono',
+      component: Dono,
+      props: true
     }
-
   ]
 })

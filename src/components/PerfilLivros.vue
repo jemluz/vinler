@@ -1,4 +1,4 @@
-  <template lang="pug">
+<template lang="pug">
   div.meus_livros
 
     div.livros
