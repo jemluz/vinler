@@ -4,10 +4,15 @@ module.exports = app => {
   const salvar = async (req, res) => {
     const curtida = { ...req.body }
 
+    let nCurtidas = curtida.nCurtidas
     delete curtida.nCurtidas
     
     try {
-      const curtidaFromDB = await app.db('curtidas').where({ livroCurtidoId: curtida.livroCurtidoId }).first()
+      const curtidaFromDB = await app.db('curtidas')
+        .where({ livroCurtidoId: curtida.livroCurtidoId })
+        .andWhere({ usuarioInteressadoId: curtida.usuarioInteressadoId})
+        .first()
+        
       notExistsOrError(curtidaFromDB, 'Você já curtiu esse livro.')
 
       existsOrError(curtida.usuarioInteressadoId, 'Você não pode curtir sem fazer login.')
@@ -19,7 +24,7 @@ module.exports = app => {
     
 
     app.db('curtidas').insert(curtida)
-      .then(await setCurtida(curtida, res))
+      .then(await setCurtida(curtida, nCurtidas, res))
       .then(await makeMatch(curtida, res))
       .then(result => res.status(204).send(result))
       .catch(err => res.status(500).send(err))
@@ -57,11 +62,14 @@ module.exports = app => {
   }
   
   const setCurtida = async (c1, n, res) => {
+    if (n === null) n = 0
+    n++
+    // .update({ nCurtidas: app.db.raw('nCurtidas + 1') })
+
     await app.db('livros')
       .where({ id: c1.livroCurtidoId })
-      .update({ nCurtidas: app.db.raw('nCurtidas + 1') })
+      .update({ nCurtidas: n })
       .catch(err => res.sendStatus(500).send(err))
-
   }
 
   const makeMatch = async (c1, res) => {
@@ -93,8 +101,6 @@ module.exports = app => {
       .where({ usuarioInteressadoId: c1.proprietarioId })
       .andWhere({ proprietarioId: c1.usuarioInteressadoId })
       .first()
-
-    console.log(isBoth)
 
     if(isBoth) {
       app.db('matches')

@@ -160,12 +160,13 @@ export default {
 
 <style lang="scss">
 .auth-content {
-  h1 { margin-bottom: 50px; justify-self: center; color: #FFB600;}
+  h1 { margin: 50px auto; justify-self: center; color: #FFB600;}
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 50px auto;
+  padding: 50px auto;
+  // background-color: #f9f9f9;
 }
 
 .auth-modal {

@@ -8,8 +8,9 @@
         include ../assets/botao-menu.svg
 
     <!-- Logo -->
-    div.logo.row
-      img(src="../assets/logo.png")
+    div.logo
+      router-link(to='/vitrine')
+        img(src="../assets/logo.png")
 
     Nav
 
@@ -99,9 +100,12 @@ export default {
         grid-row: 2 / 3;
 
         margin: 0px !important;
+        justify-content: flex-start;
+        text-align: left;
 
         img {
           width: 50px;
+          justify-self: flex-start;
         }
       }
 
@@ -275,13 +279,15 @@ export default {
       }
 
       .bt-notify {
-        grid-column: 7 / 8;
-        grid-row: 2 / 3;
+        // grid-column: 7 / 8;
+        // grid-row: 2 / 3;
 
-        justify-self: flex-end;
-        align-self: center;
+        display: none;
 
-        margin-top: -8px;
+        // justify-self: flex-end;
+        // align-self: center;
+
+        // margin-top: -8px;
       }
 
     }

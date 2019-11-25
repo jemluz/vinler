@@ -207,10 +207,11 @@ h3 { color: grey; }
     grid-template-rows: 1fr .2fr auto;
     flex-direction: column;
 
+    padding: 70px 0;
+
     .profile-sidebar {
       grid-column: 2 / 4;
       grid-row: 1 / 2;
-      margin-top: 50px;
 
       justify-content: center;
 
@@ -239,6 +240,18 @@ h3 { color: grey; }
       grid-row: 3 / 4 ;
 
       flex-direction: column;
+
+      .livro {
+
+        .livro_img {
+
+          img {
+            width: 100px !important;
+          }
+
+        }
+
+      }
     }
   }
 }

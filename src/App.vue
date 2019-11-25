@@ -81,7 +81,7 @@ li { list-style-type: none; }
 button { outline: none; }
 
 .loading { margin: 200px; }
- .hide-element { display: none; }
+.hide-element { display: none; }
 
 @media only screen and (max-width: 900px) {
   .hide-mobile { display: none; }

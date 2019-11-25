@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style lang="scss">
-footer { text-align: center; }
+footer { text-align: center; padding-top: 40px;}
 .copy-div strong { font-size: 12px; }
 .dev-div { font-size: 10px; }
 .flat-icons-copy { font-size: 10px; opacity: .6;}

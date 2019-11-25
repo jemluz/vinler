@@ -9,7 +9,7 @@
           <!-- SIDEBAR USER TITLE -->
           div.profile-usertitle.ml-4
             h3.profile-usertitle-name {{ user.nome }}
-            h6.profile-usertitle-local {{ user.local }} #[br] {{ user.celular }}
+            h6.profile-usertitle-local {{ user.local }} #[br] {{ user.celular | celular }}
             h6.profile-usertitle-vinculados {{ vinculados.length }} Livros cadastrados
         
       <!-- SIDEBAR BUTTONS -->
