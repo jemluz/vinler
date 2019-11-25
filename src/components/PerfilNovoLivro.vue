@@ -133,15 +133,12 @@ export default {
           // obtendo o objeto recem inserido
           this.getNovo(this.idLivro, ext)
 
-
-
         })
         .catch(showError)  
         
       this.reset()
 
     },
-    
     save() {
       // realiza a inserção do novo livro no banco
       axios.post(`${baseApiUrl}/livros`, this.objeto)
@@ -218,7 +215,7 @@ export default {
     reset() {
       this.objeto = {}
       this.imageData = null
-    },
+    }
   }
 }
 </script>

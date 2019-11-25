@@ -13,8 +13,11 @@ module.exports = app => {
     },
     filename: (req, file, cb) => { 
       // console.log(req.body)
-
-      cb(null, `livro-${req.body.userId}-${req.body.livroId}${path.extname(file.originalname)}`) 
+      if(req.body.livroId) {
+        cb(null, `livro-${req.body.userId}-${req.body.livroId}${path.extname(file.originalname)}`) 
+      } else {
+        cb(null, `profile-${req.body.userId}${path.extname(file.originalname)}`) 
+      }
     },
     fileFilter: (file, cb) => {
       var ext = path.extname(file.originalname);

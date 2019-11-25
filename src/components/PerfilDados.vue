@@ -2,6 +2,17 @@
   div.meus_dados
 
     form.form-box
+      img(:src='imageData || "http://localhost:3000/image/image-default.svg"')
+      div.form-group.mt-3.col
+        
+        input(
+          id='img'
+          type='file' 
+          ref='file' 
+          accept="file_extension|image/*"
+          @change='onSelect'
+        )
+
       div.form-group
         label(for='nome') Nome e Sobrenome
         input(
@@ -93,7 +104,9 @@ export default {
   computed: mapState(["user"]),
   data: () => {
     return {
-      objeto: {}
+      objeto: {},
+      file: "",
+      imageData: ""
     }
   },
   methods: {
@@ -102,11 +115,65 @@ export default {
       delete this.objeto.exp
       delete this.objeto.token
 
+      // upando foto no servidor
+      this.uploadPhoto()
+
+      // extraindo a extensão do arquivo
+      var name = this.file.name
+      var lastDot = name.lastIndexOf('.');
+      var ext = name.substring(lastDot + 1);
+
+      // atualizando a propriedade foto para ser atualizada no banco
+      this.objeto.fotoUrl = `${baseApiUrl}/image/profile-${this.user.id}.${ext}`
+
       axios.put(`${baseApiUrl}/usuarios/${this.user.id}`, this.objeto)
         .then(() => { 
           this.$toasted.global.defaultSucess()
         })
         .catch(showError)
+    },
+    onSelect() {
+      this.previewImage()
+      const tiposPermitidos = ["image/jpeg", "image/jpg", "image/png"]
+      const file = this.$refs.file.files[0]
+      this.file = file
+
+      if(!tiposPermitidos.includes(file.type)){
+        this.message = "Apenas imagens são aceitas."
+      }
+
+      if(file.size > 500000) {
+        this.message = "Arquivo muito grande. O máximo permitido é 50KB"
+      }
+    },
+    uploadPhoto() {
+      const formData = new FormData()
+      formData.append('userId', this.user.id)
+      formData.append('file', this.file)
+
+      axios.post(`${baseApiUrl}/upload-profileImg`, formData)
+        .catch()
+    },
+    previewImage() {
+      // Reference to the DOM input element
+      var input = event.target;
+      // Ensure that you have a file before attempting to read it
+      if (input.files && input.files[0]) {
+        // create a new FileReader to read this image and convert to base64 format
+        var reader = new FileReader();
+        // Define a callback function to run, when FileReader finishes its job
+        reader.onload = (e) => {
+          // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+          // Read image as base64 and set to imageData
+          this.imageData = e.target.result;
+        }
+        // Start the reader job - read file as a data url (base64 format)
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
+    reset() {
+      this.objeto = {}
+      this.imageData = null
     }
   },
   mounted() {

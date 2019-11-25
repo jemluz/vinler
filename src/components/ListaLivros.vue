@@ -59,16 +59,6 @@ export default {
       curtida: { }
     }
   },
-  watch: { 
-    // objetos: () => {
-    //   return this.objetos.filter(
-    //     objeto => { 
-    //       objeto.titulo.toLowerCase().includes(this.$store.state.buscar)
-    //       console.log('a')
-    //     }
-    //   )
-    // }
-  },
   methods: {
     loadObjetos() {
       const url = `${baseApiUrl}/livros`
@@ -85,11 +75,13 @@ export default {
             this.donos = resposta.data
         })
     },
-    // toLivro(index) {
-    //     url = `livros/${this.objetos[index].id}`
-    //     this.$router.push({ path: 'livros/1' })
-    // }
-    buscar() { },
+    // buscar() { 
+    //   return this.objetos.filter(
+    //     objeto => { 
+    //       objeto.titulo.toLowerCase().includes(this.$store.state.buscar)
+    //     }
+    //   )
+    // },
     curtir(index) {
       this.curtida.usuarioInteressadoId = this.$store.state.user.id
       this.curtida.livroCurtidoId = this.objetos[index].id

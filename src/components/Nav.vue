@@ -62,6 +62,8 @@ export default {
       &:hover { color: black; }
     }
 
+    
+
     @media only screen and (max-width: 900px) {
 
     }
