@@ -42,6 +42,17 @@ library.add(
   faTimes
 )
 
+Vue.filter('celular', (valor) => {
+  const arr = valor.split('')
+  arr.splice(0, 0, '(')
+  arr.splice(3, 0, ')')
+  arr.splice(4, 0, ' ')
+  arr.splice(6, 0, ' ')
+  arr.splice(11, 0, '-')
+
+  return arr.join('')
+})
+
 Vue.config.productionTip = false
 
 AOS.init();

@@ -9,7 +9,7 @@
         <!-- SIDEBAR USER TITLE -->
         div.profile-usertitle
           h3.profile-usertitle-name {{ dono.nome }}
-          h6.profile-usertitle-local {{ dono.local }} #[br] {{ dono.celular }}
+          h6.profile-usertitle-local {{ dono.local }} #[br] #[a(:href='zap') {{ dono.celular | celular }}]
           h6.profile-usertitle-vinculados {{ vinculados.length }} Livros cadastrados
       
     <!-- SIDEBAR BUTTONS -->
@@ -56,7 +56,8 @@ export default {
       categorias: [],
       vinculados: [],
       livros: [],
-      donos: []
+      donos: [],
+      zap: ``
     };
   },
   methods: {
@@ -75,8 +76,11 @@ export default {
         .get(url)
         .then(resposta => {
           this.dono = resposta.data;
+          this.zap = `https://api.whatsapp.com/send?phone=55${this.dono.celular}&text=Ol%C3%A1.%20vi%20o%20seu%20livro%20no%20Vinler%20e%20fiquei%20interessado!`
+
         })
         .catch(showError);
+
     },
     loadCategorias() {
       axios.get(`${baseApiUrl}/categorias`).then(resposta => {
@@ -103,10 +107,11 @@ export default {
     }
   },
   mounted() {
-    this.loadCategorias();
-    this.loadDonos();
-    this.loadDono();
-    this.loadVinculados();
+    this.loadCategorias()
+    this.loadDonos()
+    this.loadDono()
+    this.loadVinculados()
+
   }
 };
 </script>
@@ -116,9 +121,12 @@ h3 { color: grey; }
 
 .row { margin: auto 0px auto 0px; }
 
+.profile-usertitle-local a {
+  color: #ffb600;
+}
+
 .livro_grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   background-color: #f9f9f9;
   border-top: 1px solid grey;
 
@@ -196,7 +204,7 @@ h3 { color: grey; }
   .profile {
     display: grid;
     grid-template-columns: .5fr 1fr 2fr .5fr;
-    grid-template-rows: 1fr .2fr 2fr;
+    grid-template-rows: 1fr .2fr auto;
     flex-direction: column;
 
     .profile-sidebar {
@@ -208,17 +216,29 @@ h3 { color: grey; }
 
       .profile-userpic {
         grid-column: 2 / 4;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        img {
+          margin: 0px auto 30px auto;
+        }
 
         .profile-usertitle {
-          margin: 0px !important;
+          width: 250px;
+          text-align: center;
+          margin: 0px auto 0px auto;
+
         }
       }
 
     }
 
     .livro_grid {
-      grid-column: 2/ 4 ;
+      grid-column: 2 / 4 ;
       grid-row: 3 / 4 ;
+
+      flex-direction: column;
     }
   }
 }
@@ -240,7 +260,7 @@ h3 { color: grey; }
   }
 
   .livro_grid {
-  
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     padding: 50px 0 100px 0;
 
     .livro_img {
