@@ -3,17 +3,17 @@
     div.profile-sidebar
 
       <!-- SIDEBAR USERPIC -->
-      div.profile-userpic.row
+      div.profile-userpic
         img(:src="dono.fotoUrl" width='100px' height='100px' alt="")
 
         <!-- SIDEBAR USER TITLE -->
-        div.profile-usertitle.ml-4
+        div.profile-usertitle
           h3.profile-usertitle-name {{ dono.nome }}
           h6.profile-usertitle-local {{ dono.local }} #[br] {{ dono.celular }}
           h6.profile-usertitle-vinculados {{ vinculados.length }} Livros cadastrados
       
     <!-- SIDEBAR BUTTONS -->
-    h3 Livros publicados
+    //- h3 Livros publicados
 
     div.livro_grid.mt-3.row
 
@@ -189,17 +189,65 @@ h3 { color: grey; }
   .dono {
     display: flex;
   }
+}
 
-  @media only screen and (max-width: 900px) {
+// MOBILE
+@media only screen and (max-width: 900px) {
+  .profile {
+    display: grid;
+    grid-template-columns: .5fr 1fr 2fr .5fr;
+    grid-template-rows: 1fr .2fr 2fr;
+    flex-direction: column;
+
+    .profile-sidebar {
+      grid-column: 2 / 4;
+      grid-row: 1 / 2;
+      margin-top: 50px;
+
+      justify-content: center;
+
+      .profile-userpic {
+        grid-column: 2 / 4;
+
+        .profile-usertitle {
+          margin: 0px !important;
+        }
+      }
+
+    }
+
+    .livro_grid {
+      grid-column: 2/ 4 ;
+      grid-row: 3 / 4 ;
+    }
+  }
+}
+
+
+// DESKTOP
+@media only screen and (min-width: 901px) {
+  .profile {
+    .profile-sidebar {
+      .profile-userpic {
+        display: flex;
+        flex-direction: row;
+
+        .profile-usertitle {
+          margin-left: 50px;
+        }
+      }
+    }
   }
 
-  // DESKTOP
-  @media only screen and (min-width: 901px) {
+  .livro_grid {
+  
     padding: 50px 0 100px 0;
 
     .livro_img {
       grid-column: 2/ 3;
       justify-self: flex-end;
+
+      img { max-width: 200px; }
     }
 
     .livro_info {

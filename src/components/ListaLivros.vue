@@ -1,13 +1,16 @@
 <template lang='pug'>
   div.container
-    section.categorias.row.mt-5(v-for='categoria in categorias')
-      div.bt-prev 
-        img(src='../assets/seta.svg' @click='show(-1)')
-      div.bt-next 
-        img(src='../assets/seta.svg' @click='show(+1)')
+    section.categorias.row.mt-5.mb-5
+      //- section.categorias.row.mt-5(v-for='categoria in categorias')}
+      //- div.bt-prev 
+      //-   img(src='../assets/seta.svg' @click='show(-1)')
+      //- div.bt-next 
+      //-   img(src='../assets/seta.svg' @click='show(+1)')
 
       div.livros
-        h4.mb-3 {{ categoria.nome }}
+        //- h4.mb-3 {{ categoria.nome }}
+        h3.mb-3 Publicados Recentemente
+
         div.livro_grid
 
           <!-- Livros -->
@@ -28,13 +31,13 @@
               
               div(v-for='dono in donos' v-if='dono.id === objeto.proprietarioId ')
                 p.mt-3 De #[strong(style='color: #FFB600;') {{ dono.nome }}] 
-                p.mt-3(style='font-size: 11px;') #[font-awesome-icon(icon="map-marker-alt")]  {{ dono.local }}
+                p.dono_local.mt-3 #[font-awesome-icon(icon="map-marker-alt")]  {{ dono.local }}
 
             div.livro_actions
               div(class="bt-categoria" v-for='categoria in categorias' v-if='categoria.id === objeto.categoriaId ')
                 a.mb-3(href="/" v-if='categoria.id === objeto.categoriaId ')  #[p {{ categoria.nome }}]
 
-              a( @click='curtir(index)' class='bt-like ml-3') #[font-awesome-icon(icon="heart")] Curtir
+              a(@click='curtir(index)' class='bt-like') #[font-awesome-icon(icon="heart")] Curtir
 
 
 
@@ -153,7 +156,6 @@ div.container {
 
       .livro_grid { 
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 
         height: initial; 
         flex-direction: row; 
@@ -162,7 +164,6 @@ div.container {
       }
 
       .livro { 
-        margin-bottom: 20px; 
         text-align: center;
       }  
 
@@ -178,7 +179,6 @@ div.container {
       .bt-categoria, .bt-like { 
         border-radius: 10px;
         padding: 5px 15px;
-        display: inline-block;
         cursor: pointer;
         p { margin: 0px !important; } 
       }
@@ -202,8 +202,8 @@ div.container {
 
   // MOBILE
   @media only screen and (max-width: 900px) {
-
-    grid-template-columns: .5fr 3fr .5fr; 
+    grid-template-columns: 100vw; 
+    grid-template-rows: repeat(auto-fit, minmax(auto, 1fr));
 
     .col {
       grid-column: 2 / 3;
@@ -215,41 +215,90 @@ div.container {
     }
 
     .livro {
-      max-width: 120px;
+      margin-bottom:  10vh;
+
+      .livro_img {
+        img { max-width: 80vw; }
+      }
+
+      .livro_info {
+        width: 80vw;
+
+        p .dono_local { 
+          font-size: 14px; 
+        }
+      }
+
+      .livro_actions {
+        width: 80vw;
+        justify-content: flex-start;
+        
+
+        .bt-categoria, .bt-like { 
+          width: 80%;
+          min-height: 50px;  
+          font-size: 22px;
+
+
+          border-radius: 10px;
+          padding: 5px 15px;
+          display: inline-block;
+          cursor: pointer;
+          p { margin: 0px !important; } 
+        }
+
+        .bt-like {
+          margin-top: 20px;
+        }
+      }
     }
+
+    
       
   }
 
   // DESKTOP
   @media only screen and (min-width: 901px) {
-    .livro {
-      max-height: 500px;
-      max-width: 250px;
-      text-align: left;
-      display: flex;
-      margin: 10px 20px;
+    .livro_grid { 
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 
-      .livro_img img{
-        width: 200px;
-        height: 200px;
-      }
+      .livro {
+        max-height: 500px;
+        max-width: 250px;
+        text-align: left;
+        display: flex;
+        margin: 40px 20px;
 
-      .livro_info {
-        max-width: 80%;
-      }
+        .livro_img img{
+          width: 200px;
+          height: 200px;
+        }
 
-      .livro_actions { 
-        font-size: 14px;   
-        align-self: flex-end;
+        .livro_info {
+          max-width: 80%;
 
-        svg { 
-          opacity: 0.7;
-          &:hover { opacity: 1; }
+          .dono_local { 
+            font-size: 11px; 
+          }
+        }
+
+        .livro_actions { 
+          font-size: 14px;   
+          align-self: flex-end;
+
+          .bt-categoria, .bt-like {
+            display: inline-block;
+          }
+
+          .bt-like { margin-left: 20px;}
+
+          svg { 
+            opacity: 0.7;
+            &:hover { opacity: 1; }
+          }
         }
       }
-
     }
-
 
   }
 

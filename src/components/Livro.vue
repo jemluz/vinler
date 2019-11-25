@@ -20,7 +20,7 @@
               a(href="/" v-if='categoria.id === objeto.categoriaId ')  #[p {{ categoria.nome }}]
 
             a( @click='' class='bt-like ml-3' v-if=' objeto.proprietarioId === user.id ') {{ objeto.nCurtidas ? `${objeto.nCurtidas} Curtidas` : `0 Curtidas`}} 
-            a( @click='curtir(objeto.id)' class='bt-like ml-3' v-else) #[font-awesome-icon(icon="heart")] Curtir
+            a( @click='curtir(objeto.id)' class='bt-like' v-else) #[font-awesome-icon(icon="heart")] Curtir
 
         hr.mt-5
 
@@ -29,7 +29,8 @@
             
             div.dono
               img.mr-3(:src='dono.fotoUrl' width='50px' style='border-radius: 50%;')
-              router-link.btn_ver_livros(:to='{ name: "dono", params: { id: objeto.proprietarioId } }')  #[strong  {{ dono.nome }} ]
+              router-link.btn_ver_livros(v-if='objeto.proprietarioId === user.id' to='/minha-conta')  #[strong  {{ dono.nome }} ]
+              router-link.btn_ver_livros(v-else :to='{ name: "dono", params: { id: objeto.proprietarioId } }')  #[strong  {{ dono.nome }} ]
           
             p.mt-3(style='font-size: 16px; ') #[font-awesome-icon(icon="map-marker-alt" style='color: #FFB600;')]  {{ dono.local }}
 </template>
@@ -163,7 +164,34 @@ export default {
   }
 
   @media only screen and (max-width: 900px) {
+    padding: 50px 40px;
 
+    .livro_info {
+      margin-top: 20px;
+    }
+
+    .livro_actions {
+      width: 80vw;
+      justify-content: flex-start;
+      
+
+      .bt-categoria, .bt-like { 
+        width: 80%;
+        min-height: 50px;  
+        font-size: 22px;
+        text-align: center;
+
+        border-radius: 10px;
+        padding: 5px 15px;
+        display: inline-block;
+        cursor: pointer;
+        p { margin: 0px !important; } 
+      }
+
+      .bt-like {
+        margin-top: 20px;
+      }
+    }
   }
 
   // DESKTOP
@@ -182,6 +210,11 @@ export default {
       .livro_actions {
         display: flex;
         align-items: center;
+
+
+        .bt-like {
+          margin-left: 20px;
+        }
       }
     }
   }
