@@ -10,7 +10,7 @@
     router-link(to="/vitrine" class="nav-link") Livros              
     router-link(to="/dados" class="nav-link") Categorias              
    
-    a(class='nav-link' v-if='user') #[font-awesome-icon(alt="Logout" title='Logout' @click.prevent="logout" icon="door-open" )] 
+    //- a(class='nav-link' v-if='user') #[font-awesome-icon(alt="Logout" title='Logout' @click.prevent="logout" icon="door-open" )] 
       //- ul
       //-   li
       //-     router-link(to="categories.html") a

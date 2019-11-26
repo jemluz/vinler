@@ -27,6 +27,9 @@
       div(v-show="!isCloseNotify")
         include ../assets/notifications.svg
 
+    <!-- Botão Logout -->
+    //- a(class='nav-link bt-logout' v-if='user') #[font-awesome-icon(alt="Logout" title='Logout' @click.prevent="logout" icon="door-open" )] 
+
     <!-- Barra de pesquisa -->
     input(
       id="inline-form-input-name"
@@ -63,6 +66,11 @@ export default {
     toggleNotify() { this.$store.commit("toggleNotify") },
     buscar () { 
       this.$store.commit('setBusca', this.livroProcurado) 
+    },
+    logout(){
+      localStorage.removeItem(userKey)
+      this.$store.commit('setUser', null)
+      this.$router.push({ name: 'Login' })
     }
   }
 }
@@ -147,6 +155,11 @@ export default {
           width: 20px;
           margin-left: 10px; 
         }
+      }
+
+      .bt-logout {
+        grid-column: 3 / 5;
+        grid-row: 2 / 3;
       }
 
       .bt-notify {

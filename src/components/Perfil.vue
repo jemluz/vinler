@@ -3,17 +3,21 @@
       div.profile-sidebar
 
         <!-- SIDEBAR USERPIC -->
-        div.profile-userpic.row
+        div.profile-userpic
           img(:src="user.fotoUrl" width='100px' height='100px' alt="")
 
           <!-- SIDEBAR USER TITLE -->
-          div.profile-usertitle.ml-4
+          div.profile-usertitle
             h3.profile-usertitle-name {{ user.nome }}
             h6.profile-usertitle-local {{ user.local }} #[br] {{ user.celular | celular }}
             h6.profile-usertitle-vinculados {{ vinculados.length }} Livros cadastrados
-        
+
+          div.profile-logout
+            a(class='nav-link btn btn-light bt-logout' v-if='user') #[font-awesome-icon(alt="Logout" title='Logout' @click.prevent="logout" icon="door-open" )] Sair 
+            
+
       <!-- SIDEBAR BUTTONS -->
-      b-tabs(class="mt-3")
+      b-tabs(class="perfil-tabs-desktop mt-3") 
         b-tab(title="Novo Livro")
           NovoLivro.mt-5
 
@@ -25,11 +29,24 @@
 
         b-tab(title="Minhas Curtidas")
 
-        <!-- SIDEBAR MENU -->
+      <!-- SIDEBAR BUTTONS -->
+      b-tabs(class="perfil-tabs-mobile mt-3" nav-wrapper-class="w-25") 
+        b-tab(title="Novo Livro")
+          NovoLivro.mt-5
+
+        b-tab(title="Meus Livros" active)
+          MeusLivros
+
+        b-tab(title="Meus Dados")
+          MeusDados.mt-4
+
+        b-tab(title="Minhas Curtidas")
+
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import { userKey } from '@/global'
 import { baseApiUrl, showError } from '@/global'
 import axios from 'axios'
 
@@ -58,6 +75,11 @@ export default {
       axios.get(`${baseApiUrl}/categorias`).then(resposta => {
           this.categorias = resposta.data
       })
+    },
+    logout(){
+      localStorage.removeItem(userKey)
+      this.$store.commit('setUser', null)
+      this.$router.push({ name: 'Login' })
     }
   },
   mounted() {
@@ -76,7 +98,6 @@ export default {
   display: grid;
   padding: 0px;
   margin: 0px;
-  flex-direction: row;
 
   .profile-userpic img {
     display: flex;  
@@ -85,60 +106,92 @@ export default {
     border-radius: 50% !important;
   }
 
+  .profile-logout {
+    .bt-logout {
+      color: white;
+      background-color: #00ABC8;
+    }
+  }
+
   .profile-usertitle-name { color: #00ABC8; }
   .profile-usertitle-local { color: #767676; }
   .profile-usertitle-vinculados { color: #3d3d3d; }
 
   @media only screen and (max-width: 900px) {
 
-      grid-template-columns: .5fr 1fr 2fr .5fr;
-      grid-template-rows: .5fr .5fr 2fr;
+    grid-template-columns: .5fr 1fr 2fr .5fr;
+    grid-template-rows: .5fr auto;
+    flex-direction: column;
 
-      .profile-sidebar {
+    padding: 70px 0;
+
+    .profile-sidebar {
+      grid-column: 2 / 4;
+      grid-row: 1 / 2;
+
+      justify-content: center;
+
+      .profile-userpic { 
         grid-column: 2 / 4;
-        grid-row: 1 / 2;
-
+        display: flex;
         flex-direction: column;
 
-        .profile-userpic { 
-          grid-column: 2 / 3;
-          grid-row: 1 / 2;
-
-          
+        img {
+          margin: 0px auto 30px auto;
         }
 
         .profile-usertitle {
-          grid-column: 2 / 3;
-          grid-row: 1 / 2;
+          width: 250px;
+          text-align: center;
+          margin: 0px auto 0px auto;
 
-          margin: 0px;
-          padding: 0px;
-
-          width: 100px;
-
-          text-align: left;
         }
 
-        .profile-usertitle {
-          grid-column: 2 / 3;
-          grid-row: 1 / 2;
+        .profile-logout {
+          margin: 40px auto 60px auto;
+          width: 150px;
+          justify-self: center;
 
-          margin: 0px;
-          padding: 0px;
-
-          width: 100px;
-
-          text-align: left;
         }
-
       }
 
+      .profile-usertitle {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
 
-      .profile_painel  {
-        grid-column: 2 / 4;
-        grid-row: 2 / 3;
+        margin: 0px;
+        padding: 0px;
+
+        width: 100px;
+
+        text-align: left;
       }
 
+    }
+
+    #__BVID__153 {
+      border-bottom: 1px solid #00ABC8;
+
+    }
+
+    .perfil-tabs-mobile {
+      display: grid;
+      grid-column: 1 / 5 ;
+      grid-row: 2 / 4 ;
+
+      flex-direction: row;
+
+      .nav-tabs {
+        flex-wrap: nowrap;
+        padding: 5px 30px;
+      }
+
+      .nav-tabs, .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+        // border: none;
+      }
+    }
+
+    .perfil-tabs-desktop { display: none; }
   }
 
   @media only screen and (min-width: 901px) {
@@ -146,17 +199,23 @@ export default {
     .profile-sidebar {
       padding: 100px 0 50px 0;
 
-      .profile-userpic img {
+      .profile-userpic {
+        display: flex;
+        flex-direction: row;
+        align-self: auto;
 
-      }
+        .profile-usertitle {
+          margin-left: 50px;
+        }
 
-      .profile-userbuttons {
-        margin-top: 40px;
+        .profile-logout {
+          align-self: center;
+          margin-left: 70px;
+        }
       }
     }
 
-    
-
+    .perfil-tabs-mobile { display: none;}
   }
 }
 </style>

@@ -89,7 +89,6 @@ div.meus_livros {
       grid-column: 2/ 3; 
       grid-row: 1/ 2; 
       
-      padding: 50px 50px;
 
       .livro_grid { 
         display: grid;
@@ -161,6 +160,9 @@ div.meus_livros {
 
     // DESKTOP
     @media only screen and (min-width: 901px) {
+      
+      .livros { padding: 50px 50px; }
+
       .livro {
         max-height: 500px;
         // max-width: 200px;
