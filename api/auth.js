@@ -32,7 +32,7 @@ module.exports = app => {
       celular: usuario.celular,
       fotoUrl: usuario.fotoUrl,
       iat: now,
-      exp: now + (60 * 60 * 24 * 3)
+      exp: now + (60 * 60 * 24 * 30)
     }
 
     res.json({
