@@ -37,9 +37,8 @@
               div(class="bt-categoria" v-for='categoria in categorias' v-if='categoria.id === objeto.categoriaId ')
                 a.mb-3(href="/" v-if='categoria.id === objeto.categoriaId ')  #[p {{ categoria.nome }}]
 
-              a(@click='curtir(index)' class='bt-like') #[font-awesome-icon(icon="heart")] Curtir
-
-
+              a(@click='descurtir(index)' class='bt-deslike' v-if='userLivrosCurtidos.includes(objeto.id)') #[font-awesome-icon(icon="heart-broken")] Descurtir
+              a(@click='curtir(index)' class='bt-like' v-else) #[font-awesome-icon(icon="heart")] Curtir
 
 </template>
 
@@ -55,8 +54,11 @@ export default {
     return { 
       objetos: [],
       categorias: [], 
+      curtidas: [], 
       donos: [], 
-      curtida: { }
+      curtida: { },
+      descurtida: { },
+      userLivrosCurtidos: []
     }
   },
   methods: {
@@ -74,6 +76,19 @@ export default {
       axios.get(`${baseApiUrl}/usuarios`).then(resposta => {
             this.donos = resposta.data
         })
+    },
+    loadCurtidas() {
+      axios.get(`${baseApiUrl}/curtidas`).then(resposta => {
+        this.curtidas = resposta.data
+
+        for(let i = 0; i < this.curtidas.length; i++ ) {
+          if ( this.curtidas[i].usuarioInteressadoId === this.user.id ) {
+            this.userLivrosCurtidos.push(
+              this.curtidas[i].livroCurtidoId
+            )
+          }
+        }
+      })
     },
     // buscar() { 
     //   return this.objetos.filter(
@@ -94,6 +109,22 @@ export default {
 
       this.curtida = { }
     },
+    descurtir(index) {
+      for(let i = 0; i < this.curtidas.length; i++ ) {
+        if ( this.curtidas[i].usuarioInteressadoId === this.user.id && this.curtidas[i].livroCurtidoId === this.objetos[index].id) {
+          this.descurtida.id = this.curtidas[i].id
+          this.descurtida.livroCurtidoId = this.curtidas[i].livroCurtidoId
+        }
+      }
+      
+      this.descurtida.nCurtidas = this.objetos[index].nCurtidas
+      JSON.stringify(this.descurtida)
+      console.log(this.descurtida)
+
+      axios.delete(`${baseApiUrl}/curtidas/${this.descurtida.id}`, this.descurtida)
+        .then(this.$toasted.global.defaultSucess())
+        .catch(showError)
+    },
     show(n) {  
       let liEls = document.querySelectorAll('.livro_grid .livro')
       let index = 0
@@ -110,9 +141,11 @@ export default {
   },
   mounted() {
     // executado após o carregamento do componente
+    // console.log(this.userLivrosCurtidos)
     this.loadCategorias()
     this.loadObjetos()
     this.loadDonos()
+    this.loadCurtidas()
   }
 }
 </script>
@@ -168,7 +201,8 @@ div.container {
         h6 { color:#00ABC8; }
       }
 
-      .bt-categoria, .bt-like { 
+
+      .bt-categoria, .bt-like, .bt-deslike { 
         border-radius: 10px;
         padding: 5px 15px;
         cursor: pointer;
@@ -187,6 +221,15 @@ div.container {
         &:visited { color: #FFB600; }
         &:hover { color: #FFB600;
           box-shadow: 0px 0px 15px 2px #FFB60070; 
+        }
+      }
+
+      .bt-deslike { 
+        background-color: #ff000020; 
+        color: #ff0000; 
+        &:visited { color: #ff0000; }
+        &:hover { color: #ff0000;
+          box-shadow: 0px 0px 15px 2px #ff000070; 
         }
       }
     }
@@ -226,20 +269,20 @@ div.container {
         justify-content: flex-start;
         
 
-        .bt-categoria, .bt-like { 
+        .bt-categoria, .bt-like, .bt-deslike { 
           width: 80%;
           min-height: 50px;  
           font-size: 22px;
 
 
           border-radius: 10px;
-          padding: 5px 15px;
+          padding: 5px 10px;
           display: inline-block;
           cursor: pointer;
           p { margin: 0px !important; } 
         }
 
-        .bt-like {
+        .bt-like, .bt-deslike {
           margin-top: 20px;
         }
       }
@@ -278,11 +321,11 @@ div.container {
           font-size: 14px;   
           align-self: flex-end;
 
-          .bt-categoria, .bt-like {
+          .bt-categoria, .bt-like, .bt-deslike {
             display: inline-block;
           }
 
-          .bt-like { margin-left: 20px;}
+          .bt-like, .bt-deslike { margin-left: 10px;}
 
           svg { 
             opacity: 0.7;

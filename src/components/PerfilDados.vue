@@ -2,10 +2,10 @@
   div.meus_dados
 
     form.form-box
-      img(:src='imageData || "http://localhost:3000/image/image-default.svg"')
       div.form-group.mt-3.col
+        img.img-edit(:src='imageData || "http://localhost:3000/image/image-default.svg"')
         
-        input(
+        input.ml-3(
           id='img'
           type='file' 
           ref='file' 
@@ -191,6 +191,13 @@ label { color: grey; }
   background-color: #00ABC8;
   &:hover {
     background-color: #02869d;
+  }
+}
+
+.meus_dados {
+  .img-edit {
+    max-width: 150px; 
+    border-radius: 50%;
   }
 }
 

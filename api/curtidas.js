@@ -47,18 +47,34 @@ module.exports = app => {
   }
 
   const excluir = async (req, res) => {
-    try{
-      const rowsDeleted = await 
-      app.db('curtidas')
-        .where({ id: req.params.id })
-        .del()
+    const descurtida = { ...req.body }
+    console.log(descurtida)
+    
+    // try{
+    //   const downCurtidas = await 
+    //   app.db('livros')
+    //     .where({ id: req.params.id })
+    //     .del()
       
-      existsOrError(req.params.id, 'Login da curtida não especificado')
+    //   existsOrError(req.params.id, 'Login da curtida não especificado')
 
-      res.status(204).send()
-    } catch (msg) {
-      res.status(400).send(msg)
-    }
+    //   res.status(204).send()
+    // } catch (msg) {
+    //   res.status(400).send(msg)
+    // }
+
+    // try{
+    //   const rowsDeleted = await 
+    //   app.db('curtidas')
+    //     .where({ id: req.params.id })
+    //     .del()
+      
+    //   existsOrError(req.params.id, 'Login da curtida não especificado')
+
+    //   res.status(204).send()
+    // } catch (msg) {
+    //   res.status(400).send(msg)
+    // }
   }
   
   const setCurtida = async (c1, n, res) => {
@@ -68,6 +84,16 @@ module.exports = app => {
 
     await app.db('livros')
       .where({ id: c1.livroCurtidoId })
+      .update({ nCurtidas: n })
+      .catch(err => res.sendStatus(500).send(err))
+  }
+
+  const unsetCurtida = async (c1, n, res) => {
+    n--
+    // .update({ nCurtidas: app.db.raw('nCurtidas + 1') })
+
+    await app.db('livros')
+      .where({ id: c1.livroDescurtidoId })
       .update({ nCurtidas: n })
       .catch(err => res.sendStatus(500).send(err))
   }

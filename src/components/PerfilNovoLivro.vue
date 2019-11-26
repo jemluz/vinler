@@ -24,7 +24,7 @@
         )
 
       div.form-group
-        input(
+        textarea(
           type="text" 
           class="form-control" 
           placeholder="Breve descrição do livro"

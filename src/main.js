@@ -23,7 +23,8 @@ import {
   faSearch, 
   faMapMarkerAlt,
   faCheck,
-  faTimes
+  faTimes,
+  faHeartBroken
 } from '@fortawesome/free-solid-svg-icons'
 
 // importando os icones que serão utilizados no projeto
@@ -39,7 +40,8 @@ library.add(
   faSearch,
   faMapMarkerAlt,
   faCheck,
-  faTimes
+  faTimes,
+  faHeartBroken
 )
 
 Vue.filter('celular', (valor) => {

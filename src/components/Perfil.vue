@@ -28,6 +28,7 @@
           MeusDados.mt-4
 
         b-tab(title="Minhas Curtidas")
+          MinhasCurtidas
 
       <!-- SIDEBAR BUTTONS -->
       b-tabs(class="perfil-tabs-mobile mt-3" nav-wrapper-class="w-25") 
@@ -41,6 +42,7 @@
           MeusDados.mt-4
 
         b-tab(title="Minhas Curtidas")
+          MinhasCurtidas
 
 </template>
 
@@ -52,11 +54,12 @@ import axios from 'axios'
 
 import MeusLivros from '@/components/PerfilLivros'
 import MeusDados from '@/components/PerfilDados'
+import MinhasCurtidas from '@/components/PerfilCurtidas'
 import NovoLivro from '@/components/PerfilNovoLivro'
 
 export default {
   name: 'Perfil',
-  components: { MeusLivros, MeusDados, NovoLivro },
+  components: { MeusLivros, MeusDados, NovoLivro, MinhasCurtidas },
   computed: mapState(["user"]),
   data: function() {
     return {
