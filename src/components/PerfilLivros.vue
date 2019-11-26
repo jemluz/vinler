@@ -19,13 +19,12 @@
             p {{ vinculado.descricao.slice(0,50)+'...' }}
             h6 #[img.ml-2.mr-2(src='../assets/book.svg' width='20px') ] {{ vinculado.nPaginas }} Páginas
             h6 #[img.mr-2(src='../assets/shelf.svg' width='30px') ] {{ vinculado.tempoVida }}  
-            p.mt-3 {{ vinculado.disponivel ? "Disponível" : "Indisponível"}}
 
           div.livro_actions
             div(class="bt-categoria" v-for='categoria in categorias' v-if='categoria.id === vinculado.categoriaId ')
               a(href="/" v-if='categoria.id === vinculado.categoriaId ')  #[p {{ categoria.nome }}]
 
-            a( @click='' class='bt-like ml-3') {{ vinculado.nCurtidas ? `${vinculado.nCurtidas} Curtidas` : `0 Curtidas`}} 
+            a( @click='' class='bt-like') {{ vinculado.nCurtidas ? `${vinculado.nCurtidas} Curtidas` : `0 Curtidas`}} 
           
 </template>
 
@@ -143,17 +142,37 @@ div.meus_livros {
 
       grid-template-columns: .5fr 3fr .5fr; 
 
-      .col {
-        grid-column: 2 / 3;
-        padding: 0px;
-      }
-
       .livro_grid {
         margin-top: 50px;      
       }
 
       .livro {
-        max-width: 120px;
+        margin: 0 auto;
+        .livro_img {
+          width: 200px;
+        }
+
+        .livro_actions {
+        width: 80vw;
+        justify-content: flex-start;
+        margin: 40px auto;
+
+        .bt-categoria, .bt-like { 
+          width: 80%;
+          min-height: 50px;  
+          font-size: 22px;
+          
+          border-radius: 10px;
+          padding: 5px 15px;
+          display: inline-block;
+          cursor: pointer;
+          p { margin: 0px !important; } 
+        }
+
+        .bt-like {
+          margin-top: 20px;
+        }
+      }
       }
         
     }
@@ -188,6 +207,8 @@ div.meus_livros {
             opacity: 0.7;
             &:hover { opacity: 1; }
           }
+
+          .bt-like { margin-left: 20px; }
         }
 
       }

@@ -235,4 +235,11 @@ export default {
     background-color: #02869d;
   }
 }
+// MOBILE
+@media only screen and (max-width: 900px) {
+  .novo_livro {
+    width: 80vw;
+    margin: 0 auto;
+  }
+}
 </style>

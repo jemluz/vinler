@@ -193,4 +193,12 @@ label { color: grey; }
     background-color: #02869d;
   }
 }
+
+// MOBILE
+@media only screen and (max-width: 900px) {
+  .meus_dados {
+    width: 80vw;
+    margin: 0 auto;
+  }
+}
 </style>
