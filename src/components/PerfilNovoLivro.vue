@@ -52,13 +52,16 @@
         )
 
       div.form-group
-        input(
-          type="text" 
-          class="form-control" 
-          placeholder="id da categoria"
-          v-model='objeto.categoriaId'
+        label Ah! Tem a categoria também!
+        select( 
+          class="form-control"  
+          name='categoria'
+          placeholder='escolha uma opção'
+          v-model='objeto.categoriaId' 
           required
         )
+          option(v-for='categoria in categorias' :value="categoria.id") {{ categoria.id }} / {{ categoria.nome }}
+
 
       //- div.form-check    
       //-   input(
@@ -106,6 +109,7 @@ export default {
       objeto: {
         disponivel: false
       },
+      categorias: [],
       file: "",
       imageData: "",
       idLivro: null,
@@ -114,6 +118,12 @@ export default {
     }
   },
   methods: {
+    loadCategorias() {
+        // utiliza uma url pra fazer uma requisição com o axios e carregar um array de clientes
+        axios.get(`${baseApiUrl}/categorias`).then(resposta => {
+            this.categorias = resposta.data
+        })
+    },
     full() {
       // realiza a inserção do novo livro no banco
       this.objeto.proprietarioId = this.user.id
@@ -216,6 +226,9 @@ export default {
       this.objeto = {}
       this.imageData = null
     }
+  },
+  mounted () {
+    this.loadCategorias()
   }
 }
 </script>
