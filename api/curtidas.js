@@ -1,82 +1,6 @@
 module.exports = app => {
   const { existsOrError, notExistsOrError, notEqualsOrError } = app.api.validation
 
-  const salvar = async (req, res) => {
-    const curtida = { ...req.body }
-
-    let nCurtidas = curtida.nCurtidas
-    delete curtida.nCurtidas
-    
-    try {
-      const curtidaFromDB = await app.db('curtidas')
-        .where({ livroCurtidoId: curtida.livroCurtidoId })
-        .andWhere({ usuarioInteressadoId: curtida.usuarioInteressadoId})
-        .first()
-        
-      notExistsOrError(curtidaFromDB, 'Você já curtiu esse livro.')
-
-      existsOrError(curtida.usuarioInteressadoId, 'Você não pode curtir sem fazer login.')
-      existsOrError(curtida.livroCurtidoId, 'Não existe um livro com esse id.')
-      existsOrError(curtida.proprietarioId, 'Não existe um usuário com esse id.')
-      notEqualsOrError(curtida.usuarioInteressadoId, curtida.proprietarioId, 'Você não pode curtir um livro seu.')
-
-    } catch(msg) { return res.status(400).send(msg) }
-    
-
-    app.db('curtidas').insert(curtida)
-      .then(await setCurtida(curtida, nCurtidas, res))
-      .then(await makeMatch(curtida, res))
-      .then(result => res.status(204).send(result))
-      .catch(err => res.status(500).send(err))
-  }
-
-  const visualizar = (req, res) => {
-    app.db('curtidas')
-        .select('id', 'usuarioInteressadoId', 'livroCurtidoId', 'proprietarioId')
-        .then(curtida => res.json(curtida))
-        .catch(err => res.status(500).send(err))
-  }
-
-  const visualizarPorId = (req, res) => {
-    app.db('curtidas')
-    .select('id', 'usuarioInteressadoId', 'livroCurtidoId', 'proprietarioId')
-    .where({ id: req.params.id })
-    .first()
-    .then(curtida => res.json(curtida))
-    .catch(err => res.status(500).send(err))
-  }
-
-  const excluir = async (req, res) => {
-    const descurtida = { ...req.body }
-    console.log(descurtida)
-    
-    // try{
-    //   const downCurtidas = await 
-    //   app.db('livros')
-    //     .where({ id: req.params.id })
-    //     .del()
-      
-    //   existsOrError(req.params.id, 'Login da curtida não especificado')
-
-    //   res.status(204).send()
-    // } catch (msg) {
-    //   res.status(400).send(msg)
-    // }
-
-    // try{
-    //   const rowsDeleted = await 
-    //   app.db('curtidas')
-    //     .where({ id: req.params.id })
-    //     .del()
-      
-    //   existsOrError(req.params.id, 'Login da curtida não especificado')
-
-    //   res.status(204).send()
-    // } catch (msg) {
-    //   res.status(400).send(msg)
-    // }
-  }
-  
   const setCurtida = async (c1, n, res) => {
     if (n === null) n = 0
     n++
@@ -84,16 +8,6 @@ module.exports = app => {
 
     await app.db('livros')
       .where({ id: c1.livroCurtidoId })
-      .update({ nCurtidas: n })
-      .catch(err => res.sendStatus(500).send(err))
-  }
-
-  const unsetCurtida = async (c1, n, res) => {
-    n--
-    // .update({ nCurtidas: app.db.raw('nCurtidas + 1') })
-
-    await app.db('livros')
-      .where({ id: c1.livroDescurtidoId })
       .update({ nCurtidas: n })
       .catch(err => res.sendStatus(500).send(err))
   }
@@ -149,6 +63,80 @@ module.exports = app => {
         res.status(400).send(msg)
     }
   }
+
+  const salvar = async (req, res) => {
+    const curtida = { ...req.body }
+
+    let nCurtidas = curtida.nCurtidas
+    delete curtida.nCurtidas
+    
+    try {
+      const curtidaFromDB = await app.db('curtidas')
+        .where({ livroCurtidoId: curtida.livroCurtidoId })
+        .andWhere({ usuarioInteressadoId: curtida.usuarioInteressadoId})
+        .first()
+        
+      notExistsOrError(curtidaFromDB, 'Você já curtiu esse livro.')
+
+      existsOrError(curtida.usuarioInteressadoId, 'Você não pode curtir sem fazer login.')
+      existsOrError(curtida.livroCurtidoId, 'Não existe um livro com esse id.')
+      existsOrError(curtida.proprietarioId, 'Não existe um usuário com esse id.')
+      notEqualsOrError(curtida.usuarioInteressadoId, curtida.proprietarioId, 'Você não pode curtir um livro seu.')
+
+    } catch(msg) { return res.status(400).send(msg) }
+    
+
+    app.db('curtidas').insert(curtida)
+      .then(await setCurtida(curtida, nCurtidas, res))
+      .then(await makeMatch(curtida, res))
+      .then(result => res.status(204).send(result))
+      .catch(err => res.status(500).send(err))
+  }
+
+  const deleteCurtida = async (descurtidaId, res) => {
+    existsOrError(descurtidaId, 'Id da curtida não especificado')
+
+    await app.db('curtidas')
+      .where({ id: descurtidaId })
+      .del()
+      .catch(err => res.sendStatus(500).send(err))
+  }
+
+  const excluir = async (req, res) => {
+    const descurtida = { ...req.body }
+    console.log(descurtida)
+    
+    existsOrError(descurtida.livroDescurtidoId, 'Livro não especificado')
+
+    let n = descurtida.nCurtidas
+    n--
+    console.log(n)
+
+    app.db('livros')
+      .where({ id: descurtida.livroDescurtidoId })
+      .update({ nCurtidas: n })
+      .then(await deleteCurtida(descurtida.id, res))
+      .then(result => res.sendStatus(204).send(result))
+      .catch(err => res.sendStatus(500).send(err))
+
+  }
+
+  const visualizar = (req, res) => {
+    app.db('curtidas')
+        .select('id', 'usuarioInteressadoId', 'livroCurtidoId', 'proprietarioId')
+        .then(curtida => res.json(curtida))
+        .catch(err => res.status(500).send(err))
+  }
+
+  const visualizarPorId = (req, res) => {
+    app.db('curtidas')
+    .select('id', 'usuarioInteressadoId', 'livroCurtidoId', 'proprietarioId')
+    .where({ id: req.params.id })
+    .first()
+    .then(curtida => res.json(curtida))
+    .catch(err => res.status(500).send(err))
+  }
+
 
   return { salvar, visualizar, visualizarPorId, excluir, deleteMatch }
 }

@@ -80,8 +80,8 @@ export default {
     this.loadCurtidas()
     this.loadLivros()
 
-    console.log(this.curtidas)
-    console.log(this.livros)
+    // console.log(this.curtidas)
+    // console.log(this.livros)
   }
 }
 </script>

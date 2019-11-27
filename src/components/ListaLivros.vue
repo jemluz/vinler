@@ -113,17 +113,15 @@ export default {
       for(let i = 0; i < this.curtidas.length; i++ ) {
         if ( this.curtidas[i].usuarioInteressadoId === this.user.id && this.curtidas[i].livroCurtidoId === this.objetos[index].id) {
           this.descurtida.id = this.curtidas[i].id
-          this.descurtida.livroCurtidoId = this.curtidas[i].livroCurtidoId
+          this.descurtida.livroDescurtidoId = this.curtidas[i].livroCurtidoId
         }
       }
-      
       this.descurtida.nCurtidas = this.objetos[index].nCurtidas
-      JSON.stringify(this.descurtida)
       console.log(this.descurtida)
 
-      axios.delete(`${baseApiUrl}/curtidas/${this.descurtida.id}`, this.descurtida)
-        .then(this.$toasted.global.defaultSucess())
-        .catch(showError)
+      axios.delete(`${baseApiUrl}/descurtir`, { data: this.descurtida })
+      .then(this.$toasted.global.defaultSucess())
+      .catch(showError)
     },
     show(n) {  
       let liEls = document.querySelectorAll('.livro_grid .livro')
