@@ -94,7 +94,11 @@ module.exports = app => {
   }
 
   const deleteCurtida = async (descurtidaId, res) => {
-    existsOrError(descurtidaId, 'Id da curtida não especificado')
+    try {
+      existsOrError(descurtidaId, 'Id da curtida não especificado')
+    } catch(msg) {
+      res.sendStatus(400).send(msg)
+    }
 
     await app.db('curtidas')
       .where({ id: descurtidaId })
@@ -104,13 +108,11 @@ module.exports = app => {
 
   const excluir = async (req, res) => {
     const descurtida = { ...req.body }
-    console.log(descurtida)
     
     existsOrError(descurtida.livroDescurtidoId, 'Livro não especificado')
 
     let n = descurtida.nCurtidas
     n--
-    console.log(n)
 
     app.db('livros')
       .where({ id: descurtida.livroDescurtidoId })

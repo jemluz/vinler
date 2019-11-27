@@ -17,7 +17,6 @@
           div(
             class="livro row"
             v-for='(objeto, index) in objetos'
-            v-show='objeto.proprietarioId !== user.id '
             )
             div.livro_img
               router-link(:to='{ name: "livro", params: { id: objeto.id } }')    
@@ -117,7 +116,6 @@ export default {
         }
       }
       this.descurtida.nCurtidas = this.objetos[index].nCurtidas
-      console.log(this.descurtida)
 
       axios.delete(`${baseApiUrl}/descurtir`, { data: this.descurtida })
       .then(this.$toasted.global.defaultSucess())
