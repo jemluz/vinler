@@ -32,7 +32,7 @@
       id="inline-form-input-name"
       class="barra-pesquisa"
       placeholder="Encontrar livros"
-      v-model='livroProcurado'
+      v-model='buscar'
     )
 
     <!-- Botão pesquisar -->
@@ -57,6 +57,11 @@ export default {
   computed: mapState(['isCloseMenu', 'isCloseMinhaConta', 'isCloseNotify', 'user']),
   data: () => {
     return { livroProcurado: '' } 
+  },
+  watch: {
+    buscar() {
+      return this.$store.state.commit('setBusca', this.buscar) 
+    }
   },
   methods: {
     toggleMenu() { this.$store.commit("toggleMenu") },

@@ -48,7 +48,7 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'ListaLivros',
-  computed: mapState(["user"]),
+  computed: mapState(["user", "buscar"]),
   data: function() {
     return { 
       objetos: [],
@@ -57,7 +57,8 @@ export default {
       donos: [], 
       curtida: { },
       descurtida: { },
-      userLivrosCurtidos: []
+      userLivrosCurtidos: [],
+      livroDescurtidoId: []
     }
   },
   methods: {
@@ -133,6 +134,11 @@ export default {
 
       // esse bixo não é daqui
       return n
+    }
+  },
+  watch: {
+    buscar: () => {
+      this.objetos.filter((objeto) => { return objeto.titulo.match(this.buscar) })
     }
   },
   mounted() {

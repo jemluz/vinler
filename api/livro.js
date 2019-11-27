@@ -101,7 +101,6 @@ module.exports = app => {
         .orWhere({ descricao: req.params.nome })
         .then(livros => { 
             res.json(livros) 
-            console.log(livros)
         })
         .catch(err => res.status(500).send(err))
 

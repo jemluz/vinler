@@ -183,8 +183,8 @@ div.meus_livros {
       .livros { padding: 50px 50px; }
 
       .livro {
-        max-height: 500px;
-        // max-width: 200px;
+        // max-height: 500px;
+        max-width: 200px;
         text-align: left;
         display: flex;
         margin: 10px 20px;
