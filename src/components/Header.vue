@@ -58,11 +58,11 @@ export default {
   data: () => {
     return { livroProcurado: '' } 
   },
-  watch: {
-    buscar() {
-      return this.$store.state.commit('setBusca', this.buscar) 
-    }
-  },
+  // store.watch: {
+  //   buscar() {
+  //     return this.$store.state.commit('setBusca', this.buscar) 
+  //   }
+  // },
   methods: {
     toggleMenu() { this.$store.commit("toggleMenu") },
     toggleNotify() { this.$store.commit("toggleNotify") },
