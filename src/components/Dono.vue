@@ -9,7 +9,7 @@
         <!-- SIDEBAR USER TITLE -->
         div.profile-usertitle
           h3.profile-usertitle-name {{ dono.nome }}
-          h6.profile-usertitle-local {{ dono.local }} #[br] #[a(:href='zap') {{ dono.celular | celular }}]
+          h6.profile-usertitle-local {{ dono.local }} #[br] #[a(:href='zap') {{ dono.celular.slice(0,8)+' ... ver mais' | celular }}]
           h6.profile-usertitle-vinculados {{ vinculados.length }} Livros cadastrados
       
     <!-- SIDEBAR BUTTONS -->
@@ -123,6 +123,10 @@ h3 { color: grey; }
 
 .profile-usertitle-local a {
   color: #ffb600;
+
+  &:hover {
+    color: #00abc8;
+  }
 }
 
 .livro_grid {
@@ -137,7 +141,7 @@ h3 { color: grey; }
     cursor: default;
 
     h6 {
-      color: #00abc8;
+      color: #ebfcff;
     }
   }
 

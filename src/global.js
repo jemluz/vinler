@@ -4,6 +4,7 @@ import Vue from 'vue'
 export const userKey = '__vinler_user'
 // export const carrinho = []
 // export const baseApiUrl = `http://192.168.15.7:3000`
+// export const baseApiUrl = `http://10.102.224.25:3000`
 // export const baseApiUrl = `http://192.168.100.161:3000`
 export const baseApiUrl = `http://localhost:3000`
 

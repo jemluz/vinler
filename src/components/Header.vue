@@ -39,7 +39,7 @@
     button(
       type='button'     
       class="btn btn-primary btn-sm bt-pesquisa" 
-      @click='buscar'
+      @click='  '
     ) #[font-awesome-icon(icon="search")] 
 
 </template>
@@ -66,9 +66,9 @@ export default {
   methods: {
     toggleMenu() { this.$store.commit("toggleMenu") },
     toggleNotify() { this.$store.commit("toggleNotify") },
-    buscar () { 
-      this.$store.commit('setBusca', this.livroProcurado) 
-    }
+    // buscar () { 
+    //   this.$store.commit('setBusca', this.livroProcurado) 
+    // }
   }
 }
 </script>

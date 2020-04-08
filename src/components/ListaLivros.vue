@@ -17,6 +17,7 @@
           div(
             class="livro row"
             v-for='(objeto, index) in objetos'
+            v-if='objeto.proprietarioId !== user.id'
             )
             div.livro_img
               router-link(:to='{ name: "livro", params: { id: objeto.id } }')    
