@@ -14,7 +14,8 @@
     Se vc rodar 2x é provavel que dê erro tbm pois já tem uma versão rodando.
 */
 
-const app = require('express')()
+const express = require('express')
+const app = express()
 const consign = require('consign') 
 const db = require('./config/db')
 const path = require('path')
