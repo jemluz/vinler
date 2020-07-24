@@ -5,17 +5,34 @@
 const { db } = require('./.env')
 
 module.exports = {
-  client: 'mysql',
-  connection: {
-    database: 'vinler',
-    user: 'root',
-    password: 'admin'
+  development: {
+    client: 'mysql',
+    connection: {
+      database: 'vinler',
+      user: 'root',
+      password: 'admin'
+    },
+    pool: {
+      min: 2,
+      max: 7
+    },
+    migrations: {
+      directoru: 'knex_migrations'
+    }
   },
-  pool: {
-    min: 2,
-    max: 7
-  },
-  migrations: {
-    directoru: 'knex_migrations'
+  production: {
+    client: 'mysql',
+    connection: {
+      database: 'vinler',
+      user: 'vinler_user',
+      password: 'Ea8c6hGb?PY)E'
+    },
+    pool: {
+      min: 2,
+      max: 7
+    },
+    migrations: {
+      directoru: 'knex_migrations'
+    }
   }
 };

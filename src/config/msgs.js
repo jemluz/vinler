@@ -10,14 +10,14 @@ Vue.use(Toasted, {
 
 Vue.toasted.register(
   'defaultSucess',
-  payload => !payload.msg ? 'Operação realizada com sucesso!' : payload.msg,
+  payload => !payload.msg ? 'Operação realizada com sucesso!' : JSON.parse(payload.msg.request.response).error,
   // msg,
   { type: 'sucess', icon: 'check'}
 ) 
 
 Vue.toasted.register(
   'defaultError',
-  payload => !payload.err ? 'Oops.. Erro inesperado' : payload.err,
+  payload => !payload.err ? 'Oops.. Erro inesperado' : JSON.parse(payload.msg.request.response).error,
   { type: 'error', icon: 'times'}
 ) 
 

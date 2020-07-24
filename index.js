@@ -14,11 +14,14 @@
     Se vc rodar 2x é provavel que dê erro tbm pois já tem uma versão rodando.
 */
 
-const express = require('express')
-const app = express()
+const app = require('express')()
 const consign = require('consign') 
 const db = require('./config/db')
 const path = require('path')
+
+const favicon = require('express-favicon');
+var history = require('connect-history-api-fallback');
+const port = process.env.PORT || 3000;
 
 app.db = db
 // var port = process.env.PORT || 3000
@@ -31,13 +34,19 @@ consign()
     .then('./config/routes.js')
     .into(app)
 
-    app.get('/', function (req, res) {
-        res.send('uia');
-    });
-
-    app.listen(3000, () => {
+    app.listen(port, () => {
         console.log('backend rodando...')
     })
+
+    
+    app.use(history({ verbose: true }));
+
+    app.use(express.static(__dirname + '/dist'));
+    app.use(express.static(path.join(__dirname + '/dist', 'build')));
+
+    app.get('/*', function (req, res) {
+        res.sendFile(path.join(__dirname + '/dist', 'build', 'index.html'));
+    });
 
     // app.use('/image', express.static(__dirname + '/uploads'));
     app.use("/image", express.static(path.join(__dirname, "uploads")));
