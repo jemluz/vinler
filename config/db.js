@@ -8,7 +8,7 @@
 
 const knexfile = require('../knexfile.js')
 // const knex = require('knex')(config.development)
-const knex = require('knex')(config.production)
+const knex = require('knex')(knexfile.production)
 
-knex.migrate.latest([config.knexfile])
+knex.migrate.latest([knexfile.knexfile])
 module.exports = knex 
