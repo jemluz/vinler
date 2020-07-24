@@ -3,7 +3,7 @@
 
     form.form-box
       div.form-group.mt-3.col
-        img.img-edit(:src='imageData || "http://localhost:3000/image/image-default.svg"')
+        img.img-edit(:src='imageData || `http://${baseApiUrl}/image/image-default.svg`')
         
         input.ml-3(
           id='img'

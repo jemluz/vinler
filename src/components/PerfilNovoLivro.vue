@@ -3,7 +3,7 @@
   
     form.form-box
       
-      img(:src='imageData || "http://localhost:3000/image/image-default.svg"')
+      img(:src='imageData || `http://${baseApiUrl}:3000/image/image-default.svg`')
       div.form-group.mt-3.col
         
         input(
