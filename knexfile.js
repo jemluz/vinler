@@ -23,6 +23,7 @@ module.exports = {
   production: {
     client: 'mysql',
     connection: {
+      host: 'mysql669.umbler.com',
       database: 'vinler',
       user: 'vinler_user',
       password: 'Ea8c6hGb?PY)E'
