@@ -6,7 +6,7 @@ export const userKey = '__vinler_user'
 // export const baseApiUrl = `http://192.168.15.2:3000`
 // export const baseApiUrl = `http://10.102.224.25:3000`
 // export const port = process.env.PORT || 3000;
-export const baseApiUrl = `https://mysql669.umbler.com:41890`
+export const baseApiUrl = `mysql669.umbler.com:41890`
 // export const baseApiUrl = `http://localhost:3000`
 
 export function showError(e) {

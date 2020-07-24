@@ -40,10 +40,9 @@ export default {
       if(!userData) {
         this.validatingToken = false
         this.$router.push({ name: 'auth' })
-        alert('Você precisa fazer login!')
+        // alert('Você precisa fazer login!')
         return 
       }
-
       const res = await axios.post(`${baseApiUrl}/validateToken`, userData)
 
       if(res.data) { 
