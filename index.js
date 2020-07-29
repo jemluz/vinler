@@ -42,8 +42,11 @@ consign()
     
     app.use(history({ 
         verbose: true,
-        logger: console.log.bind(console),
-        disableDotRule: true
+        // logger: console.log.bind(console),
+        disableDotRule: true,
+        rewrites: [
+            {from: /\./, to: '/'}
+        ]
     }));
 
     app.use(express.static(__dirname + '/dist'));
