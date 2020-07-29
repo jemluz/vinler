@@ -40,7 +40,11 @@ consign()
     })
 
     
-    app.use(history({ verbose: true }));
+    app.use(history({ 
+        verbose: true,
+        logger: console.log.bind(console),
+        disableDotRule: true
+    }));
 
     app.use(express.static(__dirname + '/dist'));
     app.use(express.static(path.join(__dirname + '/dist', 'build')));
