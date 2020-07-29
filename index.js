@@ -43,7 +43,7 @@ consign()
     app.use(history({ 
         verbose: true,
         // logger: console.log.bind(console),
-        disableDotRule: true,
+        // disableDotRule: true,
         rewrites: [
             {from: /\./, to: '/'}
         ]
